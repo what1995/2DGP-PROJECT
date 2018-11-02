@@ -1,7 +1,7 @@
 from pico2d import *
 import os
 import game_framework
-
+import main_state
 #iku stand
 STAND_TIME_PER_ACTION=1
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
@@ -163,23 +163,26 @@ class Skill2State:
         pass
     @staticmethod
     def do(iku):
-        global HP
-        if int(iku.skill2cheak) < 19:
-            if int(iku.skill2cheak) < 11:
-                iku.frame1 = (iku.frame1 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-                iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-            if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
-                if iku.skill2cheak > 8:
-                    iku.skill2Mx += int(MOTION_SPEED_PPS)
-                    iku.skill2Px += int(MOTION_SPEED_PPS)
-                if iku.skill2cheak==9:
-                    HP= HP+15
-            if int(iku.skill2cheak) >= 15:
-                iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-                iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-                iku.skill2Px -= int(MOTION_SPEED_PPS)
-                iku.Skill2Eframe1 = (iku.Skill2Eframe1 +SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
-            iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
+        global HP,HPcheak
+        if int(iku.skill2cheak) < 11:
+            iku.frame1 = (iku.frame1 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+        if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
+            if iku.skill2cheak > 8:
+                iku.skill2Mx += int(MOTION_SPEED_PPS)
+                iku.skill2Px += int(MOTION_SPEED_PPS)
+            if int(iku.skill2cheak) == 9:
+                    # HP=10
+                HPcheak = 2
+            if int(iku.skill2cheak) == 10:
+                    # HP=10
+                HPcheak = 0
+        if int(iku.skill2cheak) >= 15:
+            iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.skill2Px -= int(MOTION_SPEED_PPS)
+            iku.Skill2Eframe1 = (iku.Skill2Eframe1 +SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
+        iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
         if int(iku.skill2cheak) >= 19:
             iku.skill2cheak = 0
             iku.add_event(Stand)
@@ -212,7 +215,7 @@ class Skill3State:
 
     @staticmethod
     def do(iku):
-        global HP
+        global HP,HPcheak
         if int(iku.skill3cheak) < 19:
             if int(iku.skill3cheak) < 5:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -220,8 +223,12 @@ class Skill3State:
             if int(iku.skill3cheak) >= 5:
 
                 iku.S3frame = (iku.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
-                if int(iku.skill3cheak) ==6:
-                    HP= HP+20
+                if int(iku.skill3cheak) == 12:
+                    # HP=10
+                    HPcheak = 3
+                if int(iku.skill3cheak) == 13:
+                    # HP=10
+                    HPcheak = 0
                 if int(iku.skill3cheak) > 17:
                     iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                     iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -266,7 +273,7 @@ class Laststate:
 
     @staticmethod
     def do(iku):
-        global HP
+        global HP,HPcheak
         if int(iku.lastcheak) < 19:
             if int(iku.lastcheak) < 8:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -275,6 +282,13 @@ class Laststate:
                 iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
                 iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
+                if int(iku.lastcheak) == 10:
+                    # HP=10
+                    HPcheak = 4
+                if int(iku.lastcheak) > 10:
+                    # HP=10
+                    HPcheak = 0
+
             if int(iku.lastcheak) >= 16:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -428,15 +442,15 @@ class Iku:
 
     def handle_event(self, event):
         global cheak1
-        cheak1=1
+        cheak1=2
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT): ##스킬키 체크
-            if cheak1==1:
+            if main_state.skillcheak==1:
                 self.add_event(Skill1)
-            if cheak1==2:
+            if main_state.skillcheak==2:
                 self.add_event(Skill2)
-            if cheak1==3:
+            if main_state.skillcheak==3:
                 self.add_event(Skill3)
-            if cheak1==4:
+            if main_state.skillcheak==4:
                 self.add_event(Last)
 
 

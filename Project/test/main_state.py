@@ -34,6 +34,7 @@ Enemy_iku=None
 Player = None
 EnemyPlayer=None
 turn = 1
+skillcheak=0
 def enter():
     global iku, background, Player,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn
     Player = DeckSelection.character
@@ -110,6 +111,7 @@ def resume():
 
 def handle_events():
     global iku, background, Player, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
+    global skillcheak
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -117,6 +119,14 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             turn = turn * -1
             turncheak=1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+            skillcheak=1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+            skillcheak=2
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+            skillcheak=3
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
+            skillcheak=4
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.push_state(DeckSelection)
                 game_world.remove_object(reimu)

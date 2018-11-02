@@ -3,7 +3,12 @@ import os
 
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import iku
-attack=1
+
+attack1=1
+attack2=2
+attack3=3
+attack4=4
+
 class Enemy_HP:
     def __init__(self):
 
@@ -15,9 +20,15 @@ class Enemy_HP:
         self.HP = load_image('HP-HP.png')
 
     def update(self):
-        global attack
-        if attack == iku.HPcheak:
+        global attack1,attack2,attack3,attack4
+        if attack1 == iku.HPcheak:
             self.Power += 20
+        if attack2 == iku.HPcheak:
+            self.Power += 30
+        if attack3 == iku.HPcheak:
+            self.Power += 40
+        if attack4 == iku.HPcheak:
+            self.Power += 50
         if self.damage< self.Power:
             self.damage +=1
 
