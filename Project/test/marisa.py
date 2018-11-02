@@ -1,9 +1,46 @@
 from pico2d import *
 import os
-
+import game_framework
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
+#marisa stand
+STAND_TIME_PER_ACTION=1
+STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
+STAND_PER_ACTION=9
 
+#skill1
+SKILL1TIME_PER_ACTION=2
+SKILL1ACTION_PER_TIME= 1.0/SKILL1TIME_PER_ACTION
+SKILL1_PER_ACTION=20
+
+#skill2
+SKILL2TIME_PER_ACTION=1
+SKILL2ACTION_PER_TIME= 1.0/SKILL2TIME_PER_ACTION
+SKILL2_PER_ACTION=9
+
+#skill3
+SKILL3TIME_PER_ACTION=2
+SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
+SKILL3_PER_ACTION=20
+# iku lastspell Action Speed
+LASTTIME_PER_ACTION=2
+LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=20
+#Damage
+DAMAGETIME_PER_ACTION=0.5
+DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
+DAMAGE_PER_ACTION=4
+
+#Down
+DOWNTIME_PER_ACTION=3
+DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
+DOWN_PER_ACTION=21
+#motion speed
+PIXEL_PER_METER=(10.0/0.3)
+MOTION_SPEED_KMPH = 0.2
+MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
+MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
+MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 # marisa Event
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
@@ -34,16 +71,16 @@ class StandState:
         pass
     @staticmethod
     def do(marisa):
-        marisa.frame1 = (marisa.frame1 + 1) % 9
-        marisa.frame2 = (marisa.frame2 + 1) % 9
-        delay(0.1)
+        marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+
 
 
 
     @staticmethod
     def draw(marisa):
         if marisa.motion ==0:
-            marisa.stand.clip_draw(marisa.Standframe1[marisa.frame1], 110, marisa.Standframe2[marisa.frame2], 110, marisa.x, marisa.y)
+            marisa.stand.clip_draw(marisa.Standframe1[int(marisa.frame1)], 110, marisa.Standframe2[int(marisa.frame2)], 110, marisa.x, marisa.y)
 
 class Skill1State:
 
@@ -67,30 +104,29 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(marisa):
-        if marisa.skill1cheak<18:
-            if marisa.skill1cheak < 6:
-                marisa.frame1 = (marisa.frame1 + 1) % 10
-                marisa.frame2 = (marisa.frame2 + 1) % 9
-            if marisa.skill1cheak >6:
-                if marisa.skill1cheak < 15:
-                    marisa.Skill1Eframe1 = (marisa.Skill1Eframe1 + 1) % 9
-                if marisa.skill1cheak >= 15:
-                    marisa.frame1 = (marisa.frame1 + 1) % 10
-                    marisa.frame2 = (marisa.frame2 + 1) % 9
 
-            marisa.skill1cheak +=1
-        if marisa.skill1cheak==18:
+        if int(marisa.skill1cheak) < 6:
+            marisa.frame1 = (marisa.frame1 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+            marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(marisa.skill1cheak) >6:
+            if marisa.skill1cheak < 15:
+                marisa.Skill1Eframe1 = (marisa.Skill1Eframe1+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+            if int(marisa.skill1cheak) >= 15:
+                marisa.frame1 = (marisa.frame1+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 10
+                marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+
+        marisa.skill1cheak =(marisa.skill1cheak+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%20
+        if int(marisa.skill1cheak)>=18:
             marisa.skill1cheak=0
 
             marisa.add_event(Stand)
-        delay(0.1)
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 1:
-            marisa.skill1.clip_draw(marisa.Skill1frame1[marisa.frame1], 105, marisa.Skill1frame2[marisa.frame2], 105, marisa.x, marisa.y)
-            if marisa.skill1cheak > 6:
-                marisa.S1effect.clip_draw(marisa.Skill1Eframe1 * 260, 0, 260, 505, 600, marisa.y + 150)
+            marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105, marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
+            if int(marisa.skill1cheak) > 6:
+                marisa.S1effect.clip_draw(int(marisa.Skill1Eframe1) * 260, 0, 260, 505, 600, marisa.y + 150)
 
 class Skill2State:
     @staticmethod
@@ -111,22 +147,22 @@ class Skill2State:
         pass
     @staticmethod
     def do(marisa):
-        if marisa.skill2cheak < 7:
-            marisa.frame1 = (marisa.frame1 + 1) % 8
-            marisa.frame2 = (marisa.frame2 + 1) % 7
-            marisa.Skill2Ex1 += 75
-            marisa.Skill2Ex2 += 75
-            marisa.Skill2Ex3 += 75
-            marisa.skill2cheak += 1
-        if marisa.skill2cheak == 7:
+        if int(marisa.skill2cheak) < 7:
+            marisa.frame1 = (marisa.frame1  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
+            marisa.frame2 = (marisa.frame2  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
+            marisa.Skill2Ex1 += int(MOTION_SPEED_PPS)*5
+            marisa.Skill2Ex2 += int(MOTION_SPEED_PPS)*5
+            marisa.Skill2Ex3 += int(MOTION_SPEED_PPS)*5
+            marisa.skill2cheak = (marisa.skill2cheak+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%9
+        if int(marisa.skill2cheak) >= 7:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
-        delay(0.1)
+
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 2:
-            marisa.skill2.clip_draw(marisa.Skill2frame1[marisa.frame1], 120, marisa.Skill2frame2[marisa.frame2], 120,marisa.x, marisa.y)
+            marisa.skill2.clip_draw(marisa.Skill2frame1[int(marisa.frame1)], 120, marisa.Skill2frame2[int(marisa.frame2)], 120,marisa.x, marisa.y)
             marisa.S2effect.clip_draw(0, 125, 132, 125, marisa.x + marisa.Skill2Ex1,  marisa.y)
             marisa.S2effect.clip_draw(132, 125, 132, 125, marisa.x + marisa.Skill2Ex2,  marisa.y)
             marisa.S2effect.clip_draw(264, 125, 132, 125, marisa.x + marisa.Skill2Ex3,  marisa.y)
@@ -151,27 +187,27 @@ class Skill3State:
 
     @staticmethod
     def do(marisa):
-        if marisa.skill3cheak < 17:
-            if marisa.skill3cheak < 7:
-                marisa.frame1 = (marisa.frame1 + 1) % 10
-                marisa.frame2 = (marisa.frame2 + 1) % 10
-            if marisa.skill3cheak >= 7:
-                marisa.S3frame = (marisa.S3frame + 1) % 3
-                marisa.Skill3Ex1 += 80
-            if marisa.skill3cheak >= 13:
-                    marisa.frame1 = (marisa.frame1 + 1) % 10
-                    marisa.frame2 = (marisa.frame2 + 1) % 10
-            marisa.skill3cheak += 1
-        if marisa.skill3cheak == 17:
+        if int(marisa.skill3cheak) < 17:
+            if int(marisa.skill3cheak) < 7:
+                marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+                marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+            if int(marisa.skill3cheak) >= 7:
+                marisa.S3frame = (marisa.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 3
+                marisa.Skill3Ex1 += int(MOTION_SPEED_PPS)*5
+            if int(marisa.skill3cheak) >= 13:
+                    marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+                    marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+            marisa.skill3cheak = (marisa.skill3cheak+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time)%20
+        if int(marisa.skill3cheak) >= 17:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
-        delay(0.1)
+
     @staticmethod
     def draw(marisa):
         if marisa.motion == 3:
-            marisa.skill3.clip_draw(marisa.Skill3frame1[marisa.frame1], 110, marisa.Skill3frame2[marisa.frame2], 110,marisa.x, marisa.y)
-            if marisa.skill3cheak >= 7:
-                marisa.S3effect.clip_draw(marisa.S3frame * 260, 255, 260, 255,marisa.x + marisa.Skill3Ex1,  marisa.y + 25)
+            marisa.skill3.clip_draw(marisa.Skill3frame1[int(marisa.frame1)], 110, marisa.Skill3frame2[int(marisa.frame2)], 110,marisa.x, marisa.y)
+            if int(marisa.skill3cheak) >= 7:
+                marisa.S3effect.clip_draw(int(marisa.S3frame) * 260, 255, 260, 255,marisa.x + marisa.Skill3Ex1,  marisa.y + 25)
 
 class Laststate:
     @staticmethod
@@ -199,24 +235,24 @@ class Laststate:
 
     @staticmethod
     def do(marisa):
-        if marisa.lastcheak < 18:
-            marisa.frame1 = (marisa.frame1 + 1) % 17
-            marisa.frame2 = (marisa.frame2 + 1) % 17
-            if marisa.lastcheak > 4 and marisa.lastcheak<11:
-                marisa.LastspellEframe1 = (marisa.LastspellEframe1 + 1) % 7
+        if int(marisa.lastcheak) < 18:
+            marisa.frame1 = (marisa.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
+            marisa.frame2 = (marisa.frame2+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
+            if int(marisa.lastcheak) > 4 and int(marisa.lastcheak)<11:
+                marisa.LastspellEframe1 = (marisa.LastspellEframe1+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 7
 
-            marisa.lastcheak += 1
-        if marisa.lastcheak == 18:
+            marisa.lastcheak = (marisa.lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%20
+        if int(marisa.lastcheak) >= 18:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
-        delay(0.1)
+
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 4:
-            marisa.Lastspell.clip_draw(marisa.Lastframe1[marisa.frame1], 120, marisa.Lastframe2[marisa.frame2], 120,marisa.x+250, marisa.y)
-            if marisa.lastcheak > 4 and marisa.lastcheak < 11:
-                marisa.Lasteffect.clip_draw(marisa.LastspellEframe1 * 261, 250, 260, 250, marisa.x+405, marisa.y-10)
+            marisa.Lastspell.clip_draw(marisa.Lastframe1[int(marisa.frame1)], 120, marisa.Lastframe2[int(marisa.frame2)], 120,marisa.x+250, marisa.y)
+            if  int(marisa.lastcheak) > 4 and int(marisa.lastcheak)< 11:
+                marisa.Lasteffect.clip_draw(int(marisa.LastspellEframe1) * 261, 250, 260, 250, marisa.x+405, marisa.y-10)
 
 class Damagestate:
     @staticmethod
@@ -235,20 +271,20 @@ class Damagestate:
 
     @staticmethod
     def do(marisa):
-        if marisa.Damagecheak < 3:
-            marisa.frame1 = (marisa.frame1 + 1) % 4
-            marisa.frame2 = (marisa.frame2 + 1) % 3
-            marisa.Damagecheak += 1
-        if marisa.Damagecheak == 3:
+        if int(marisa.Damagecheak) < 3:
+            marisa.frame1 = (marisa.frame1 + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 3
+            marisa.frame2 = (marisa.frame2 + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 3
+            marisa.Damagecheak = (marisa.Damagecheak+ DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time)%4
+        if int(marisa.Damagecheak) >= 3:
             marisa.Damagecheak = 0
             marisa.add_event(Stand)
-        delay(0.1)
+
 
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 5:
-            marisa.Damage.clip_draw(marisa.Damageframe1[marisa.frame1],115,marisa.Damageframe2[marisa.frame2],115, marisa.x, marisa.y)
+            marisa.Damage.clip_draw(marisa.Damageframe1[int(marisa.frame1)],115,marisa.Damageframe2[int(marisa.frame2)],115, marisa.x, marisa.y)
 
 class Downstate:
     @staticmethod
@@ -269,22 +305,22 @@ class Downstate:
 
     @staticmethod
     def do(marisa):
-        if marisa.Downcheak < 20:
-            if marisa.Downcheak < 6:
-                marisa.frame1 = (marisa.frame1 + 1) % 7
-                marisa.frame2 = (marisa.frame2 + 1) % 7
-            marisa.Downcheak += 1
-        if marisa.Downcheak == 20:
+        if int(marisa.Downcheak) < 20:
+            if int(marisa.Downcheak) < 6:
+                marisa.frame1 = (marisa.frame1 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
+                marisa.frame2 = (marisa.frame2 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
+            marisa.Downcheak = (marisa.Downcheak+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)
+        if int(marisa.Downcheak) >= 20:
             marisa.Downcheak = 0
             marisa.add_event(Stand)
 
-        delay(0.1)
-        marisa.timer -= 1
+
+        #marisa.timer -= 1
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 6:
-            marisa.Down.clip_draw(marisa.Downframe1[marisa.frame1], 95, marisa.Downframe2[marisa.frame2], 95, marisa.x, marisa.y-20)
+            marisa.Down.clip_draw(marisa.Downframe1[int(marisa.frame1)], 95, marisa.Downframe2[int(marisa.frame2)], 95, marisa.x, marisa.y-20)
 
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
