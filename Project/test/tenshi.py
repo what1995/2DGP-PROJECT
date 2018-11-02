@@ -3,7 +3,7 @@ import os
 
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
-
+import game_framework
 # iku Event
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
