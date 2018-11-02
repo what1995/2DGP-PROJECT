@@ -4,7 +4,44 @@ import os
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
-# iku Event
+#tenshi stand
+STAND_TIME_PER_ACTION=0.8
+STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
+STAND_PER_ACTION=6
+
+#skill1
+SKILL1TIME_PER_ACTION=2
+SKILL1ACTION_PER_TIME= 1.0/SKILL1TIME_PER_ACTION
+SKILL1_PER_ACTION=16
+
+#skill2
+SKILL2TIME_PER_ACTION=2
+SKILL2ACTION_PER_TIME= 1.0/SKILL2TIME_PER_ACTION
+SKILL2_PER_ACTION=22
+
+#skill3
+SKILL3TIME_PER_ACTION=1.5
+SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
+SKILL3_PER_ACTION=17
+# iku lastspell Action Speed
+LASTTIME_PER_ACTION=2
+LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=21
+#Damage
+DAMAGETIME_PER_ACTION=1
+DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
+DAMAGE_PER_ACTION=6
+
+#Down
+DOWNTIME_PER_ACTION=3
+DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
+DOWN_PER_ACTION=21
+#motion speed
+PIXEL_PER_METER=(10.0/0.3)
+MOTION_SPEED_KMPH = 0.2
+MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
+MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
+MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
 key_event_table = {
@@ -33,15 +70,15 @@ class StandState:
         pass
     @staticmethod
     def do(tenshi):
-        tenshi.frame1 = (tenshi.frame1 + 1) % 5
-        tenshi.frame2 = (tenshi.frame2 + 1) % 5
-        delay(0.12)
+        tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
+        tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
+
 
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion ==0:
-            tenshi.stand.clip_draw(tenshi.Standframe1[tenshi.frame1], 115, tenshi.Standframe2[tenshi.frame2], 115, tenshi.x, tenshi.y)
+            tenshi.stand.clip_draw(tenshi.Standframe1[int(tenshi.frame1)], 115, tenshi.Standframe2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
 
 class Skill1State:
 
@@ -68,25 +105,26 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(tenshi):
-        if tenshi.skill1cheak<15:
-            tenshi.frame1 = (tenshi.frame1 + 1) % 16
-            tenshi.frame2 = (tenshi.frame2 + 1) % 15
-            if tenshi.skill1cheak>7:
-                tenshi.S1frame = (tenshi.S1frame + 1) % 8
-                tenshi.Skill1Eframe1 = (tenshi.Skill1Eframe1 + 1) % 7
-                tenshi.Skill1Y -= 30
-            tenshi.skill1cheak +=1
-        if tenshi.skill1cheak==15:
+        if int(tenshi.skill1cheak)<15:
+            tenshi.frame1 = (tenshi.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
+            tenshi.frame2 = (tenshi.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
+            if int(tenshi.skill1cheak)>7:
+                tenshi.S1frame = (tenshi.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
+                tenshi.Skill1Eframe1 = (tenshi.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
+            if int(tenshi.skill1cheak) > 9:
+                tenshi.Skill1Y -= int(MOTION_SPEED_PPS)*2
+            tenshi.skill1cheak =(tenshi.skill1cheak+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%16
+        if int(tenshi.skill1cheak)>=15:
             tenshi.skill1cheak=0
+            tenshi.Skill1Y = 160
             tenshi.add_event(Stand)
-        delay(0.1)
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 1:
-            tenshi.skill1.clip_draw(tenshi.Skill1frame1[tenshi.frame1],160,tenshi.Skill1frame2[tenshi.frame2],160, tenshi.x, tenshi.y+30)
-            if tenshi.skill1cheak > 7:
-                tenshi.S1effect.clip_draw(tenshi.TenshiS1X[tenshi.S1frame],0,tenshi.TenshiS1Y[tenshi.Skill1Eframe1],165,600,tenshi.y+tenshi.Skill1Y)
+            tenshi.skill1.clip_draw(tenshi.Skill1frame1[int(tenshi.frame1)],160,tenshi.Skill1frame2[int(tenshi.frame2)],160, tenshi.x, tenshi.y+30)
+            if int(tenshi.skill1cheak) > 7:
+                tenshi.S1effect.clip_draw(tenshi.TenshiS1X[int(tenshi.S1frame)],0,tenshi.TenshiS1Y[int(tenshi.Skill1Eframe1)],165,600,tenshi.y+tenshi.Skill1Y)
 
 class Skill2State:
     @staticmethod
@@ -109,33 +147,33 @@ class Skill2State:
         pass
     @staticmethod
     def do(tenshi):
-        if tenshi.skill2cheak < 21:
-            if tenshi.skill2cheak < 10:
-                tenshi.frame1 = (tenshi.frame1 + 1) % 16
-                tenshi.frame2 = (tenshi.frame2 + 1) % 15
-            if tenshi.skill2cheak >= 10:
-                tenshi.S2frame = (tenshi.S2frame + 1) % 3
-                if tenshi.skill2cheak < 21:
-                    tenshi.TSkill2Px1 += 50
-                    tenshi.TSkill2Px2 += 75
-                    tenshi.TSkill2Px3 += 90
-                if tenshi.skill2cheak >= 16:
-                    tenshi.frame1 = (tenshi.frame1 + 1) % 16
-                    tenshi.frame2 = (tenshi.frame2 + 1) % 15
-            tenshi.skill2cheak += 1
-        if tenshi.skill2cheak == 21:
+        if int(tenshi.skill2cheak) < 21:
+            if int(tenshi.skill2cheak) < 10:
+                tenshi.frame1 = (tenshi.frame1 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+                tenshi.frame2 = (tenshi.frame2 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            if int(tenshi.skill2cheak) >= 10:
+                tenshi.S2frame = (tenshi.S2frame +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
+                if int(tenshi.skill2cheak) < 21:
+                    tenshi.TSkill2Px1 += int(MOTION_SPEED_PPS)*3
+                    tenshi.TSkill2Px2 += int(MOTION_SPEED_PPS)*4
+                    tenshi.TSkill2Px3 += int(MOTION_SPEED_PPS)*5
+                if int(tenshi.skill2cheak) >= 16:
+                    tenshi.frame1 = (tenshi.frame1+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+                    tenshi.frame2 = (tenshi.frame2 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            tenshi.skill2cheak = ( tenshi.skill2cheak +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%22
+        if int(tenshi.skill2cheak) >= 21:
             tenshi.skill2cheak = 0
             tenshi.add_event(Stand)
-        delay(0.1)
+
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 2:
-            tenshi.skill2.clip_draw(tenshi.Skill2frame1[tenshi.frame1], 115, tenshi.Skill2frame2[tenshi.frame2], 115,tenshi.x, tenshi.y)
-            if tenshi.skill2cheak >= 10:
-                tenshi.S2effect.clip_draw(0,tenshi.S2frame*50,70,50,tenshi.x+tenshi.TSkill2Px1,tenshi.y)
-                tenshi.S2effect.clip_draw(0,tenshi.S2frame*50,70,50,tenshi.x+tenshi.TSkill2Px2,tenshi.y+25)
-                tenshi.S2effect.clip_draw(0,tenshi.S2frame*50,70,50,tenshi.x+tenshi.TSkill2Px3,tenshi.y-25)
+            tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 115, tenshi.Skill2frame2[int(tenshi.frame2)], 115,tenshi.x, tenshi.y)
+            if int(tenshi.skill2cheak) >= 10:
+                tenshi.S2effect.clip_draw(0,int(tenshi.S2frame)*50,70,50,tenshi.x+tenshi.TSkill2Px1,tenshi.y)
+                tenshi.S2effect.clip_draw(0,int(tenshi.S2frame)*50,70,50,tenshi.x+tenshi.TSkill2Px2,tenshi.y+25)
+                tenshi.S2effect.clip_draw(0,int(tenshi.S2frame)*50,70,50,tenshi.x+tenshi.TSkill2Px3,tenshi.y-25)
 
 class Skill3State:
     @staticmethod
@@ -156,26 +194,25 @@ class Skill3State:
 
     @staticmethod
     def do(tenshi):
-        if tenshi.skill3cheak < 16:
-            if tenshi.skill3cheak < 10:
-                tenshi.frame1 = (tenshi.frame1 + 1) % 13
-                tenshi.frame2 = (tenshi.frame2 + 1) % 12
-            if tenshi.skill3cheak>6 and tenshi.skill3cheak<14:
-                tenshi.S3frame = (tenshi.S3frame + 1) % 7
-            if tenshi.skill3cheak >= 14:
-                tenshi.frame1 = (tenshi.frame1 + 1) % 13
-                tenshi.frame2 = (tenshi.frame2 + 1) % 12
-            tenshi.skill3cheak += 1
-        if tenshi.skill3cheak == 16:
+        if int(tenshi.skill3cheak) < 16:
+            if  int(tenshi.skill3cheak) < 10:
+                tenshi.frame1 = (tenshi.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
+                tenshi.frame2 = (tenshi.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
+            if  int(tenshi.skill3cheak)>6 and  int(tenshi.skill3cheak)<14:
+                tenshi.S3frame = (tenshi.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 7
+            if  int(tenshi.skill3cheak) >= 14:
+                tenshi.frame1 = (tenshi.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
+                tenshi.frame2 = (tenshi.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
+            tenshi.skill3cheak = (tenshi.skill3cheak+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time)%17
+        if  int(tenshi.skill3cheak)>= 16:
             tenshi.skill3cheak = 0
             tenshi.add_event(Stand)
-        delay(0.1)
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 3:
-            tenshi.skill3.clip_draw(tenshi.Skill3frame1[tenshi.frame1], 115, tenshi.Skill3frame2[tenshi.frame2], 115,tenshi.x+200, tenshi.y)
-            if tenshi.skill3cheak>6 and tenshi.skill3cheak<14:
-                tenshi.S3effect.clip_draw(tenshi.S3frame*260,107,260,120,tenshi.x+350,tenshi.y-10)
+            tenshi.skill3.clip_draw(tenshi.Skill3frame1[int(tenshi.frame1)], 115, tenshi.Skill3frame2[int(tenshi.frame2)], 115,tenshi.x+200, tenshi.y)
+            if  int(tenshi.skill3cheak)>6 and  int(tenshi.skill3cheak)<14:
+                tenshi.S3effect.clip_draw(int(tenshi.S3frame)*260,107,260,120,tenshi.x+350,tenshi.y-10)
 
 class Laststate:
     @staticmethod
@@ -198,27 +235,26 @@ class Laststate:
 
     @staticmethod
     def do(tenshi):
-        if tenshi.lastcheak < 20:
-            tenshi.frame1 = (tenshi.frame1 + 1) % 21
-            tenshi.frame2 = (tenshi.frame2 + 1) % 20
-            if tenshi.lastcheak == 9:
-                tenshi.LastspellEframe1 += 1
-            if tenshi.lastcheak == 15:
-                tenshi.LastspellEframe1 += 1
+        if int(tenshi.lastcheak) < 20:
+            tenshi.frame1 = (tenshi.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20
+            tenshi.frame2 = (tenshi.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20
+            if int(tenshi.lastcheak) == 9:
+                tenshi.LastspellEframe1 = 1
+            if int(tenshi.lastcheak) == 15:
+                tenshi.LastspellEframe1 = 2
 
-            tenshi.lastcheak += 1
-        if tenshi.lastcheak == 20:
+            tenshi.lastcheak = (tenshi.lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%21
+        if int(tenshi.lastcheak) >= 20:
             tenshi.lastcheak = 0
             tenshi.add_event(Stand)
-        delay(0.1)
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 4:
-            tenshi.Lastspell.clip_draw(tenshi.Lastframe1[tenshi.frame1], 165, tenshi.Lastframe2[tenshi.frame2], 165,tenshi.x+200, tenshi.y+30)
-            if tenshi.lastcheak > 3:
+            tenshi.Lastspell.clip_draw(tenshi.Lastframe1[int(tenshi.frame1)], 165, tenshi.Lastframe2[int(tenshi.frame2)], 165,tenshi.x+200, tenshi.y+30)
+            if int(tenshi.lastcheak) > 3:
                 tenshi.Lasteffect2.clip_draw(0,0,250,250,600, tenshi.y )
-                if tenshi.lastcheak > 4:
+                if int(tenshi.lastcheak) > 4:
                     tenshi.Lasteffect.clip_draw(tenshi.LastspellEframe1*260,0,260,250,600, tenshi.y )
 
 class Damagestate:
@@ -234,19 +270,19 @@ class Damagestate:
 
     @staticmethod
     def do(tenshi):
-        if tenshi.Damagecheak < 5:
-            tenshi.frame1 = (tenshi.frame1 + 1) % 5
-            tenshi.Damagecheak += 1
-        if tenshi.Damagecheak == 5:
+        if int(tenshi.Damagecheak) < 5:
+            tenshi.frame1 = (tenshi.frame1 + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 5
+            tenshi.Damagecheak = (tenshi.Damagecheak + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 6
+        if int(tenshi.Damagecheak) >= 5:
             tenshi.Damagecheak = 0
             tenshi.add_event(Stand)
-        delay(0.1)
+
 
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 5:
-            tenshi.Damage.clip_draw(tenshi.frame1*80,115,78,115, tenshi.x, tenshi.y)
+            tenshi.Damage.clip_draw(int(tenshi.frame1)*80,115,78,115, tenshi.x, tenshi.y)
 
 class Downstate:
     @staticmethod
@@ -267,22 +303,22 @@ class Downstate:
 
     @staticmethod
     def do(tenshi):
-        if tenshi.Downcheak < 20:
-            if tenshi.Downcheak < 4:
-                tenshi.frame1 = (tenshi.frame1 + 1) % 6
-                tenshi.frame2 = (tenshi.frame2 + 1) % 5
-            tenshi.Downcheak += 1
-        if tenshi.Downcheak == 20:
+        if int(tenshi.Downcheak) < 20:
+            if int(tenshi.Downcheak) < 4:
+                tenshi.frame1 = (tenshi.frame1 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 5
+                tenshi.frame2 = (tenshi.frame2 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 5
+            tenshi.Downcheak = (tenshi.Downcheak + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 21
+        if int(tenshi.Downcheak) >= 20:
             tenshi.Downcheak = 0
             tenshi.add_event(Stand)
 
-        delay(0.1)
-        tenshi.timer -= 1
+
+        #tenshi.timer -= 1
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 6:
-            tenshi.Down.clip_draw(tenshi.Downframe1[tenshi.frame1], 75, tenshi.Downframe2[tenshi.frame2], 75, tenshi.x, tenshi.y-33)
+            tenshi.Down.clip_draw(tenshi.Downframe1[int(tenshi.frame1)], 75, tenshi.Downframe2[int(tenshi.frame2)], 75, tenshi.x, tenshi.y-33)
 
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
