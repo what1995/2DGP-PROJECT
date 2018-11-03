@@ -128,7 +128,6 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
             skillcheak=4
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.push_state(DeckSelection)
                 game_world.remove_object(reimu)
                 game_world.remove_object(marisa)
                 game_world.remove_object(iku)
@@ -137,6 +136,7 @@ def handle_events():
                 game_world.remove_object(Enemy_marisa)
                 game_world.remove_object(Enemy_iku)
                 game_world.remove_object(Enemy_tenshi)
+                game_framework.push_state(DeckSelection)
 
         else:
             if Player == 0 and turn ==1:
