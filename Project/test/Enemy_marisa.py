@@ -337,7 +337,6 @@ next_state_table = {
     Downstate: {Down:StandState,Stand:StandState}
 
 }
-
 class Enemy_Marisa:
 
     def __init__(self):
