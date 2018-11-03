@@ -6,10 +6,41 @@ import game_world
 import game_framework
 STAND_TIME_PER_ACTION=1
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
-#LAST_PER_ACTION =10
-#LASTEFFECT1_PER_ACTION=4
-#LASTEFFECT2_PER_ACTION=2
 STAND_PER_ACTION=9
+
+#skill1
+SKILL1TIME_PER_ACTION=2
+SKILL1ACTION_PER_TIME= 1.0/SKILL1TIME_PER_ACTION
+SKILL1_PER_ACTION=24
+
+#skill2
+SKILL2TIME_PER_ACTION=2
+SKILL2ACTION_PER_TIME= 1.0/SKILL2TIME_PER_ACTION
+SKILL2_PER_ACTION=20
+
+#skill3
+SKILL3TIME_PER_ACTION=2
+SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
+SKILL3_PER_ACTION=20
+# iku lastspell Action Speed
+LASTTIME_PER_ACTION=2
+LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=20
+#Damage
+DAMAGETIME_PER_ACTION=0.5
+DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
+DAMAGE_PER_ACTION=4
+
+#Down
+DOWNTIME_PER_ACTION=3
+DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
+DOWN_PER_ACTION=21
+#motion speed
+PIXEL_PER_METER=(10.0/0.3)
+MOTION_SPEED_KMPH = 0.2
+MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
+MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
+MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 # iku Event
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
@@ -75,29 +106,36 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(iku):
-        if iku.skill1cheak<8:
-            iku.frame1 = (iku.frame1 + 1) % 11
-            iku.frame2 = (iku.frame2 + 1) % 11
-        if iku.skill1cheak>=8 and iku.skill1cheak<20:
-            iku.S1frame = (iku.S1frame + 1) % 12
-            iku.Skill1Eframe1 = (iku.Skill1Eframe1 + 1) % 7
-        if iku.skill1cheak>=20:
-            iku.frame1 = (iku.frame1 + 1) % 11
-            iku.frame2 = (iku.frame2 + 1) % 11
-        iku.skill1cheak +=1
-        if  iku.skill1cheak==23:
-            iku.skill1cheak=0
+        global HP, HPcheak
+        if int(iku.skill1cheak) < 8:
+            iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
+            iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
+        if int(iku.skill1cheak) >= 7 and int(iku.skill1cheak) < 20:
+            iku.S1frame = (iku.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
+            iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
+            if int(iku.skill1cheak) == 10:
+                # HP=10
+                HPcheak = 1
+            if int(iku.skill1cheak) == 11:
+                # HP=10
+                HPcheak = 0
 
+        if int(iku.skill1cheak) > 20:
+            iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
+            iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
+        iku.skill1cheak = (iku.skill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 24
+        if int(iku.skill1cheak) >= 22:
+            # turn = -1
+            # iku.skill1cheak=0
             iku.add_event(Stand)
-
 
     @staticmethod
     def draw(iku):
         if iku.motion == 1:
-            iku.skill1.clip_draw(iku.Skill1frame1[iku.frame1], 0, iku.Skill1frame2[iku.frame2], 145, iku.x, iku.y)
-            if iku.skill1cheak >= 8 and iku.skill1cheak < 20:
-                iku.S1effect.clip_draw(0, iku.S1frame * 52, 360, 52, iku.x - 200, iku.y + 10)
-                iku.S1effect2.clip_draw(iku.Skill1Eframe1 * 65, 0, 68, 60,200+10, iku.y + 10)
+            iku.skill1.clip_draw(iku.Skill1frame1[int(iku.frame1)], 0, iku.Skill1frame2[int(iku.frame2)], 145, iku.x, iku.y)
+            if int(iku.skill1cheak) >= 8 and int(iku.skill1cheak) < 20:
+                iku.S1effect.clip_draw(0, int(iku.S1frame) * 52, 360, 52, iku.x - 200, iku.y + 10)
+                iku.S1effect2.clip_draw(int(iku.Skill1Eframe1) * 65, 0, 68, 60,200+5, iku.y + 10)
 
 class Skill2State:
     @staticmethod
@@ -119,31 +157,36 @@ class Skill2State:
         pass
     @staticmethod
     def do(iku):
-        if iku.skill2cheak < 19:
-            if iku.skill2cheak < 11:
-                iku.frame1 = (iku.frame1 + 1) % 15
-                iku.frame2 = (iku.frame2 + 1) % 15
-            if iku.skill2cheak > 5 and iku.skill2cheak < 15:
-                if iku.skill2cheak > 8:
-                    iku.skill2Mx += 10
-                    iku.skill2Px += 10
-            if iku.skill2cheak >= 15:
-                iku.frame1 = (iku.frame1 + 1) % 15
-                iku.frame2 = (iku.frame2 + 1) % 15
-                iku.skill2Px -= 10
-                iku.Skill2Eframe1 = (iku.Skill2Eframe1 + 1) % 6
-            iku.skill2cheak += 1
-        if iku.skill2cheak == 19:
+        global HP, HPcheak
+        if int(iku.skill2cheak) < 11:
+            iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+        if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
+            if iku.skill2cheak > 8:
+                iku.skill2Mx += int(MOTION_SPEED_PPS)
+                iku.skill2Px += int(MOTION_SPEED_PPS)
+            if int(iku.skill2cheak) == 9:
+                # HP=10
+                HPcheak = 2
+            if int(iku.skill2cheak) == 10:
+                # HP=10
+                HPcheak = 0
+        if int(iku.skill2cheak) >= 15:
+            iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            iku.skill2Px += int(MOTION_SPEED_PPS)
+            iku.Skill2Eframe1 = (iku.Skill2Eframe1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
+        iku.skill2cheak = (iku.skill2cheak + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 20
+        if int(iku.skill2cheak) >= 19:
             iku.skill2cheak = 0
             iku.add_event(Stand)
-
 
     @staticmethod
     def draw(iku):
         if iku.motion == 2:
-            iku.skill2.clip_draw(iku.Skill2frame1[iku.frame1], 0, iku.Skill2frame2[iku.frame2], 145,iku.x-iku.skill2Px, iku.y)
-            if iku.skill2cheak > 6 and iku.skill2cheak < 15:
-                iku.S2effect.clip_draw(iku.S2frame * 193, 0, 193, 60, iku.x - iku.skill2Mx, iku.y - 5)
+            iku.skill2.clip_draw(iku.Skill2frame1[int(iku.frame1)], 0, iku.Skill2frame2[int(iku.frame2)], 145,iku.x-iku.skill2Px, iku.y)
+            if int(iku.skill2cheak) > 6 and int(iku.skill2cheak) < 15:
+                iku.S2effect.clip_draw(int(iku.S2frame)* 193, 0, 193, 60, iku.x - iku.skill2Mx, iku.y - 5)
 
 class Skill3State:
     @staticmethod
@@ -165,27 +208,34 @@ class Skill3State:
 
     @staticmethod
     def do(iku):
-        if iku.skill3cheak < 19:
-            if iku.skill3cheak < 5:
-                iku.frame1 = (iku.frame1 + 1) % 6
-                iku.frame2 = (iku.frame2 + 1) % 6
-            if iku.skill3cheak >= 5:
+        global HP, HPcheak
+        if int(iku.skill3cheak) < 19:
+            if int(iku.skill3cheak) < 5:
+                iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
+            if int(iku.skill3cheak) >= 5:
 
-                iku.S3frame = (iku.S3frame + 1) % 4
-                if iku.skill3cheak > 17:
-                    iku.frame1 = (iku.frame1 + 1) % 6
-                    iku.frame2 = (iku.frame2 + 1) % 6
-            iku.skill3cheak += 1
-        if iku.skill3cheak == 18:
+                iku.S3frame = (iku.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
+                if int(iku.skill3cheak) == 12:
+                    # HP=10
+                    HPcheak = 3
+                if int(iku.skill3cheak) == 13:
+                    # HP=10
+                    HPcheak = 0
+                if int(iku.skill3cheak) > 17:
+                    iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
+                    iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
+            iku.skill3cheak = (iku.skill3cheak + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 20
+        if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
 
     @staticmethod
     def draw(iku):
         if iku.motion == 3:
-            iku.skill3.clip_draw(iku.Skill3frame1[iku.frame1], 0, iku.Skill3frame2[iku.frame2], 145,iku.x, iku.y)
-            if iku.skill3cheak >= 5:
-                iku.S3effect.clip_draw(iku.S3frame * 260, 0, 260, 250, 200,  iku.y + 25)
+            iku.skill3.clip_draw(iku.Skill3frame1[int(iku.frame1)], 0, iku.Skill3frame2[int(iku.frame2)], 145,iku.x, iku.y)
+            if int(iku.skill3cheak) >= 5:
+                iku.S3effect.clip_draw(int(iku.S3frame) * 260, 0, 260, 250, 200,  iku.y + 25)
 
 class Laststate:
     @staticmethod
@@ -215,32 +265,41 @@ class Laststate:
 
     @staticmethod
     def do(iku):
-        if iku.lastcheak < 19:
-            if iku.lastcheak < 8:
-                iku.frame1 = (iku.frame1 + 1) % 10
-                iku.frame2 = (iku.frame2 + 1) % 10
-            if iku.lastcheak >= 8:
-                iku.LastspellEframe1 = (iku.LastspellEframe1 + 1) % 4
-                iku.Lastspelld = (iku.Lastspelld + 1) % 2
-                iku.Lastspellc = (iku.Lastspellc + 1) % 1
-            if iku.lastcheak >= 16:
-                iku.frame1 = (iku.frame1 + 1) % 10
-                iku.frame2 = (iku.frame2 + 1) % 10
-            iku.lastcheak += 1
-        if iku.lastcheak == 18:
+        if int(iku.lastcheak) < 19:
+            if int(iku.lastcheak) < 8:
+                iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
+                iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
+            if int(iku.lastcheak) >= 8:
+                iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
+                iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
+                iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
+                if int(iku.lastcheak) == 10:
+                    # HP=10
+                    HPcheak = 4
+                if int(iku.lastcheak) > 10:
+                    # HP=10
+                    HPcheak = 0
+
+            if int(iku.lastcheak) >= 16:
+                iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
+                iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
+
+        iku.lastcheak = (iku.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) %20
+        if int(iku.lastcheak) >= 19:
             iku.lastcheak = 0
             iku.add_event(Stand)
+        #delay(0.1)
 
 
     @staticmethod
     def draw(iku):
         if iku.motion == 4:
-            iku.Lastspell.clip_draw(iku.Lastframe1[iku.frame1], 0, iku.Lastframe2[iku.frame2], 140,iku.x, iku.y)
-            if iku.lastcheak >= 8:
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[(iku.Lastspelld + 1) % 2], 0,iku.IkuLastY[iku.Lastspellc], 255, 200 + 50, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[(iku.Lastspelld + 1) % 2], 0, iku.IkuLastY[iku.Lastspellc], 255, 200- 40, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[iku.Lastspelld], 0, iku.IkuLastY[iku.Lastspellc], 255,200, iku.y + 70)
-                iku.Lasteffect.clip_draw(iku.LastspellEframe1 * 270, 0, 270, 255, 200 + 20, iku.y + 210)
+            iku.Lastspell.clip_draw(iku.Lastframe1[int(iku.frame1)], 0, iku.Lastframe2[int(iku.frame2)], 140,iku.x, iku.y)
+            if int(iku.lastcheak) >= 8:
+                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0,iku.IkuLastY[int(iku.Lastspellc)], 255, 200 + 50, iku.y + 70)
+                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255, 200- 40, iku.y + 70)
+                iku.Lasteffect2.clip_draw(iku.IkuLastX[int(iku.Lastspelld)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255,200, iku.y + 70)
+                iku.Lasteffect.clip_draw(int(iku.LastspellEframe1) * 270, 0, 270, 255, 200 + 20, iku.y + 210)
 
 class Damagestate:
     @staticmethod
@@ -259,11 +318,11 @@ class Damagestate:
 
     @staticmethod
     def do(iku):
-        if iku.Damagecheak < 3:
-            iku.frame1 = (iku.frame1 + 1) % 4
-            iku.frame2 = (iku.frame2 + 1) % 3
-            iku.Damagecheak += 1
-        if iku.Damagecheak == 3:
+        if int(iku.Damagecheak) < 3:
+            iku.frame1 = (iku.frame1+ DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 3
+            iku.frame2 = (iku.frame2 +DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 3
+            iku.Damagecheak = ( iku.Damagecheak + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time)%4
+        if int(iku.Damagecheak) >= 3:
             iku.Damagecheak = 0
             iku.add_event(Stand)
 
@@ -272,7 +331,7 @@ class Damagestate:
     @staticmethod
     def draw(iku):
         if iku.motion == 5:
-            iku.Damage.clip_draw(iku.Damageframe1[iku.frame1],0,iku.Damageframe2[iku.frame2],135, iku.x, iku.y)
+            iku.Damage.clip_draw(iku.Damageframe1[int(iku.frame1)],0,iku.Damageframe2[int(iku.frame2)],135, iku.x, iku.y)
 
 class Downstate:
     @staticmethod
@@ -293,22 +352,21 @@ class Downstate:
 
     @staticmethod
     def do(iku):
-        if iku.Downcheak < 20:
-            if iku.Downcheak < 6:
-                iku.frame1 = (iku.frame1 + 1) % 8
-                iku.frame2 = (iku.frame2 + 1) % 7
-            iku.Downcheak += 1
-        if iku.Downcheak == 20:
-            iku.Downcheak = 0
-            iku.add_event(Stand)
+        if int(iku.Downcheak) < 20:
+            if int(iku.Downcheak) < 6:
+                iku.frame1 = (iku.frame1 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
+                iku.frame2 = (iku.frame2 +DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
+            iku.Downcheak = (iku.Downcheak + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)%21
+        if int(iku.Downcheak) >= 20:
+            iku.Downcheak = 20
+            #iku.add_event(Stand)
 
-
-        iku.timer -= 1
+        #iku.timer -= 1
 
     @staticmethod
     def draw(iku):
         if iku.motion == 6:
-            iku.Down.clip_draw(iku.Downframe1[iku.frame1], 0, iku.Downframe2[iku.frame2], 105, iku.x, iku.y-30)
+            iku.Down.clip_draw(iku.Downframe1[int(iku.frame1)], 0, iku.Downframe2[int(iku.frame2)], 105, iku.x, iku.y-30)
 
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},

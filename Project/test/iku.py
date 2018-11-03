@@ -133,7 +133,6 @@ class Skill1State:
             #turn = -1
             #iku.skill1cheak=0
             iku.add_event(Stand)
-        delay(0.1)
 
     @staticmethod
     def draw(iku):
@@ -236,7 +235,7 @@ class Skill3State:
         if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
-        delay(0.1)
+
     @staticmethod
     def draw(iku):
         if iku.motion == 3:
