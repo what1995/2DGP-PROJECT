@@ -4,12 +4,44 @@ import os
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
-STAND_TIME_PER_ACTION=1
+#reimu stand
+STAND_TIME_PER_ACTION=1.2
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
-#LAST_PER_ACTION =10
-#LASTEFFECT1_PER_ACTION=4
-#LASTEFFECT2_PER_ACTION=2
-STAND_PER_ACTION=11
+STAND_PER_ACTION=12
+
+#skill1
+SKILL1TIME_PER_ACTION=1
+SKILL1ACTION_PER_TIME= 1.0/SKILL1TIME_PER_ACTION
+SKILL1_PER_ACTION=15
+
+#skill2
+SKILL2TIME_PER_ACTION=1
+SKILL2ACTION_PER_TIME= 1.0/SKILL2TIME_PER_ACTION
+SKILL2_PER_ACTION=9
+
+#skill3
+SKILL3TIME_PER_ACTION=2
+SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
+SKILL3_PER_ACTION=25
+# iku lastspell Action Speed
+LASTTIME_PER_ACTION=2
+LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=23
+#Damage
+DAMAGETIME_PER_ACTION=0.5
+DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
+DAMAGE_PER_ACTION=4
+
+#Down
+DOWNTIME_PER_ACTION=3
+DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
+DOWN_PER_ACTION=21
+#motion speed
+PIXEL_PER_METER=(10.0/0.3)
+MOTION_SPEED_KMPH = 0.2
+MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
+MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
+MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 # reimuEvent
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
@@ -72,22 +104,21 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(reimu):
-        if reimu.skill1cheak<12:
-            reimu.frame1 = (reimu.frame1 + 1) % 13
-            reimu.frame2 = (reimu.frame2 + 1) % 12
-            reimu.S1frame = (reimu.S1frame + 1) % 13
-            reimu.Skill1X = reimu.Skill1X + 30
-        reimu.skill1cheak +=1
-        if  reimu.skill1cheak==12:
+        if int(reimu.skill1cheak)<14:
+            reimu.frame1 = (reimu.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
+            reimu.frame2 = (reimu.frame2+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
+            reimu.S1frame = (reimu.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 13
+            reimu.Skill1X += int(MOTION_SPEED_PPS)*2
+        reimu.skill1cheak =(reimu.skill1cheak+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%15
+        if  int(reimu.skill1cheak)>=13:
             reimu.skill1cheak=0
             reimu.add_event(Stand)
-
 
     @staticmethod
     def draw(reimu):
         if reimu.motion == 1:
-            reimu.skill1.clip_draw(reimu.Skill1frame1[reimu.frame1], 0, reimu.Skill1frame2[reimu.frame2], 110, reimu.x, reimu.y)
-            reimu.S1effect.clip_draw(reimu.S1frame * 70, 0, 80, 110, reimu.x - reimu.Skill1X, reimu.y + 10)
+            reimu.skill1.clip_draw(reimu.Skill1frame1[int(reimu.frame1)], 0, reimu.Skill1frame2[int(reimu.frame2)], 110, reimu.x, reimu.y)
+            reimu.S1effect.clip_draw(int(reimu.S1frame) * 70, 0, 80, 110, reimu.x - reimu.Skill1X, reimu.y + 10)
 
 class Skill2State:
     @staticmethod
@@ -107,12 +138,12 @@ class Skill2State:
         pass
     @staticmethod
     def do(reimu):
-        if reimu.skill2cheak < 8:
-            reimu.frame1 = (reimu.frame1 + 1) % 9
-            reimu.frame2 = (reimu.frame2 + 1) % 8
-            reimu.S2frame = (reimu.S2frame + 1) % 8
-        reimu.skill2cheak += 1
-        if reimu.skill2cheak == 8:
+        if int(reimu.skill2cheak) < 8:
+            reimu.frame1 = (reimu.frame1+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.S2frame = (reimu.S2frame +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
+        reimu.skill2cheak = (reimu.skill2cheak+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%9
+        if int(reimu.skill2cheak) >= 8:
             reimu.skill2cheak = 0
             reimu.add_event(Stand)
 
@@ -120,8 +151,8 @@ class Skill2State:
     @staticmethod
     def draw(reimu):
         if reimu.motion == 2:
-            reimu.skill2.clip_draw(reimu.Skill2frame1[reimu.frame1],0, reimu.Skill2frame2[reimu.frame2],120,reimu.x, reimu.y)
-            reimu.S2effect.clip_draw(reimu.S2frame *133,0,134,255,200, reimu.y+60)
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)],0, reimu.Skill2frame2[int(reimu.frame2)],120,reimu.x, reimu.y)
+            reimu.S2effect.clip_draw(int(reimu.S2frame) *133,0,134,255,200, reimu.y+60)
 
 class Skill3State:
     @staticmethod
@@ -144,28 +175,28 @@ class Skill3State:
 
     @staticmethod
     def do(reimu):
-        if reimu.skill3cheak < 24:
-            if reimu.skill3cheak < 5:
-                reimu.frame1 = (reimu.frame1 + 1) % 11
-                reimu.frame2 = (reimu.frame2 + 1) % 10
-            if reimu.skill3cheak >= 5:
-                reimu.Skill3Rx = reimu.Skill3Rx + 20
+        if int(reimu.skill3cheak) < 24:
+            if int(reimu.skill3cheak) < 5:
+                reimu.frame1 = (reimu.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+                reimu.frame2 = (reimu.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+            if int(reimu.skill3cheak) >= 5:
+                reimu.Skill3Rx += int(MOTION_SPEED_PPS)*2
 
-                reimu.S3frame = (reimu.S3frame + 1) % 2
-                if reimu.skill3cheak > 20:
-                    reimu.frame1 = (reimu.frame1 + 1) % 11
-                    reimu.frame2 = (reimu.frame2 + 1) % 10
-            reimu.skill3cheak += 1
-        if reimu.skill3cheak == 24:
+                reimu.S3frame = (reimu.S3frame+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 2
+                if int(reimu.skill3cheak) > 20:
+                    reimu.frame1 = (reimu.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 11
+                    reimu.frame2 = (reimu.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
+            reimu.skill3cheak = (reimu.skill3cheak+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time)%25
+        if int(reimu.skill3cheak) >= 24:
             reimu.skill3cheak = 0
             reimu.add_event(Stand)
 
     @staticmethod
     def draw(reimu):
         if reimu.motion == 3:
-            reimu.skill3.clip_draw(reimu.Skill3frame1[reimu.frame1],0,reimu.Skill3frame2[reimu.frame2],100,reimu.x, reimu.y)
-            if reimu.skill3cheak >= 5:
-                reimu.S3effect.clip_draw(reimu.S3frame*117,0,117,100,reimu.x-reimu.Skill3Rx,  reimu.y)
+            reimu.skill3.clip_draw(reimu.Skill3frame1[int(reimu.frame1)],0,reimu.Skill3frame2[int(reimu.frame2)],100,reimu.x, reimu.y)
+            if int(reimu.skill3cheak) >= 5:
+                reimu.S3effect.clip_draw(int(reimu.S3frame)*117,0,117,100,reimu.x-reimu.Skill3Rx,  reimu.y)
 
 class Laststate:
     @staticmethod
@@ -181,7 +212,7 @@ class Laststate:
         reimu.Lastspellframe3 = 0
         reimu.Lastspellc = 0
         reimu.Lastspelld = 0
-        reimu.ReimuLastX = [580, 620, 600]
+        reimu.ReimuLastX = [180, 220, 200]
         reimu.ReimuLastY = [160.175, 200, 225, 250]
         reimu.Lastframe1 = [0,105, 209,311,414, 517, 620, 724, 822, 910, 995,1068,1145,1242,1345,1445]
         reimu.Lastframe2 = [105,104,102,103,104,103,104,98,88,85,74,77,97,103,100]
@@ -195,21 +226,21 @@ class Laststate:
 
     @staticmethod
     def do(reimu):
-        if reimu.lastcheak < 22:
-            if reimu.lastcheak < 9:
-                reimu.frame1 = (reimu.frame1 + 1) % 17
-                reimu.frame2 = (reimu.frame2 + 1) % 17
-            if reimu.lastcheak >= 9 and reimu.lastcheak < 14:
-                reimu.Lastspelld = (reimu.Lastspelld + 1) % 4
-                reimu.Lastspellc = (reimu.Lastspellc + 1) % 2
-            if reimu.lastcheak >= 16:
-                reimu.frame1 = (reimu.frame1 + 1) % 17
-                reimu.frame2 = (reimu.frame2 + 1) % 17
-            reimu.Lastspellframe1 = (reimu.Lastspellframe1 + 1) % 13
-            reimu.Lastspellframe2 = (reimu.Lastspellframe2 + 1) % 8
-            reimu.Lastspellframe3 = (reimu.Lastspellframe3 + 1) % 3
-            reimu.lastcheak += 1
-        if reimu.lastcheak == 22:
+        if int(reimu.lastcheak) < 22:
+            if int(reimu.lastcheak) < 9:
+                reimu.frame1 = (reimu.frame1  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 15
+                reimu.frame2 = (reimu.frame2  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 15
+            if int(reimu.lastcheak) >= 9 and int(reimu.lastcheak) < 14:
+                reimu.Lastspelld = (reimu.Lastspelld  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
+                reimu.Lastspellc = (reimu.Lastspellc  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
+            if int(reimu.lastcheak) >= 16:
+                reimu.frame1 = (reimu.frame1  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 15
+                reimu.frame2 = (reimu.frame2  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 15
+            reimu.Lastspellframe1 = (reimu.Lastspellframe1  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 13
+            reimu.Lastspellframe2 = (reimu.Lastspellframe2  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.Lastspellframe3 = (reimu.Lastspellframe3  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 3
+            reimu.lastcheak = (reimu.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%23
+        if int(reimu.lastcheak) >= 22:
             reimu.lastcheak = 0
             reimu.add_event(Stand)
 
@@ -217,11 +248,11 @@ class Laststate:
     @staticmethod
     def draw(reimu):
         if reimu.motion == 4:
-            reimu.Lastspell.clip_draw(reimu.Lastframe1[reimu.frame1], 0, reimu.Lastframe2[reimu.frame2], 130,reimu.x, reimu.y+15)
-            if reimu.lastcheak >= 9 and reimu.lastcheak < 14:
-                reimu.Lasteffect.clip_draw(reimu.Lastspellframe1 *133,0,133,207,200,230)
-                reimu.Lasteffect2 .clip_draw(reimu.Lastspellframe2 *261,0,262,126,200+10,160)
-                reimu.Lasteffect3.clip_draw(reimu.Lastspellframe3 *133,0,133,126,-reimu.ReimuLastX[reimu.Lastspellc],reimu.ReimuLastY[reimu.Lastspelld])
+            reimu.Lastspell.clip_draw(reimu.Lastframe1[int(reimu.frame1)], 0, reimu.Lastframe2[int(reimu.frame2)], 130,reimu.x, reimu.y+15)
+            if int(reimu.lastcheak) >= 9 and int(reimu.lastcheak) < 14:
+                reimu.Lasteffect.clip_draw(int(reimu.Lastspellframe1) *133,0,133,207,200,230)
+                reimu.Lasteffect2 .clip_draw(int(reimu.Lastspellframe2) *261,0,262,126,200+10,160)
+                reimu.Lasteffect3.clip_draw(int(reimu.Lastspellframe3) *133,0,133,126,reimu.ReimuLastX[int(reimu.Lastspellc)],reimu.ReimuLastY[int(reimu.Lastspelld)])
 
 class Damagestate:
     @staticmethod
@@ -238,10 +269,10 @@ class Damagestate:
 
     @staticmethod
     def do(reimu):
-        if reimu.Damagecheak < 3:
-            reimu.Damageframe = (reimu.Damageframe + 1) % 3
-            reimu.Damagecheak += 1
-        if reimu.Damagecheak == 3:
+        if int(reimu.Damagecheak) < 3:
+            reimu.Damageframe = (reimu.Damageframe + DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time) % 3
+            reimu.Damagecheak = (reimu.Damagecheak+ DAMAGE_PER_ACTION * DAMAGEACTION_PER_TIME * game_framework.frame_time)%4
+        if int(reimu.Damagecheak) >= 3:
             reimu.Damagecheak = 0
             reimu.add_event(Stand)
 
@@ -250,7 +281,7 @@ class Damagestate:
     @staticmethod
     def draw(reimu):
         if reimu.motion == 5:
-            reimu.Damage.clip_draw(reimu.Damageframe*112,0,110,90, reimu.x, reimu.y)
+            reimu.Damage.clip_draw(int(reimu.Damageframe)*112,0,110,90, reimu.x, reimu.y)
 
 class Downstate:
     @staticmethod
@@ -271,21 +302,20 @@ class Downstate:
 
     @staticmethod
     def do(reimu):
-        if reimu.Downcheak < 20:
-            if reimu.Downcheak < 9:
-                reimu.frame1 = (reimu.frame1 + 1) % 11
-                reimu.frame2 = (reimu.frame2 + 1) % 10
-            reimu.Downcheak += 1
-        if reimu.Downcheak == 20:
+        if int(reimu.Downcheak) < 20:
+            if int(reimu.Downcheak) < 9:
+                reimu.frame1 = (reimu.frame1 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 10
+                reimu.frame2 = (reimu.frame2+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 10
+            reimu.Downcheak = (reimu.Downcheak+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)%21
+        if int(reimu.Downcheak) >= 20:
             reimu.Downcheak = 0
             reimu.add_event(Stand)
-
 
 
     @staticmethod
     def draw(reimu):
         if reimu.motion == 6:
-            reimu.Down.clip_draw(reimu.Downframe1[reimu.frame1],0,reimu.Downframe2[reimu.frame2],65, reimu.x, reimu.y-25)
+            reimu.Down.clip_draw(reimu.Downframe1[int(reimu.frame1)],0,reimu.Downframe2[int(reimu.frame2)],65, reimu.x, reimu.y-25)
 
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
