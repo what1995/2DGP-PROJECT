@@ -22,14 +22,14 @@ class Enemy_HP:
     def update(self):
         global attack1,attack2,attack3,attack4
         if attack1 == iku.HPcheak:
-            self.Power += 20
+            self.damage = 20
         if attack2 == iku.HPcheak:
-            self.Power += 30
+            self.damage = 30
         if attack3 == iku.HPcheak:
-            self.Power += 40
+            self.damage = 40
         if attack4 == iku.HPcheak:
-            self.Power += 50
-        if self.damage< self.Power:
+            self.damage = 50
+        if 252-self.damage< 252:
             self.damage +=1
 
     def draw(self):

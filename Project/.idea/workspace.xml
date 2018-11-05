@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bf5ed4a-9c30-4dbb-89aa-bd6a6c6ff4d7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/test/PlayerHP.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/PlayerHP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,23 +57,31 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="5186412">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit" />
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/iku.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7467">
-              <caret line="394" column="5" selection-start-line="394" selection-start-column="5" selection-end-line="394" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-                <marker date="1540917780032" expanded="true" signature="9032:9034" ph="..." />
-                <marker date="1540917780032" expanded="true" signature="9955:9957" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/DeckSelection.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -86,7 +94,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/PlayerHP.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
@@ -94,6 +102,15 @@
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/EnemyHP.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -146,11 +163,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/BackgroundSelection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" selection-start-line="4" selection-end-line="4" selection-end-column="17" />
+            <state relative-caret-position="190">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,7 +178,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/Enemy_marisa.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
+            <state relative-caret-position="684">
               <caret line="38" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
@@ -205,9 +225,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
-    <option name="width" value="979" />
+    <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -236,7 +256,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -389,7 +409,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11764706" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11764706" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -534,13 +554,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/EnemyHP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/mygame.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -553,12 +566,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/iku.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7467">
+        <state relative-caret-position="7429">
           <caret line="394" column="5" selection-start-line="394" selection-start-column="5" selection-end-line="394" selection-end-column="5" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <marker date="1540917780032" expanded="true" signature="9032:9034" ph="..." />
-            <marker date="1540917780032" expanded="true" signature="9955:9957" ph="..." />
           </folding>
         </state>
       </provider>
@@ -611,16 +622,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/BackgroundSelection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/Enemy_marisa.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
+        <state relative-caret-position="684">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
@@ -634,6 +638,23 @@
           <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/EnemyHP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/BackgroundSelection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
