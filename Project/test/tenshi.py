@@ -112,7 +112,7 @@ class Skill1State:
                 tenshi.S1frame = (tenshi.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
                 tenshi.Skill1Eframe1 = (tenshi.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
             if int(tenshi.skill1cheak) > 9:
-                tenshi.Skill1Y -= int(MOTION_SPEED_PPS)*1
+                tenshi.Skill1Y -= int(MOTION_SPEED_PPS)*5
             tenshi.skill1cheak =(tenshi.skill1cheak+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%16
         if int(tenshi.skill1cheak)>=15:
             tenshi.skill1cheak=0
@@ -154,9 +154,9 @@ class Skill2State:
             if int(tenshi.skill2cheak) >= 10:
                 tenshi.S2frame = (tenshi.S2frame +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
                 if int(tenshi.skill2cheak) < 21:
-                    tenshi.TSkill2Px1 += int(MOTION_SPEED_PPS)*2
-                    tenshi.TSkill2Px2 += int(MOTION_SPEED_PPS)*3
-                    tenshi.TSkill2Px3 += int(MOTION_SPEED_PPS)*4
+                    tenshi.TSkill2Px1 += int(MOTION_SPEED_PPS)*7
+                    tenshi.TSkill2Px2 += int(MOTION_SPEED_PPS)*7
+                    tenshi.TSkill2Px3 += int(MOTION_SPEED_PPS)*7
                 if int(tenshi.skill2cheak) >= 16:
                     tenshi.frame1 = (tenshi.frame1+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
                     tenshi.frame2 = (tenshi.frame2 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
