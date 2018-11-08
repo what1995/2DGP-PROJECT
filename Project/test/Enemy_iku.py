@@ -1,6 +1,7 @@
 from pico2d import *
 import os
-
+import iku
+import EnemyHP
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -75,6 +76,8 @@ class StandState:
     def do(iku):
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(EnemyHP.damage) >252:
+            iku.add_event(Down)
 
 
 
@@ -437,4 +440,6 @@ class Enemy_Iku:
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
+        elif(iku.HP==10):
+            self.add_event(Damage)
 
