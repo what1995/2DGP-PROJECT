@@ -1,6 +1,7 @@
 from pico2d import *
 import os
 import game_framework
+import EnemyHP
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
@@ -74,6 +75,8 @@ class StandState:
     def do(marisa):
         marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(EnemyHP.damage) >252:
+            marisa.add_event(Down)
 
 
 
@@ -316,8 +319,7 @@ class Downstate:
                 marisa.frame2 = (marisa.frame2 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
             marisa.Downcheak = (marisa.Downcheak+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)
         if int(marisa.Downcheak) >= 20:
-            marisa.Downcheak = 0
-            marisa.add_event(Stand)
+            marisa.Downcheak=20
 
 
         #marisa.timer -= 1
