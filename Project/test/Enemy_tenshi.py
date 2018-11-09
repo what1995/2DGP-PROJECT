@@ -1,6 +1,6 @@
 from pico2d import *
 import os
-
+import EnemyHP
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -73,6 +73,8 @@ class StandState:
     def do(tenshi):
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
+        if int(EnemyHP.damage) >252:
+            tenshi.add_event(Down)
 
 
 
@@ -311,8 +313,8 @@ class Downstate:
                 tenshi.frame2 = (tenshi.frame2 + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 5
             tenshi.Downcheak = (tenshi.Downcheak + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 21
         if int(tenshi.Downcheak) >= 20:
-            tenshi.Downcheak = 0
-            tenshi.add_event(Stand)
+            tenshi.Downcheak = 20
+            
 
         #tenshi.timer -= 1
 
