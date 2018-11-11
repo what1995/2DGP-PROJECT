@@ -114,27 +114,21 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(iku):
-        global HP,HPcheak
+        global HP,HPcheak,skillcheak
         if int(iku.skill1cheak)<8:
             iku.frame1 = (iku.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
             iku.S1frame = (iku.S1frame +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
-            if int(iku.skill1cheak)==10:
-                #HP=10
-                HPcheak=1
-            if int(iku.skill1cheak)==11:
-                #HP=10
-                HPcheak=0
+            skillcheak=1
 
         if int(iku.skill1cheak)>20:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         iku.skill1cheak =(iku.skill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%24
         if int(iku.skill1cheak)>=22:
-            #turn = -1
-            #iku.skill1cheak=0
+            skillcheak=0
             iku.add_event(Stand)
 
     @staticmethod
@@ -214,7 +208,7 @@ class Skill3State:
 
     @staticmethod
     def do(iku):
-        global HP,HPcheak
+        global HP,HPcheak,skillcheak
         if int(iku.skill3cheak) < 19:
             if int(iku.skill3cheak) < 5:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
