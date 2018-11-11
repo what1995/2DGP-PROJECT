@@ -75,6 +75,8 @@ class StandState:
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         if int(EnemyHP.damage) >252:
             tenshi.add_event(Down)
+        if EnemyHP.Damagecheak==1:
+            tenshi.add_event(Damage)
 
 
 
@@ -314,7 +316,7 @@ class Downstate:
             tenshi.Downcheak = (tenshi.Downcheak + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 21
         if int(tenshi.Downcheak) >= 20:
             tenshi.Downcheak = 20
-            
+
 
         #tenshi.timer -= 1
 
@@ -329,8 +331,8 @@ next_state_table = {
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState, Down: Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:Downstate}
 
 }
 

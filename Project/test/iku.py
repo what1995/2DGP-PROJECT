@@ -46,6 +46,7 @@ os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
 cheak1 = 0
+skillcheak=0
 # iku Event
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
@@ -164,17 +165,12 @@ class Skill2State:
         pass
     @staticmethod
     def do(iku):
-        global HP,HPcheak
-        if int(iku.skill2cheak) == 9:
-
-            HPcheak = 2
-        if int(iku.skill2cheak) == 10:
-            # HP=10
-            HPcheak = 0
+        global HP,HPcheak,skillcheak
         if int(iku.skill2cheak) < 11:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
         if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
+            skillcheak=1
             if iku.skill2cheak > 8:
                 iku.skill2Mx += int(MOTION_SPEED_PPS)
                 iku.skill2Px += int(MOTION_SPEED_PPS)
@@ -186,6 +182,7 @@ class Skill2State:
             iku.Skill2Eframe1 = (iku.Skill2Eframe1 +SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
         if int(iku.skill2cheak) >= 19:
+            skillcheak=0
             iku.skill2cheak = 0
             iku.add_event(Stand)
 

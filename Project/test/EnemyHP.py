@@ -9,18 +9,21 @@ attack2=2
 attack3=3
 attack4=4
 damage = 0
+Damagecheak=0
 class Enemy_HP:
     def __init__(self):
 
         self.x = 600
         self.y = 500
         self.Power = 0
+        self.Damage=0
         self.HPBar = load_image('HP-Damege.png')
         self.HP = load_image('HP-HP.png')
 
     def update(self):
-        global attack1, attack2, attack3, attack4,damage
+        global attack1, attack2, attack3, attack4,damage,Damagecheak
         self.Power = iku.HP
+        Damagecheak =iku.skillcheak
         if damage < self.Power:
             damage +=0.1
 
