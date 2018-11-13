@@ -23,6 +23,7 @@ Deck2=[0,0,0,0,0,0,0,0,0,0,0,0]
 Deck3=[0,0,0,0,0,0,0,0,0,0,0,0]
 Deck_y=[230,230,230,230,230,230,165,165,165,165,165,165]
 mouse_x,mouse_y=0,0
+Decklist =[0,0,0,0,0,0,0,0,0,0,0,0]
 skill1cheak=0
 skill2cheak=0
 skill3cheak=0
@@ -70,36 +71,43 @@ def handle_events():
                 if skill1cheak <3and Deckcheak1<12 and mouse_x > 75 and mouse_x < 125 and mouse_y > 365 and mouse_y < 435:
                     Deck3[Deckcheak1] = 0
                     Deck2[Deckcheak1] = 0
+                    Decklist[Deckcheak1]=1
                     Deckcheak1 += 1
                     skill1cheak += 1
                 if skill2cheak <3 and Deckcheak1<12 and mouse_x > 175 and mouse_x < 225 and mouse_y > 365 and mouse_y < 435:
                     Deck3[Deckcheak1] = 45
                     Deck2[Deckcheak1] = 0
+                    Decklist[Deckcheak1] = 2
                     Deckcheak1 += 1
                     skill2cheak += 1
                 if skill3cheak <3 and Deckcheak1<12 and mouse_x > 275 and mouse_x < 325 and mouse_y > 365 and mouse_y < 435:
                     Deck3[Deckcheak1] = 90
                     Deck2[Deckcheak1] = 0
+                    Decklist[Deckcheak1] = 3
                     Deckcheak1 += 1
                     skill3cheak += 1
                 if lastcheak<2 and Deckcheak1<12 and mouse_x > 375 and mouse_x < 425 and mouse_y > 365 and mouse_y < 435:
                     Deck3[Deckcheak1] = 135
                     Deck2[Deckcheak1] = 0
+                    Decklist[Deckcheak1] = 4
                     Deckcheak1 += 1
                     lastcheak += 1
                 if common1cheak <3 and Deckcheak1<12 and mouse_x > 125 and mouse_x < 175 and mouse_y > 165 and mouse_y < 235:
                     Deck2[Deckcheak1] = 65
                     Deck3[Deckcheak1] = 0
+                    Decklist[Deckcheak1] = 5
                     Deckcheak1 += 1
                     common1cheak += 1
                 if common2cheak <3 and Deckcheak1<12 and mouse_x > 225 and mouse_x < 275 and mouse_y > 165 and mouse_y < 235:
                     Deck2[Deckcheak1] = 65
                     Deck3[Deckcheak1] = 45
+                    Decklist[Deckcheak1] = 6
                     Deckcheak1 += 1
                     common2cheak += 1
                 if common3cheak <3 and Deckcheak1<12 and mouse_x > 325 and mouse_x < 375 and mouse_y > 165 and mouse_y < 235:
                     Deck2[Deckcheak1] = 65
                     Deck3[Deckcheak1] = 90
+                    Decklist[Deckcheak1] = 7
                     Deckcheak1 += 1
                     common3cheak += 1
                 if Deckcheak1==12 and mouse_x > 625 and mouse_x < 750 and mouse_y>450and mouse_y<550:
