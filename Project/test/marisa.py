@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import Deck
+import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 #marisa stand
@@ -388,33 +389,34 @@ class Marisa:
         if event.type == SDL_MOUSEMOTION:
             mouse_x, mouse_y = event.x, 600 - event.y
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):  ##스킬키 체크
-            if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
-                if Deck.PlayerDeck[Deck.spellcheak % 12] == 1:
-                    self.add_event(Skill1)
-                if Deck.PlayerDeck[Deck.spellcheak % 12] == 2:
-                    self.add_event(Skill2)
-                if Deck.PlayerDeck[Deck.spellcheak % 12] == 3:
-                    self.add_event(Skill3)
-                if Deck.PlayerDeck[Deck.spellcheak % 12] == 4:
-                    self.add_event(Last)
-            if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
-                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 1:
-                    self.add_event(Skill1)
-                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 2:
-                    self.add_event(Skill2)
-                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 3:
-                    self.add_event(Skill3)
-                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 4:
-                    self.add_event(Last)
-            if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
-                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 1:
-                    self.add_event(Skill1)
-                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 2:
-                    self.add_event(Skill2)
-                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 3:
-                    self.add_event(Skill3)
-                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 4:
-                    self.add_event(Last)
+            if main_state.turn==1:
+                if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==1:
+                        self.add_event(Skill1)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==2:
+                        self.add_event(Skill2)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==3:
+                        self.add_event(Skill3)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==4:
+                        self.add_event(Last)
+                if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
+                        self.add_event(Skill1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
+                        self.add_event(Skill2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
+                        self.add_event(Skill3)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
+                        self.add_event(Last)
+                if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
+                        self.add_event(Skill1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
+                        self.add_event(Skill2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
+                        self.add_event(Skill3)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
+                        self.add_event(Last)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)

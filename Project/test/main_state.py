@@ -126,14 +126,6 @@ def handle_events():
             turncheak=1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            skillcheak=1
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            skillcheak=2
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            skillcheak=3
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
-            skillcheak=4
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_world.remove_object(reimu)
                 game_world.remove_object(marisa)
