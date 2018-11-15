@@ -468,9 +468,6 @@ class Iku:
                     self.add_event(Skill3)
                 if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
                     self.add_event(Last)
-
-
-
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
