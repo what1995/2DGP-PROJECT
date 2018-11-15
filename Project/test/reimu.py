@@ -1,6 +1,6 @@
 from pico2d import *
 import os
-
+import Deck
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_framework
 import game_world
@@ -46,10 +46,10 @@ MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
 key_event_table = {
-(SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT): Skill1,
-    (SDL_KEYDOWN, SDLK_a): Skill2,
-    (SDL_KEYDOWN, SDLK_s): Skill3,
-    (SDL_KEYDOWN, SDLK_d): Last,
+(SDL_MOUSEBUTTONDOWN, 1): Skill1,
+    (SDL_MOUSEBUTTONDOWN, 2): Skill2,
+    (SDL_MOUSEBUTTONDOWN, 3): Skill3,
+    (SDL_MOUSEBUTTONDOWN, 4): Last,
 (SDL_KEYDOWN, SDLK_z): Damage,
 (SDL_KEYDOWN, SDLK_x): Down
 }
@@ -106,7 +106,7 @@ class Skill1State:
             reimu.frame1 = (reimu.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             reimu.frame2 = (reimu.frame2+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             reimu.S1frame = (reimu.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 13
-            reimu.Skill1X += int(MOTION_SPEED_PPS)*2
+            reimu.Skill1X += int(MOTION_SPEED_PPS)*5
         reimu.skill1cheak =(reimu.skill1cheak+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%15
         if  int(reimu.skill1cheak)>=13:
             reimu.skill1cheak=0
@@ -178,8 +178,7 @@ class Skill3State:
                 reimu.frame1 = (reimu.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
                 reimu.frame2 = (reimu.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
             if int(reimu.skill3cheak) >= 5:
-                reimu.Skill3Rx += int(MOTION_SPEED_PPS)*2
-
+                reimu.Skill3Rx += int(MOTION_SPEED_PPS)*5
                 reimu.S3frame = (reimu.S3frame+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 2
                 if int(reimu.skill3cheak) > 20:
                     reimu.frame1 = (reimu.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 11
@@ -376,9 +375,37 @@ class Reimu:
 
 
     def handle_event(self, event):
-        if (event.type, event.button) in key_event_table:
-            key_event = key_event_table[(event.type, event.button)]
-            self.add_event(key_event)
+        global cheak1, HP, mouse_x, mouse_y
+        if event.type == SDL_MOUSEMOTION:
+            mouse_x, mouse_y = event.x, 600 - event.y
+        if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):  ##스킬키 체크
+            if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[Deck.spellcheak % 12] == 1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[Deck.spellcheak % 12] == 2:
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[Deck.spellcheak % 12] == 3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[Deck.spellcheak % 12] == 4:
+                    self.add_event(Last)
+            if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 2:
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[(Deck.spellcheak + 1) % 12] == 4:
+                    self.add_event(Last)
+            if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 2:
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[(Deck.spellcheak + 2) % 12] == 4:
+                    self.add_event(Last)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
