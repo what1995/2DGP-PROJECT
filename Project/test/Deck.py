@@ -43,6 +43,7 @@ class PlayDeck:
         self.reimuDeck= load_image('RimuSpellCard.png')
         self.marisaDeck= load_image('MarisaSpellCard.png')
         self.tenshiDeck= load_image('TenshiSpellCard.png')
+        self.Deckimage=load_image('Deck.png')
     def update(self):
         pass
 
@@ -82,6 +83,7 @@ class PlayDeck:
         if CharacterSelection.character==2:
             for i in range(0,12):
                 if PlayerDeck[i]==1:
+                    self.Deckimage.draw(self.x + (50 * i), self.y)
                     self.ikuDeck.clip_draw(0, 0, 45, 65, self.x+(50*i), self.y)
                 if PlayerDeck[i]==2:
                     self.ikuDeck.clip_draw(45, 0, 45, 65, self.x+(50*i), self.y)
