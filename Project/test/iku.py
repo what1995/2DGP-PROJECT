@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import main_state
+import Deck
 import Enemy_iku
 import EnemyHP
 #iku stand
@@ -64,6 +65,7 @@ name = 'iku'
 turn =None
 HP=0
 HPcheak=0
+mouse_x,mouse_y=0,0
 class StandState:
 
     @staticmethod
@@ -420,8 +422,6 @@ class Iku:
         self.event_que.insert(0, event)
 
     def update(self):
-
-
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
@@ -434,18 +434,40 @@ class Iku:
 
 
     def handle_event(self, event):
-        global cheak1,HP
-        cheak1=2
+        global cheak1,HP,mouse_x,mouse_y
+        if event.type == SDL_MOUSEMOTION:
+            mouse_x, mouse_y=event.x, 600- event.y
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT): ##스킬키 체크
-            if main_state.skillcheak==1:
-                self.add_event(Skill1)
-            if main_state.skillcheak==2:
-                HP +=20
-                self.add_event(Skill2)
-            if main_state.skillcheak==3:
-                self.add_event(Skill3)
-            if main_state.skillcheak==4:
-                self.add_event(Last)
+            if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[Deck.spellcheak%12]==1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[Deck.spellcheak%12]==2:
+                    HP +=20
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[Deck.spellcheak%12]==3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[Deck.spellcheak%12]==4:
+                    self.add_event(Last)
+            if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
+                    HP +=20
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
+                    self.add_event(Last)
+            if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
+                if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
+                    self.add_event(Skill1)
+                if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
+                    HP +=20
+                    self.add_event(Skill2)
+                if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
+                    self.add_event(Skill3)
+                if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
+                    self.add_event(Last)
 
 
 
