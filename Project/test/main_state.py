@@ -6,6 +6,7 @@ os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 from pico2d import *
 import game_framework
 import DeckSelection
+import Deck
 import iku
 import game_world
 from iku import Iku
@@ -123,6 +124,8 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             turn = turn * -1
             turncheak=1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
+            Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
             skillcheak=1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
