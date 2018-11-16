@@ -5,6 +5,7 @@ import EnemyHP
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
+import main_state
 STAND_TIME_PER_ACTION=1
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
 STAND_PER_ACTION=9
@@ -128,9 +129,9 @@ class Skill1State:
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         iku.skill1cheak = (iku.skill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 24
         if int(iku.skill1cheak) >= 22:
-            # turn = -1
-            # iku.skill1cheak=0
+            iku.skill1cheak=0
             iku.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(iku):
@@ -183,6 +184,7 @@ class Skill2State:
         if int(iku.skill2cheak) >= 19:
             iku.skill2cheak = 0
             iku.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(iku):
@@ -232,6 +234,7 @@ class Skill3State:
         if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(iku):
@@ -291,7 +294,7 @@ class Laststate:
         if int(iku.lastcheak) >= 19:
             iku.lastcheak = 0
             iku.add_event(Stand)
-        #delay(0.1)
+            main_state.turn = 1
 
 
     @staticmethod

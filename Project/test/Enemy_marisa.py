@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import EnemyHP
+import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
@@ -121,8 +122,8 @@ class Skill1State:
         marisa.skill1cheak =(marisa.skill1cheak+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%20
         if int(marisa.skill1cheak)>=18:
             marisa.skill1cheak=0
-
             marisa.add_event(Stand)
+            main_state.turn = 1
 
 
 
@@ -162,6 +163,7 @@ class Skill2State:
         if int(marisa.skill2cheak) >= 7:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
+            main_state.turn = 1
 
 
 
@@ -207,6 +209,7 @@ class Skill3State:
         if int(marisa.skill3cheak) >= 17:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(marisa):
@@ -251,6 +254,7 @@ class Laststate:
         if int(marisa.lastcheak) >= 18:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
+            main_state.turn = 1
 
 
 

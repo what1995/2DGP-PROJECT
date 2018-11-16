@@ -1,6 +1,6 @@
 from pico2d import *
 import os
-
+import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -116,6 +116,7 @@ class Skill1State:
         if  int(reimu.skill1cheak)>=13:
             reimu.skill1cheak=0
             reimu.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(reimu):
@@ -149,6 +150,7 @@ class Skill2State:
         if int(reimu.skill2cheak) >= 8:
             reimu.skill2cheak = 0
             reimu.add_event(Stand)
+            main_state.turn = 1
 
 
     @staticmethod
@@ -193,6 +195,7 @@ class Skill3State:
         if int(reimu.skill3cheak) >= 24:
             reimu.skill3cheak = 0
             reimu.add_event(Stand)
+            main_state.turn = 1
 
     @staticmethod
     def draw(reimu):
@@ -246,6 +249,7 @@ class Laststate:
         if int(reimu.lastcheak) >= 22:
             reimu.lastcheak = 0
             reimu.add_event(Stand)
+            main_state.turn = 1
 
 
     @staticmethod
