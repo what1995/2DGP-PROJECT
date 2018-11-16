@@ -132,6 +132,7 @@ class Skill1State:
         if int(iku.skill1cheak)>=22:
             skillcheak=0
             iku.add_event(Stand)
+            main_state.turn = -1
 
     @staticmethod
     def draw(iku):
@@ -181,6 +182,7 @@ class Skill2State:
             skillcheak=0
             iku.skill2cheak = 0
             iku.add_event(Stand)
+            main_state.turn = -1
 
 
     @staticmethod
@@ -231,6 +233,7 @@ class Skill3State:
         if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
+            main_state.turn = -1
 
     @staticmethod
     def draw(iku):
@@ -292,6 +295,7 @@ class Laststate:
         if int(iku.lastcheak) >= 19:
             iku.lastcheak = 0
             iku.add_event(Stand)
+            main_state.turn = -1
         #delay(0.1)
 
     @staticmethod

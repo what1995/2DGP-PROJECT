@@ -119,6 +119,7 @@ class Skill1State:
             tenshi.skill1cheak=0
             tenshi.Skill1Y = 160
             tenshi.add_event(Stand)
+            main_state.turn = -1
 
     @staticmethod
     def draw(tenshi):
@@ -165,6 +166,7 @@ class Skill2State:
         if int(tenshi.skill2cheak) >= 21:
             tenshi.skill2cheak = 0
             tenshi.add_event(Stand)
+            main_state.turn = -1
 
 
     @staticmethod
@@ -208,6 +210,7 @@ class Skill3State:
         if  int(tenshi.skill3cheak)>= 16:
             tenshi.skill3cheak = 0
             tenshi.add_event(Stand)
+            main_state.turn = -1
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 3:
@@ -248,6 +251,7 @@ class Laststate:
         if int(tenshi.lastcheak) >= 20:
             tenshi.lastcheak = 0
             tenshi.add_event(Stand)
+            main_state.turn = -1
 
     @staticmethod
     def draw(tenshi):
