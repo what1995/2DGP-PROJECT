@@ -79,6 +79,8 @@ class StandState:
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         if int(EnemyHP.damage) >252:
             iku.add_event(Down)
+        if main_state.turn== -1: #test
+            iku.add_event(Skill1)
 
 
 
