@@ -24,8 +24,9 @@ class Enemy_HP:
         global attack1, attack2, attack3, attack4,damage,Damagecheak
         self.Power = iku.HP
         Damagecheak =iku.skillcheak
-        if damage < self.Power:
-            damage +=0.1
+        if iku.HPcheak==1:
+            if damage < self.Power:
+                damage +=0.1
 
 
     def draw(self):

@@ -168,6 +168,7 @@ class Skill2State:
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
         if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
             skillcheak=1
+            HPcheak =1
             if iku.skill2cheak > 8:
                 iku.skill2Mx += int(MOTION_SPEED_PPS)
                 iku.skill2Px += int(MOTION_SPEED_PPS)
@@ -180,6 +181,7 @@ class Skill2State:
         iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
         if int(iku.skill2cheak) >= 19:
             skillcheak=0
+            HPcheak=0
             iku.skill2cheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
