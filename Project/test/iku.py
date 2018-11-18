@@ -133,6 +133,7 @@ class Skill1State:
             skillcheak=0
             iku.add_event(Stand)
             main_state.turn = -1
+            Deck.spellcheak += 3
 
     @staticmethod
     def draw(iku):
@@ -185,6 +186,7 @@ class Skill2State:
             iku.skill2cheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
+            Deck.spellcheak += 3
 
 
     @staticmethod
@@ -236,6 +238,7 @@ class Skill3State:
             iku.skill3cheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
+            Deck.spellcheak += 3
 
     @staticmethod
     def draw(iku):
@@ -298,6 +301,7 @@ class Laststate:
             iku.lastcheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
+            Deck.spellcheak += 3
         #delay(0.1)
 
     @staticmethod

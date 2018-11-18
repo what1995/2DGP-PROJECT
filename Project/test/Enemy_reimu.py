@@ -5,6 +5,7 @@ os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
 import EnemyHP
+import random
 #reimu stand
 STAND_TIME_PER_ACTION=1.2
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
@@ -57,14 +58,16 @@ key_event_table = {
 
 
 # Reimu States
-
+ationcheak = 0
 class StandState:
 
     @staticmethod
     def enter(reimu, event):
+        global ationcheak
         reimu.motion = 0
         reimu.frame1 = 0
         reimu.frame2 = 0
+        ationcheak = random.randint(1, 4)
 
 
 
@@ -73,9 +76,18 @@ class StandState:
         pass
     @staticmethod
     def do(reimu):
+        global ationcheak
         reimu.frame1 = (reimu.frame1+ STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 11
         if int(EnemyHP.damage) >252:
             reimu.add_event(Down)
+        if main_state.turn== -1 and ationcheak == 1: #test
+            reimu.add_event(Skill1)
+        if main_state.turn== -1 and ationcheak == 2: #test
+            reimu.add_event(Skill2)
+        if main_state.turn== -1 and ationcheak == 3: #test
+            reimu.add_event(Skill3)
+        if main_state.turn== -1 and ationcheak == 4: #test
+            reimu.add_event(Last)
 
 
 

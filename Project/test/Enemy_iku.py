@@ -58,7 +58,7 @@ key_event_table = {
 
 
 # Iku States
-ationcheak = random.randint(1, 4)
+ationcheak = 0
 class StandState:
 
     @staticmethod

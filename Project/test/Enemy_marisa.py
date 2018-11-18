@@ -3,6 +3,7 @@ import os
 import game_framework
 import EnemyHP
 import main_state
+import random
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
@@ -58,26 +59,37 @@ key_event_table = {
 
 
 # marisa States
-
+ationcheak = 0
 class StandState:
 
     @staticmethod
     def enter(marisa, event):
+        global ationcheak
         marisa.motion = 0
         marisa.frame1 = 0
         marisa.frame2 = 0
         marisa.Standframe1 = [0,65,126,188,250,312,372,434,495,556,618]
         marisa.Standframe2 = [65,61,62,62,62,60,62,61,60,62]
+        ationcheak = random.randint(1, 4)
 
     @staticmethod
     def exit(marisa, event):
         pass
     @staticmethod
     def do(marisa):
+        global ationcheak
         marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         if int(EnemyHP.damage) >252:
             marisa.add_event(Down)
+        if main_state.turn== -1 and ationcheak == 1: #test
+            marisa.add_event(Skill1)
+        if main_state.turn== -1 and ationcheak == 2: #test
+            marisa.add_event(Skill2)
+        if main_state.turn== -1 and ationcheak == 3: #test
+            marisa.add_event(Skill3)
+        if main_state.turn== -1 and ationcheak == 4: #test
+            marisa.add_event(Last)
 
 
 
