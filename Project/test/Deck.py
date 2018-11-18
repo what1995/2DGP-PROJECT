@@ -46,6 +46,10 @@ class PlayDeck:
         self.tenshiDeck= load_image('TenshiSpellCard.png')
         self.Deckimage=load_image('Deck.png')
     def update(self):
+        global spellcheak
+        if spellcheak == 12:
+            shuffle()
+            spellcheak = 0
         pass
 
     def draw(self):
