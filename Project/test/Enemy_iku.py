@@ -129,13 +129,6 @@ class Skill1State:
         if int(iku.skill1cheak) >= 7 and int(iku.skill1cheak) < 20:
             iku.S1frame = (iku.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
-            if int(iku.skill1cheak) == 10:
-                # HP=10
-                HPcheak = 1
-            if int(iku.skill1cheak) == 11:
-                # HP=10
-                HPcheak = 0
-
         if int(iku.skill1cheak) > 20:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11

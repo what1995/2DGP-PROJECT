@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import EnemyHP
 import main_state
+import random
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -57,27 +58,38 @@ key_event_table = {
 
 
 # Iku States
-
+ationcheak = random.randint(1, 4)
 class StandState:
 
     @staticmethod
     def enter(tenshi, event):
+        global ationcheak
         tenshi.motion = 0
         tenshi.frame1 = 0
         tenshi.frame2 = 0
         tenshi.Standframe1 = [0,65,126,196,271,345]
         tenshi.Standframe2 = [65,61,70,75,74]
+        ationcheak = random.randint(1, 4)
     @staticmethod
     def exit(tenshi, event):
         pass
     @staticmethod
     def do(tenshi):
+        global ationcheak
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         if int(EnemyHP.damage) >252:
             tenshi.add_event(Down)
         if EnemyHP.Damagecheak==1:
             tenshi.add_event(Damage)
+        if main_state.turn== -1 and ationcheak == 1: #test
+            tenshi.add_event(Skill1)
+        if main_state.turn== -1 and ationcheak == 2: #test
+            tenshi.add_event(Skill2)
+        if main_state.turn== -1 and ationcheak == 3: #test
+            tenshi.add_event(Skill3)
+        if main_state.turn== -1 and ationcheak == 4: #test
+            tenshi.add_event(Last)
 
 
 
