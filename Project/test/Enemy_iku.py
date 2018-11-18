@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import iku
 import EnemyHP
+import random
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -57,16 +58,18 @@ key_event_table = {
 
 
 # Iku States
-
+ationcheak = random.randint(1, 4)
 class StandState:
 
     @staticmethod
     def enter(iku, event):
+        global ationcheak
         iku.motion = 0
         iku.frame1 = 0
         iku.frame2 = 0
         iku.Standframe1 = [0, 73, 140, 200, 265, 324, 385, 446, 510, 580]
         iku.Standframe2 = [74, 64, 60, 62, 58, 59, 63, 65, 70]
+        ationcheak = random.randint(1, 4)
 
 
 
@@ -75,12 +78,19 @@ class StandState:
         pass
     @staticmethod
     def do(iku):
+        global ationcheak
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         if int(EnemyHP.damage) >252:
             iku.add_event(Down)
-        if main_state.turn== -1: #test
+        if main_state.turn== -1 and ationcheak == 1: #test
             iku.add_event(Skill1)
+        if main_state.turn== -1 and ationcheak == 2: #test
+            iku.add_event(Skill2)
+        if main_state.turn== -1 and ationcheak == 3: #test
+            iku.add_event(Skill3)
+        if main_state.turn== -1 and ationcheak == 4: #test
+            iku.add_event(Last)
 
 
 
@@ -112,7 +122,7 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(iku):
-        global HP, HPcheak
+        global HP, HPcheak , ationcheak
         if int(iku.skill1cheak) < 8:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
