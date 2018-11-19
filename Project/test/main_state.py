@@ -21,6 +21,7 @@ from Enemy_reimu import Enemy_Reimu
 from Enemy_tenshi import Enemy_Tenshi
 from Enemy_iku import Enemy_Iku
 from Deck import PlayDeck
+from ikuSkill import IKU_Skill1
 
 name = "MainState"
 turncheak=0
@@ -38,8 +39,10 @@ EnemyPlayer=None
 deck=None
 turn = 1
 skillcheak=0
+iku_skill1_effect=None
 def enter():
     global iku, background, Player,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
+    global iku_skill1_effect
     Player = DeckSelection.character
     EnemyPlayer=DeckSelection.Enemycharacter
     if turn == 1:
@@ -96,6 +99,8 @@ def enter():
     PlayerHP=Player_HP()
     EnemyHP=Enemy_HP()
     deck=PlayDeck()
+    iku_skill1_effect=IKU_Skill1()
+    game_world.add_object(iku_skill1_effect, 2)
     game_world.add_object(deck, 1)
     game_world.add_object(background,0)
     game_world.add_object(PlayerHP, 0)
