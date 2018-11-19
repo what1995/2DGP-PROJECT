@@ -122,8 +122,8 @@ class Skill1State:
             iku.frame1 = (iku.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
-            iku.S1frame = (iku.S1frame +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
-            iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
+            #iku.S1frame = (iku.S1frame +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
+            #iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
             skillcheak=1
             skillstart=1
 
@@ -134,6 +134,7 @@ class Skill1State:
         if int(iku.skill1cheak)>=22:
             skillcheak=0
             iku.add_event(Stand)
+            skillstart=0
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -141,9 +142,9 @@ class Skill1State:
     def draw(iku):
         if iku.motion == 1:
             iku.skill1.clip_draw(iku.Skill1frame1[int(iku.frame1)], 145, iku.Skill1frame2[int(iku.frame2)], 145, iku.x, iku.y)
-            if int(iku.skill1cheak) >= 8 and int(iku.skill1cheak) < 20:
-                iku.S1effect.clip_draw(0, int(iku.S1frame) * 52, 360, 52, iku.x + 200, iku.y + 10)
-                iku.S1effect2.clip_draw(int(iku.Skill1Eframe1) * 65, 0, 68, 60,600-10, iku.y + 10)
+            #if int(iku.skill1cheak) >= 8 and int(iku.skill1cheak) < 20:
+                #iku.S1effect.clip_draw(0, int(iku.S1frame) * 52, 360, 52, iku.x + 200, iku.y + 10)
+               # iku.S1effect2.clip_draw(int(iku.Skill1Eframe1) * 65, 0, 68, 60,600-10, iku.y + 10)
 
 class Skill2State:
     @staticmethod

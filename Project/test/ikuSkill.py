@@ -2,7 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import main_state
-import Deck
+import iku
 import Enemy_iku
 import EnemyHP
 #iku stand
@@ -87,9 +87,11 @@ class IKU_Skill1:
 
 
     def draw(self):
-        self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_x,self.Line_y)
-        self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_x+200,self.Line_y)
-        draw_rectangle(*self.get_bb())
+        if iku.skillstart==1:
+            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_x,self.Line_y)
+            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_x+200,self.Line_y)
+            draw_rectangle(*self.get_bb())
     def update(self):
-        self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
-        self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
+        if iku.skillstart == 1:
+            self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
+            self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
