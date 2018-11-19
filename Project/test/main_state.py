@@ -45,6 +45,8 @@ def enter():
     global iku_skill1_effect
     Player = DeckSelection.character
     EnemyPlayer=DeckSelection.Enemycharacter
+    iku_skill1_effect = IKU_Skill1()
+    game_world.add_object(iku_skill1_effect, 2)
     if turn == 1:
         if EnemyPlayer == 0:
             Enemy_marisa = Enemy_Marisa()
@@ -99,8 +101,6 @@ def enter():
     PlayerHP=Player_HP()
     EnemyHP=Enemy_HP()
     deck=PlayDeck()
-    iku_skill1_effect=IKU_Skill1()
-    game_world.add_object(iku_skill1_effect, 2)
     game_world.add_object(deck, 1)
     game_world.add_object(background,0)
     game_world.add_object(PlayerHP, 0)
@@ -121,7 +121,7 @@ def resume():
 
 def handle_events():
     global iku, background, Player, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global skillcheak
+    global skillcheak,iku_skill1_effect
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -132,6 +132,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+                game_world.remove_object(iku_skill1_effect)
                 game_world.remove_object(reimu)
                 game_world.remove_object(marisa)
                 game_world.remove_object(iku)
@@ -140,6 +141,10 @@ def handle_events():
                 game_world.remove_object(Enemy_marisa)
                 game_world.remove_object(Enemy_iku)
                 game_world.remove_object(Enemy_tenshi)
+                #game_world.remove_object(background)
+                #game_world.remove_object(PlayerHP)
+                #game_world.remove_object(EnemyHP)
+                #game_world.remove_object(deck)
                 game_framework.push_state(DeckSelection)
 
         else:
