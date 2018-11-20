@@ -141,10 +141,10 @@ def handle_events():
                 game_world.remove_object(Enemy_marisa)
                 game_world.remove_object(Enemy_iku)
                 game_world.remove_object(Enemy_tenshi)
-                #game_world.remove_object(background)
-                #game_world.remove_object(PlayerHP)
-                #game_world.remove_object(EnemyHP)
-                #game_world.remove_object(deck)
+                game_world.remove_object(background)
+                game_world.remove_object(PlayerHP)
+                game_world.remove_object(EnemyHP)
+                game_world.remove_object(deck)
                 game_framework.push_state(DeckSelection)
 
         else:

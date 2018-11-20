@@ -10,16 +10,17 @@ def add_object(o, layer):
 
 
 def remove_object(o):
-    for i in range(0,2):
+    for i in range(len(objects)):
         if o in objects[i]:
             objects[i].remove(o)
             del o
+            break
 
 
 def clear():
     for o in all_objects():
         del o
-    objects.clear()
+
 
 
 def all_objects():
