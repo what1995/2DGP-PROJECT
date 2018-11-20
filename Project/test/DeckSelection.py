@@ -32,22 +32,39 @@ common1cheak=0
 common2cheak=0
 common3cheak=0
 def enter():
-    global iku,reimu,tenshi,marisa,character,Enemycharacter
-    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,ikuSkill1,ikuSkill2,ikuSkill3
-    global next
+    global iku,reimu,tenshi,marisa,character,Enemycharacter,next
+    global reimuSkill1, reimuSkill2, reimuSkill3,marisaSkill1,marisaSkill2,marisaSkill3,ikuSkill1,ikuSkill2,ikuSkill3
+    global reimuLast,marisaLast,ikuLast,tenshiLast,tenshiSkill1,tenshiSkill2,tenshiSkill3,commonItem1,commonItem2,commonItem3
+    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck
     reimu= load_image('Reimu-Deck.png')
     reimuDeck= load_image('RimuSpellCard.png')
+    reimuSkill1 = load_image('Reimu-Skill1-Dic.png')
+    reimuSkill2 = load_image('Reimu-Skill2-Dic.png')
+    reimuSkill3 = load_image('Reimu-Skill3-Dic.png')
+    reimuLast = load_image('Reimu-Last-Dic.png')
     marisa= load_image('Marisa-Deck.png')
     marisaDeck= load_image('MarisaSpellCard.png')
+    marisaSkill1 = load_image('Marisa-Skill1-Dic.png')
+    marisaSkill2 = load_image('Marisa-Skill2-Dic.png')
+    marisaSkill3 = load_image('Marisa-Skill3-Dic.png')
+    marisaLast = load_image('Marisa-Last-Dic.png')
     iku = load_image('Iku-Deck.png')
     ikuDeck= load_image('IkuSpellCard.png')
     ikuSkill1 = load_image('Iku-Skill1-Dic.png')
     ikuSkill2 = load_image('Iku-Skill2-Dic.png')
     ikuSkill3 = load_image('Iku-Skill3-Dic.png')
-    tenshi = load_image('Tensi-Deck.png')
+    ikuLast =load_image('Iku-Last-Dic.png')
+    tenshi = load_image('Tenshi-Deck.png')
     tenshiDeck= load_image('TenshiSpellCard.png')
+    tenshiSkill1 = load_image('Tenshi-Skill1-Dic.png')
+    tenshiSkill2 = load_image('Tenshi-Skill2-Dic.png')
+    tenshiSkill3 = load_image('Tenshi-Skill3-Dic.png')
+    tenshiLast = load_image('Tenshi-Last-Dic.png')
     next=load_image('Deck_Next.png')
     commonDeck=load_image('commonCard.png')
+    commonItem1 = load_image('Common-Card1-Dic.png')
+    commonItem2 = load_image('Common-Card2-Dic.png')
+    commonItem3 = load_image('Common-Card3-Dic.png')
     character = CharacterSelection.character
 
 
@@ -119,7 +136,7 @@ def handle_events():
 
 
 def draw():
-    global Deck1,Deck2,Deckcheak1,Deckcheak2,ikuSkill1,mouse_x,mouse_y,ikuSkill2,ikuSkill3
+    global Deck1,Deck2,Deckcheak1,Deckcheak2,mouse_x,mouse_y
     Deck1 = 0
     clear_canvas()
 
@@ -151,12 +168,49 @@ def draw():
         for C in range(0,3):
             commonDeck.clip_draw(45*C, 0, 45, 65, 50+100*(C+1), 200)
     if mouse_x > 75 and mouse_x < 125 and mouse_y > 365 and mouse_y < 435:
-        ikuSkill1.draw(620,360)
+        if character==0:
+            reimuSkill1.draw(620, 360)
+        if character == 1:
+            marisaSkill1.draw(620, 360)
+        if character==2:
+            ikuSkill1.draw(620,360)
+        if character==3:
+            tenshiSkill1.draw(620,360)
     if mouse_x > 175 and mouse_x < 225 and mouse_y > 365 and mouse_y < 435:
-        ikuSkill2.draw(620,360)
+        if character==0:
+            reimuSkill2.draw(620, 360)
+        if character == 1:
+            marisaSkill2.draw(620, 360)
+        if character==2:
+            ikuSkill2.draw(620,360)
+        if character==3:
+            tenshiSkill2.draw(620,360)
     if mouse_x > 275 and mouse_x < 325 and mouse_y > 365 and mouse_y < 435:
-        ikuSkill3.draw(620,360)
+        if character==0:
+            reimuSkill3.draw(620, 360)
+        if character == 1:
+            marisaSkill3.draw(620, 360)
+        if character==2:
+            ikuSkill3.draw(620,360)
+        if character==3:
+            tenshiSkill3.draw(620,360)
+    if mouse_x > 375 and mouse_x < 425 and mouse_y > 365 and mouse_y < 435:
 
+        if character == 0:
+            reimuLast.draw(620, 360)
+        if character == 1:
+            marisaLast.draw(620, 360)
+        if character == 2:
+            ikuLast.draw(620, 360)
+        if character == 3:
+            tenshiLast.draw(620, 360)
+
+    if mouse_x > 125 and mouse_x < 175 and mouse_y > 165 and mouse_y < 235:
+        commonItem1.draw(620,360)
+    if mouse_x > 225 and mouse_x < 275 and mouse_y > 165 and mouse_y < 235:
+        commonItem2.draw(620,360)
+    if mouse_x > 325 and mouse_x < 375 and mouse_y > 165 and mouse_y < 235:
+        commonItem3.draw(620,360)
     next.draw(700,500)
     for Deck1 in range(0,Deckcheak1):
         if character == 0:
