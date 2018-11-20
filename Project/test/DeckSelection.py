@@ -33,7 +33,7 @@ common2cheak=0
 common3cheak=0
 def enter():
     global iku,reimu,tenshi,marisa,character,Enemycharacter
-    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,ikuSkill1
+    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,ikuSkill1,ikuSkill2,ikuSkill3
     global next
     reimu= load_image('Reimu-Deck.png')
     reimuDeck= load_image('RimuSpellCard.png')
@@ -42,6 +42,8 @@ def enter():
     iku = load_image('Iku-Deck.png')
     ikuDeck= load_image('IkuSpellCard.png')
     ikuSkill1 = load_image('Iku-Skill1-Dic.png')
+    ikuSkill2 = load_image('Iku-Skill2-Dic.png')
+    ikuSkill3 = load_image('Iku-Skill3-Dic.png')
     tenshi = load_image('Tensi-Deck.png')
     tenshiDeck= load_image('TenshiSpellCard.png')
     next=load_image('Deck_Next.png')
@@ -117,7 +119,7 @@ def handle_events():
 
 
 def draw():
-    global Deck1,Deck2,Deckcheak1,Deckcheak2,ikuSkill1,mouse_x,mouse_y
+    global Deck1,Deck2,Deckcheak1,Deckcheak2,ikuSkill1,mouse_x,mouse_y,ikuSkill2,ikuSkill3
     Deck1 = 0
     clear_canvas()
 
@@ -150,6 +152,10 @@ def draw():
             commonDeck.clip_draw(45*C, 0, 45, 65, 50+100*(C+1), 200)
     if mouse_x > 75 and mouse_x < 125 and mouse_y > 365 and mouse_y < 435:
         ikuSkill1.draw(620,360)
+    if mouse_x > 175 and mouse_x < 225 and mouse_y > 365 and mouse_y < 435:
+        ikuSkill2.draw(620,360)
+    if mouse_x > 275 and mouse_x < 325 and mouse_y > 365 and mouse_y < 435:
+        ikuSkill3.draw(620,360)
 
     next.draw(700,500)
     for Deck1 in range(0,Deckcheak1):
