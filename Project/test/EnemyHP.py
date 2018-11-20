@@ -10,6 +10,12 @@ attack3=3
 attack4=4
 damage = 0
 Damagecheak=0
+#speed
+PIXEL_PER_METER=(10.0/0.3)
+Damage_SPEED_KMPH = 0.1
+Damage_SPEED_MPM = (Damage_SPEED_KMPH*1000.0/60.0)
+Damage_SPEED_MPS=(Damage_SPEED_MPM/60.0)
+Damage_SPEED_PPS=(Damage_SPEED_MPS*PIXEL_PER_METER)
 class Enemy_HP:
     def __init__(self):
 
@@ -26,8 +32,8 @@ class Enemy_HP:
         Damagecheak =iku.skillcheak
         if iku.HPcheak==1:
             if damage < self.Power:
-                damage +=0.1
-            if damage == self.Power:
+                damage +=Damage_SPEED_PPS
+            if int(damage) == self.Power:
                 iku.HPcheak=0
 
 
