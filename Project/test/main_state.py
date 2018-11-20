@@ -45,58 +45,34 @@ def enter():
     global iku_skill1_effect
     Player = DeckSelection.character
     EnemyPlayer=DeckSelection.Enemycharacter
-    iku_skill1_effect = IKU_Skill1()
-    game_world.add_object(iku_skill1_effect, 2)
-    if turn == 1:
-        if EnemyPlayer == 0:
-            Enemy_marisa = Enemy_Marisa()
-            game_world.add_object(Enemy_marisa, 1)
-        elif EnemyPlayer == 1:
-            Enemy_reimu = Enemy_Reimu()
-            game_world.add_object(Enemy_reimu, 1)
-        elif EnemyPlayer == 2:
-            Enemy_iku = Enemy_Iku()
-            game_world.add_object(Enemy_iku, 1)
-        elif EnemyPlayer == 3:
-            Enemy_tenshi = Enemy_Tenshi()
-            game_world.add_object(Enemy_tenshi, 1)
-        if Player == 0:
-            reimu = Reimu()
-            game_world.add_object(reimu, 1)
-        elif Player == 1:
-            marisa = Marisa()
-            game_world.add_object(marisa, 1)
-        elif Player == 2:
-            iku = Iku()
-            game_world.add_object(iku, 1)
-        elif Player == 3:
-            tenshi = Tenshi()
-            game_world.add_object(tenshi, 1)
-    elif turn== -1:
-        if Player==0:
-            reimu = Reimu()
-            game_world.add_object(reimu, 1)
-        elif Player==1:
-            marisa = Marisa()
-            game_world.add_object(marisa, 1)
-        elif Player==2:
-            iku = Iku()
-            game_world.add_object(iku, 1)
-        elif Player == 3:
-            tenshi = Tenshi()
-            game_world.add_object(tenshi, 1)
-        if EnemyPlayer==0:
-            Enemy_marisa=Enemy_Marisa()
-            game_world.add_object(Enemy_marisa, 1)
-        elif EnemyPlayer==1:
-            Enemy_reimu = Enemy_Reimu()
-            game_world.add_object(Enemy_reimu, 1)
-        elif EnemyPlayer==2:
-            Enemy_iku=Enemy_Iku()
-            game_world.add_object(Enemy_iku, 1)
-        elif EnemyPlayer == 3:
-            Enemy_tenshi=Enemy_Tenshi()
-            game_world.add_object(Enemy_tenshi, 1)
+
+
+    if EnemyPlayer == 0:
+        Enemy_marisa = Enemy_Marisa()
+        game_world.add_object(Enemy_marisa, 1)
+    elif EnemyPlayer == 1:
+        Enemy_reimu = Enemy_Reimu()
+        game_world.add_object(Enemy_reimu, 1)
+    elif EnemyPlayer == 2:
+        Enemy_iku = Enemy_Iku()
+        game_world.add_object(Enemy_iku, 1)
+    elif EnemyPlayer == 3:
+        Enemy_tenshi = Enemy_Tenshi()
+        game_world.add_object(Enemy_tenshi, 1)
+    if Player == 0:
+        reimu = Reimu()
+        game_world.add_object(reimu, 1)
+    elif Player == 1:
+        marisa = Marisa()
+        game_world.add_object(marisa, 1)
+    elif Player == 2:
+        iku = Iku()
+        game_world.add_object(iku, 1)
+        iku_skill1_effect = IKU_Skill1()
+        game_world.add_object(iku_skill1_effect, 2)
+    elif Player == 3:
+        tenshi = Tenshi()
+        game_world.add_object(tenshi, 1)
     background = BackGround()
     PlayerHP=Player_HP()
     EnemyHP=Enemy_HP()
@@ -126,9 +102,6 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            turn = turn * -1
-            turncheak=1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
@@ -172,66 +145,6 @@ def update():
 
     for game_objcet in game_world.all_objects():
         game_objcet.update()
-        if(turncheak==1):
-            game_world.remove_object(reimu)
-            game_world.remove_object(marisa)
-            game_world.remove_object(iku)
-            game_world.remove_object(tenshi)
-            game_world.remove_object(Enemy_reimu)
-            game_world.remove_object(Enemy_marisa)
-            game_world.remove_object(Enemy_iku)
-            game_world.remove_object(Enemy_tenshi)
-            if turn == 1:
-                if EnemyPlayer == 0:
-                    Enemy_marisa = Enemy_Marisa()
-                    game_world.add_object(Enemy_marisa, 1)
-                elif EnemyPlayer == 1:
-                    Enemy_reimu = Enemy_Reimu()
-                    game_world.add_object(Enemy_reimu, 1)
-                elif EnemyPlayer == 2:
-                    Enemy_iku = Enemy_Iku()
-                    game_world.add_object(Enemy_iku, 1)
-                elif EnemyPlayer == 3:
-                    Enemy_tenshi = Enemy_Tenshi()
-                    game_world.add_object(Enemy_tenshi, 1)
-                if Player == 0:
-                    reimu = Reimu()
-                    game_world.add_object(reimu, 1)
-                elif Player == 1:
-                    marisa = Marisa()
-                    game_world.add_object(marisa, 1)
-                elif Player == 2:
-                    iku = Iku()
-                    game_world.add_object(iku, 1)
-                elif Player == 3:
-                    tenshi = Tenshi()
-                    game_world.add_object(tenshi, 1)
-            elif turn == -1:
-                if Player == 0:
-                    reimu = Reimu()
-                    game_world.add_object(reimu, 1)
-                elif Player == 1:
-                    marisa = Marisa()
-                    game_world.add_object(marisa, 1)
-                elif Player == 2:
-                    iku = Iku()
-                    game_world.add_object(iku, 1)
-                elif Player == 3:
-                    tenshi = Tenshi()
-                    game_world.add_object(tenshi, 1)
-                if EnemyPlayer == 0:
-                    Enemy_marisa = Enemy_Marisa()
-                    game_world.add_object(Enemy_marisa, 1)
-                elif EnemyPlayer == 1:
-                    Enemy_reimu = Enemy_Reimu()
-                    game_world.add_object(Enemy_reimu, 1)
-                elif EnemyPlayer == 2:
-                    Enemy_iku = Enemy_Iku()
-                    game_world.add_object(Enemy_iku, 1)
-                elif EnemyPlayer == 3:
-                    Enemy_tenshi = Enemy_Tenshi()
-                    game_world.add_object(Enemy_tenshi, 1)
-            turncheak=0
 
 
 

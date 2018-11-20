@@ -87,7 +87,7 @@ class IKU_Skill1:
 
 
     def draw(self):
-        if iku.skillstart==1:
+        if iku.skillstart==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_x,self.Line_y)
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_x+200,self.Line_y)
             draw_rectangle(*self.get_bb())

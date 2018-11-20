@@ -66,7 +66,9 @@ turn =None
 HP=0
 HPcheak=0
 mouse_x,mouse_y=0,0
-skillstart=0
+skillstart=False
+AtkBuff=1
+DefBuff=1
 class StandState:
 
     @staticmethod
@@ -113,8 +115,7 @@ class Skill1State:
     @staticmethod
     def exit(iku, event):
         pass
-        #if event ==SPACE:
-        #    boy.fire_ball()
+
     @staticmethod
     def do(iku):
         global HP,HPcheak,skillcheak,skillstart
@@ -122,10 +123,8 @@ class Skill1State:
             iku.frame1 = (iku.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
-            #iku.S1frame = (iku.S1frame +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
-            #iku.Skill1Eframe1 = (iku.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
             skillcheak=1
-            skillstart=1
+            skillstart=True
 
         if int(iku.skill1cheak)>20:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
@@ -134,7 +133,7 @@ class Skill1State:
         if int(iku.skill1cheak)>=22:
             skillcheak=0
             iku.add_event(Stand)
-            skillstart=0
+            skillstart=False
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -142,9 +141,7 @@ class Skill1State:
     def draw(iku):
         if iku.motion == 1:
             iku.skill1.clip_draw(iku.Skill1frame1[int(iku.frame1)], 145, iku.Skill1frame2[int(iku.frame2)], 145, iku.x, iku.y)
-            #if int(iku.skill1cheak) >= 8 and int(iku.skill1cheak) < 20:
-                #iku.S1effect.clip_draw(0, int(iku.S1frame) * 52, 360, 52, iku.x + 200, iku.y + 10)
-               # iku.S1effect2.clip_draw(int(iku.Skill1Eframe1) * 65, 0, 68, 60,600-10, iku.y + 10)
+
 
 class Skill2State:
     @staticmethod
@@ -447,7 +444,7 @@ class Iku:
 
 
     def handle_event(self, event):
-        global cheak1,HP,mouse_x,mouse_y
+        global cheak1,HP,mouse_x,mouse_y,AtkBuff,DefBuff
         if event.type == SDL_MOUSEMOTION:
             mouse_x, mouse_y=event.x, 600- event.y
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT): ##스킬키 체크
@@ -456,7 +453,7 @@ class Iku:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
-                        HP +=20
+                        HP +=20*AtkBuff*DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
                         self.add_event(Skill3)
@@ -466,7 +463,7 @@ class Iku:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
-                        HP +=20
+                        HP +=20*AtkBuff*DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
                         self.add_event(Skill3)
@@ -476,7 +473,7 @@ class Iku:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
-                        HP +=20
+                        HP +=20*AtkBuff*DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
                         self.add_event(Skill3)
