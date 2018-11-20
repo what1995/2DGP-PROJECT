@@ -27,6 +27,8 @@ class Enemy_HP:
         if iku.HPcheak==1:
             if damage < self.Power:
                 damage +=0.1
+            if damage == self.Power:
+                iku.HPcheak=0
 
 
     def draw(self):

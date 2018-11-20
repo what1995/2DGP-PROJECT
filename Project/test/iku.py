@@ -124,6 +124,7 @@ class Skill1State:
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
             skillcheak=1
+            HPcheak = 1
             skillstart=True
 
         if int(iku.skill1cheak)>20:
@@ -182,7 +183,6 @@ class Skill2State:
         iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
         if int(iku.skill2cheak) >= 19:
             skillcheak=0
-            HPcheak=0
             iku.skill2cheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
@@ -222,14 +222,9 @@ class Skill3State:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                 iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
             if int(iku.skill3cheak) >= 5:
-
                 iku.S3frame = (iku.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
-                if int(iku.skill3cheak) == 12:
-                    # HP=10
-                    HPcheak = 3
-                if int(iku.skill3cheak) == 13:
-                    # HP=10
-                    HPcheak = 0
+                if int(iku.skill3cheak) >= 7:
+                    HPcheak=1
                 if int(iku.skill3cheak) > 17:
                     iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                     iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -285,13 +280,7 @@ class Laststate:
                 iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
                 iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
-                if int(iku.lastcheak) == 10:
-                    # HP=10
-                    HPcheak = 4
-                if int(iku.lastcheak) > 10:
-                    # HP=10
-                    HPcheak = 0
-
+                HPcheak = 1
             if int(iku.lastcheak) >= 16:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -451,33 +440,42 @@ class Iku:
             if main_state.turn==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
+                        HP += 20 * AtkBuff * DefBuff
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
-                        HP +=20*AtkBuff*DefBuff
+                        HP += 30*AtkBuff*DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
+                        HP += 40 * AtkBuff * DefBuff
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
+                        HP += 50 * AtkBuff * DefBuff
                         self.add_event(Last)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
+                        HP += 20 * AtkBuff * DefBuff
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
-                        HP +=20*AtkBuff*DefBuff
+                        HP += 30 * AtkBuff * DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
+                        HP += 40 * AtkBuff * DefBuff
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
+                        HP += 50 * AtkBuff * DefBuff
                         self.add_event(Last)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
+                        HP += 20 * AtkBuff * DefBuff
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
-                        HP +=20*AtkBuff*DefBuff
+                        HP += 30 * AtkBuff * DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
+                        HP += 40 * AtkBuff * DefBuff
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
+                        HP += 50 * AtkBuff * DefBuff
                         self.add_event(Last)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
