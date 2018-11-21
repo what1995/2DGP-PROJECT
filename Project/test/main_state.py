@@ -40,6 +40,8 @@ deck=None
 turn = 1
 skillcheak=0
 iku_skill1_effect=None
+Player_AtkBuff=1
+Player_DefBuff=1
 def enter():
     global iku, background, Player,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
     global iku_skill1_effect
