@@ -46,28 +46,8 @@ MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
-cheak1 = 0
-skillcheak=0
-# iku Event
-Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
-
-key_event_table = {
-(SDL_MOUSEBUTTONDOWN, 1): Skill1,
-    (SDL_MOUSEBUTTONDOWN, 2): Skill2,
-    (SDL_MOUSEBUTTONDOWN, 3): Skill3,
-    (SDL_MOUSEBUTTONDOWN, 4): Last,
-(SDL_KEYDOWN, SDLK_z): Damage,
-(SDL_KEYDOWN, SDLK_x): Down
-}
 
 name = 'ikuskill'
-# Iku States
-turn =None
-HP=0
-HPcheak=0
-mouse_x,mouse_y=0,0
-
-
 class IKU_Skill1:
 
 
