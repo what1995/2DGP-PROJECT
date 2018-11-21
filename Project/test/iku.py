@@ -122,7 +122,7 @@ class Skill1State:
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
             skillcheak=1
             main_state.HPcheak = 1
-            skillstart=True
+            main_state.Skill1_Start=True
 
         if int(iku.skill1cheak)>20:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
@@ -131,7 +131,7 @@ class Skill1State:
         if int(iku.skill1cheak)>=22:
             skillcheak=0
             iku.add_event(Stand)
-            skillstart=False
+            main_state.Skill1_Start=False
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -385,8 +385,6 @@ class Iku:
         self.stand = load_image('Iku-Standing-Motion.png')
 
         self.skill1 = load_image('IkuSkill1-Motion.png')
-        self.S1effect = load_image('IkuSkill1-1.png')
-        self.S1effect2 = load_image('IkuSkill1-2.png')
 
         self.skill2 = load_image('IkuSkill2-Motion.png')
         self.S2effect = load_image('IkuSkill2-1.png')

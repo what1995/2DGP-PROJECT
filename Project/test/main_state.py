@@ -43,6 +43,7 @@ Player_AtkBuff=1
 Player_DefBuff=1
 HPcheak=0
 HP=0
+Skill1_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
     global iku_skill1_effect

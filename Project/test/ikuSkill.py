@@ -69,38 +69,39 @@ mouse_x,mouse_y=0,0
 
 
 class IKU_Skill1:
-    effect_Line = None
-    effect_Ball=None
+
 
     def __init__(self):
-        if IKU_Skill1.effect_Line ==None:
-            IKU_Skill1.effect_Line = load_image('IkuSkill1-1.png')
-        if IKU_Skill1.effect_Ball ==None:
-            IKU_Skill1.effect_Ball = load_image('IkuSkill1-2.png')
+        self.effect_Line = None
+        self.effect_Ball = None
+        if self.effect_Line ==None:
+            self.effect_Line = load_image('IkuSkill1-1.png')
+        if self.effect_Ball ==None:
+            self.effect_Ball = load_image('IkuSkill1-2.png')
 
         self.Line_Px, self.Line_Py = 400, 210
         self.Ball_Px, self.Ball_Py = 600-10, 210
-        self.Line_Ex, self.Line_Ey = 400, 210
+        self.Line_Ex, self.Line_Ey = 390, 210
         self.Ball_Ex, self.Ball_Ey = 200 + 10, 210
         self.Line_frame = 0
         self.Ball_frame =0
     def get_bb(self):
         if main_state.turn == 1:
-            return self.Ball_Px-10,self.Ball_Py-25,self.Ball_Px+40,self.Ball_Py+25
+            return self.Ball_Px-20,self.Ball_Py-25,self.Ball_Px+30,self.Ball_Py+25
         if main_state.turn == -1:
-            return self.Ball_Px-10,self.Ball_Py-25,self.Ball_Px+40,self.Ball_Py+25
+            return self.Ball_Ex-20,self.Ball_Ey-25,self.Ball_Ex+30,self.Ball_Ey+25
 
 
     def draw(self):
-        if main_state.turn==1 and iku.skillstart==True:
+        if main_state.turn== 1 and main_state.Skill1_Start==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
-            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_Px+200,self.Line_Py)
+            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Px,self.Ball_Py)
             draw_rectangle(*self.get_bb())
-        if main_state.turn== -1 and iku.skillstart==True:
-            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
-            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_Px+200,self.Line_Py)
+        if main_state.turn== -1 and main_state.Skill1_Start==True:
+            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Ex,self.Line_Ey)
+            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Ex,self.Ball_Ey)
             draw_rectangle(*self.get_bb())
     def update(self):
-        if iku.skillstart == 1:
+        if main_state.Skill1_Start == True:
             self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
