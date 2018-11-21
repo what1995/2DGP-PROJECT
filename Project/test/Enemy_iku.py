@@ -84,6 +84,7 @@ class StandState:
         if int(EnemyHP.damage) >252:
             iku.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
+            iku.skill1_sound.play()
             iku.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
             iku.add_event(Skill2)
@@ -403,7 +404,8 @@ class Enemy_Iku:
         self.Damage = load_image('IkuDamage-Motion.png')
 
         self.Down = load_image('Iku-Down-Motion.png')
-
+        self.skill1_sound = load_wav('iku-skill1.wav')
+        self.skill1_sound.set_volume(50)
         self.dir = 1
         self.motion = 0
         self.frame = 0
@@ -438,6 +440,5 @@ class Enemy_Iku:
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
-        elif(iku.HP==10):
-            self.add_event(Damage)
+
 

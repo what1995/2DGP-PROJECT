@@ -399,6 +399,8 @@ class Iku:
         self.Damage = load_image('IkuDamage-Motion.png')
 
         self.Down = load_image('Iku-Down-Motion.png')
+        self.skill1_sound = load_wav('iku-skill1.wav')
+        self.skill1_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0
@@ -436,6 +438,7 @@ class Iku:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -449,6 +452,7 @@ class Iku:
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
                         main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -462,6 +466,7 @@ class Iku:
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
                         main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
