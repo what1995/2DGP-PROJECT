@@ -22,6 +22,7 @@ from Enemy_reimu import Enemy_Reimu
 from Enemy_tenshi import Enemy_Tenshi
 from Enemy_iku import Enemy_Iku
 from Deck import PlayDeck
+from backgroundmusic import BG_Music
 #from ikuSkill import IKU_Skill1
 
 name = "MainState"
@@ -36,6 +37,7 @@ Enemy_tenshi=None
 Enemy_iku=None
 EnemyPlayer=None
 deck=None
+Bg_Music=None
 turn = 1
 skillcheak=0
 iku_skill1_effect=None
@@ -46,8 +48,10 @@ HP=0
 Skill1_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
-    global iku_skill1_effect
+    global iku_skill1_effect, Bg_Music
     EnemyPlayer=DeckSelection.Enemycharacter
+    Bg_Music =BG_Music()
+    game_world.add_object(Bg_Music, 0)
 
 
     if EnemyPlayer == 0:
@@ -100,7 +104,7 @@ def resume():
 
 def handle_events():
     global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global skillcheak,iku_skill1_effect
+    global skillcheak,iku_skill1_effect,Bg_Music
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -121,6 +125,7 @@ def handle_events():
                 game_world.remove_object(PlayerHP)
                 game_world.remove_object(EnemyHP)
                 game_world.remove_object(deck)
+                Bg_Music.bgm.stop()
                 game_framework.push_state(DeckSelection)
 
         else:

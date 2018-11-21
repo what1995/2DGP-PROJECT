@@ -1,19 +1,16 @@
 from pico2d import *
 import os
 import BackgroundSelection
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage\\Background')
+os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 class BackGround:
     def __init__(self):
         self.Shrine = load_image('Hakurei Shrine.png')
         self.clock = load_image('clock tower.png')
         self.bamboo = load_image('bamboo.png')
         self.center =load_image('center.png')
-        self.bgm_shrine = load_music('shrine.mp3')
-        #self.bgm_shrine.set_volume(50)
 
     def update(self):
-        #if BackgroundSelection.BGcheak == 1:
-            #self.bgm_shrine.repeat_play()
+
         pass
 
     def draw(self):
