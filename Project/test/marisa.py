@@ -395,12 +395,16 @@ class Marisa:
             if main_state.turn==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
+                        HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
+                        HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
+                        HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
+                        HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.add_event(Last)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
