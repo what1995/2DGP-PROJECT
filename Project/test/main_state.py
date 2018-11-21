@@ -8,6 +8,7 @@ import game_framework
 import DeckSelection
 import Deck
 import iku
+import ikuSkill
 import game_world
 from iku import Iku
 from reimu import Reimu
@@ -21,7 +22,7 @@ from Enemy_reimu import Enemy_Reimu
 from Enemy_tenshi import Enemy_Tenshi
 from Enemy_iku import Enemy_Iku
 from Deck import PlayDeck
-from ikuSkill import IKU_Skill1
+#from ikuSkill import IKU_Skill1
 
 name = "MainState"
 turncheak=0
@@ -33,7 +34,6 @@ Enemy_marisa=None
 Enemy_reimu =None
 Enemy_tenshi=None
 Enemy_iku=None
-Player = None
 EnemyPlayer=None
 deck=None
 turn = 1
@@ -44,9 +44,8 @@ Player_DefBuff=1
 HPcheak=0
 HP=0
 def enter():
-    global iku, background, Player,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
+    global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
     global iku_skill1_effect
-    Player = DeckSelection.character
     EnemyPlayer=DeckSelection.Enemycharacter
 
 
@@ -62,18 +61,18 @@ def enter():
     elif EnemyPlayer == 3:
         Enemy_tenshi = Enemy_Tenshi()
         game_world.add_object(Enemy_tenshi, 1)
-    if Player == 0:
+    if DeckSelection.character == 0:
         reimu = Reimu()
         game_world.add_object(reimu, 1)
-    elif Player == 1:
+    elif DeckSelection.character == 1:
         marisa = Marisa()
         game_world.add_object(marisa, 1)
-    elif Player == 2:
+    elif DeckSelection.character == 2:
         iku = Iku()
         game_world.add_object(iku, 1)
-        iku_skill1_effect = IKU_Skill1()
+        iku_skill1_effect = ikuSkill.IKU_Skill1()
         game_world.add_object(iku_skill1_effect, 2)
-    elif Player == 3:
+    elif DeckSelection.character == 3:
         tenshi = Tenshi()
         game_world.add_object(tenshi, 1)
     background = BackGround()
@@ -99,7 +98,7 @@ def resume():
 
 
 def handle_events():
-    global iku, background, Player, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
+    global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
     global skillcheak,iku_skill1_effect
     events = get_events()
     for event in events:
@@ -124,13 +123,13 @@ def handle_events():
                 game_framework.push_state(DeckSelection)
 
         else:
-            if Player == 0 and turn ==1:
+            if DeckSelection.character == 0 and turn ==1:
                 reimu.handle_event(event)
-            if Player == 1and turn ==1:
+            if DeckSelection.character == 1and turn ==1:
                 marisa.handle_event(event)
-            if Player == 2and turn ==1:
+            if DeckSelection.character == 2and turn ==1:
                 iku.handle_event(event)
-            if Player == 3and turn ==1:
+            if DeckSelection.character == 3and turn ==1:
                 tenshi.handle_event(event)
             if EnemyPlayer==0and turn ==-1:
                 Enemy_marisa.handle_event(event)

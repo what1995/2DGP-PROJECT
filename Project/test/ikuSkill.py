@@ -78,18 +78,27 @@ class IKU_Skill1:
         if IKU_Skill1.effect_Ball ==None:
             IKU_Skill1.effect_Ball = load_image('IkuSkill1-2.png')
 
-        self.Line_x, self.Line_y = 400, 210
-        self.Ball_x, self.Ball_y = 600-10, 210
+        self.Line_Px, self.Line_Py = 400, 210
+        self.Ball_Px, self.Ball_Py = 600-10, 210
+        self.Line_Ex, self.Line_Ey = 400, 210
+        self.Ball_Ex, self.Ball_Ey = 200 + 10, 210
         self.Line_frame = 0
         self.Ball_frame =0
     def get_bb(self):
-        return self.Ball_x-10,self.Ball_y-25,self.Ball_x+40,self.Ball_y+25
+        if main_state.turn == 1:
+            return self.Ball_Px-10,self.Ball_Py-25,self.Ball_Px+40,self.Ball_Py+25
+        if main_state.turn == -1:
+            return self.Ball_Px-10,self.Ball_Py-25,self.Ball_Px+40,self.Ball_Py+25
 
 
     def draw(self):
-        if iku.skillstart==True:
-            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_x,self.Line_y)
-            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_x+200,self.Line_y)
+        if main_state.turn==1 and iku.skillstart==True:
+            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
+            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_Px+200,self.Line_Py)
+            draw_rectangle(*self.get_bb())
+        if main_state.turn== -1 and iku.skillstart==True:
+            self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
+            self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Line_Px+200,self.Line_Py)
             draw_rectangle(*self.get_bb())
     def update(self):
         if iku.skillstart == 1:
