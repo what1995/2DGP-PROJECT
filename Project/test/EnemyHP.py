@@ -1,6 +1,6 @@
 from pico2d import *
 import os
-
+import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import iku
 
@@ -27,14 +27,13 @@ class Enemy_HP:
         self.HP = load_image('HP-HP.png')
 
     def update(self):
-        global attack1, attack2, attack3, attack4,damage,Damagecheak
-        self.Power = iku.HP
-        Damagecheak =iku.skillcheak
-        if iku.HPcheak==1:
+        global attack1, attack2, attack3, attack4,damage
+        self.Power = main_state.HP
+        if main_state.HPcheak==1:
             if damage < self.Power:
                 damage +=Damage_SPEED_PPS
-            if int(damage) == self.Power:
-                iku.HPcheak=0
+            if int(damage) == int(self.Power):
+                main_state.HPcheak=0
 
 
     def draw(self):

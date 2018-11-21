@@ -29,7 +29,6 @@ iku = None
 reimu=None
 tenshi=None
 marisa=None
-grass = None
 Enemy_marisa=None
 Enemy_reimu =None
 Enemy_tenshi=None
@@ -42,6 +41,8 @@ skillcheak=0
 iku_skill1_effect=None
 Player_AtkBuff=1
 Player_DefBuff=1
+HPcheak=0
+HP=0
 def enter():
     global iku, background, Player,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
     global iku_skill1_effect
