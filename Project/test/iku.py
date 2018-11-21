@@ -399,7 +399,7 @@ class Iku:
         self.Damage = load_image('IkuDamage-Motion.png')
 
         self.Down = load_image('Iku-Down-Motion.png')
-        self.skill1_sound = load_wav('iku-skill1.wav')
+        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill1.wav')
         self.skill1_sound.set_volume(50)
 
         self.dir = 1
