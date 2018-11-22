@@ -82,6 +82,7 @@ class StandState:
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         if int(EnemyHP.damage) >252:
+            iku.down_sound.play()
             iku.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             iku.skill1_sound.play()
@@ -384,6 +385,10 @@ class Enemy_Iku:
         self.skill3_sound.set_volume(50)
         self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-Last.wav')
         self.last_sound.set_volume(50)
+        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-damage.wav')
+        self.damage_sound.set_volume(50)
+        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-down.wav')
+        self.down_sound.set_volume(50)
         self.dir = 1
         self.motion = 0
         self.frame = 0
