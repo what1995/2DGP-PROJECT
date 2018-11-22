@@ -74,8 +74,7 @@ def draw():
 
 
 def update():
-    global character,Enemycharacter
-    Enemycharacter = random.randint(0, 3)
+    pass
 
 
 def pause():

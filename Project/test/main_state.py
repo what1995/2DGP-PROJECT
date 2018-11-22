@@ -9,6 +9,7 @@ import DeckSelection
 import Deck
 import ikuSkill
 import marisaSkill
+import reimuSkill
 import game_world
 from iku import Iku
 from reimu import Reimu
@@ -74,6 +75,8 @@ def enter():
         game_world.add_object(Enemy_marisa, 1)
     elif EnemyPlayer == 1:
         Enemy_reimu = Enemy_Reimu()
+        enemy_reimu_skill1_effect = reimuSkill.REIMU_Skill1()
+        game_world.add_object(enemy_reimu_skill1_effect, 2)
         game_world.add_object(Enemy_reimu, 1)
     elif EnemyPlayer == 2:
         Enemy_iku = Enemy_Iku()
@@ -85,6 +88,8 @@ def enter():
         game_world.add_object(Enemy_tenshi, 1)
     if DeckSelection.character == 0:
         reimu = Reimu()
+        reimu_skill1_effect = reimuSkill.REIMU_Skill1()
+        game_world.add_object(reimu_skill1_effect, 2)
         game_world.add_object(reimu, 1)
     elif DeckSelection.character == 1:
         marisa = Marisa()

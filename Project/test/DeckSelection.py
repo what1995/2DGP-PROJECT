@@ -235,7 +235,7 @@ def draw():
 
 def update():
     global character,Enemycharacter
-    Enemycharacter = 0    #random.randint(0, 3)
+    Enemycharacter = 1    #random.randint(0, 3)
 
 
 def pause():
