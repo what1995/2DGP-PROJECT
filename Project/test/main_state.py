@@ -7,8 +7,8 @@ from pico2d import *
 import game_framework
 import DeckSelection
 import Deck
-import iku
 import ikuSkill
+import marisaSkill
 import game_world
 from iku import Iku
 from reimu import Reimu
@@ -40,7 +40,16 @@ deck=None
 Bg_Music=None
 turn = 1
 skillcheak=0
+reimu_skill1_effect=None
+marisa_skill1_effect=None
 iku_skill1_effect=None
+tenshi_skill1_effect=None
+
+enemy_reimu_skill1_effect=None
+enemy_marisa_skill1_effect=None
+enemy_iku_skill1_effect=None
+enemy_tenshi_skill1_effect=None
+
 Player_AtkBuff=1
 Player_DefBuff=1
 HPcheak=0
@@ -51,7 +60,8 @@ Skill3_Start= False
 Last_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
-    global iku_skill1_effect, Bg_Music
+    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music
+    global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
@@ -59,12 +69,16 @@ def enter():
 
     if EnemyPlayer == 0:
         Enemy_marisa = Enemy_Marisa()
+        enemy_marisa_skill1_effect= marisaSkill.MARISA_Skill1()
+        game_world.add_object(enemy_marisa_skill1_effect, 2)
         game_world.add_object(Enemy_marisa, 1)
     elif EnemyPlayer == 1:
         Enemy_reimu = Enemy_Reimu()
         game_world.add_object(Enemy_reimu, 1)
     elif EnemyPlayer == 2:
         Enemy_iku = Enemy_Iku()
+        enemy_iku_skill1_effect=ikuSkill.IKU_Skill1()
+        game_world.add_object(enemy_iku_skill1_effect, 2)
         game_world.add_object(Enemy_iku, 1)
     elif EnemyPlayer == 3:
         Enemy_tenshi = Enemy_Tenshi()
@@ -74,6 +88,8 @@ def enter():
         game_world.add_object(reimu, 1)
     elif DeckSelection.character == 1:
         marisa = Marisa()
+        marisa_skill1_effect=marisaSkill.MARISA_Skill1()
+        game_world.add_object(marisa_skill1_effect, 2)
         game_world.add_object(marisa, 1)
     elif DeckSelection.character == 2:
         iku = Iku()
