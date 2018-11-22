@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import main_state
+import DeckSelection
 import marisa
 import Enemy_marisa
 import EnemyHP
@@ -85,25 +86,25 @@ class MARISA_Skill1:
 
 
     def draw(self):
-        if main_state.turn== 1 and main_state.Skill1_Start==True:
+        if DeckSelection.character==1 and main_state.turn== 1 and main_state.Skill1_Start==True:
             self.effect_Boom.clip_draw(int(self.Boom_frame) * 260, 0, 260, 505, self.Boom_Px, 200+150)
-        if main_state.turn== -1 and main_state.Skill1_Start==True:
+        if main_state.EnemyPlayer==1 and main_state.turn== -1 and main_state.Skill1_Start==True:
             self.effect_Boom.clip_draw(int(self.Boom_frame) * 260, 0, 260, 505,self.Boom_Ex, 200+150)
-        if main_state.turn ==1 and main_state.Skill2_Start ==True:
+        if DeckSelection.character==1 and main_state.turn ==1 and main_state.Skill2_Start ==True:
             self.effect_Balls.clip_draw(0, 125, 132, 125, 200 + self.Balls_First, 200)
             self.effect_Balls.clip_draw(132, 125, 132, 125, 200 + self.Balls_Second, 200)
             self.effect_Balls.clip_draw(264, 125, 132, 125, 200 + self.Balls_Third,200)
-        if main_state.turn == -1 and main_state.Skill2_Start ==True:
+        if main_state.EnemyPlayer==1 and main_state.turn == -1 and main_state.Skill2_Start ==True:
             self.effect_Balls.clip_draw(0, 125, 132, 125, 600 - self.Balls_First, 200)
             self.effect_Balls.clip_draw(132, 125, 132, 125, 600 - self.Balls_Second, 200)
             self.effect_Balls.clip_draw(264, 125, 132, 125, 600 - self.Balls_Third, 200)
-        if main_state.turn ==1 and main_state.Skill3_Start ==True:
+        if DeckSelection.character==1 and main_state.turn ==1 and main_state.Skill3_Start ==True:
             self.effect_MagicShot.clip_draw(int(self.MagicShot_frame) * 260, 255, 260, 255, 200 + self.MagicShot_Fly,200 + 25)
-        if main_state.turn == -1 and main_state.Skill3_Start ==True:
+        if main_state.EnemyPlayer==1 and main_state.turn == -1 and main_state.Skill3_Start ==True:
             self.effect_MagicShot.clip_draw(int(self.MagicShot_frame) * 260, 0, 260, 255, 600 - self.MagicShot_Fly,200 + 25)
-        if main_state.turn ==1 and main_state.Last_Start ==True:
+        if DeckSelection.character==1 and main_state.turn ==1 and main_state.Last_Start ==True:
             self.effect_Lazer.clip_draw(int(self.Lazer_frame) * 261, 250, 260, 250, 200 + 405, 200 - 10)
-        if main_state.turn == -1 and main_state.Last_Start ==True:
+        if main_state.EnemyPlayer==1 and main_state.turn == -1 and main_state.Last_Start ==True:
             self.effect_Lazer.clip_draw(int(self.Lazer_frame) * 261, 0, 260, 250, 600 - 405, 200 - 10)
 
     def update(self):

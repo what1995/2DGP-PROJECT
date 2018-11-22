@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import main_state
+import DeckSelection
 import reimu
 import Enemy_reimu
 import EnemyHP
@@ -104,25 +105,25 @@ class REIMU_Skill1:
 
 
     def draw(self):
-        if main_state.turn== 1 and main_state.Skill1_Start==True:
+        if DeckSelection.character==0 and main_state.turn== 1 and main_state.Skill1_Start==True:
             self.effect_charm.clip_draw(int(self.Charm_frame) * 70, 0, 80, 110, 200 + self.Charm_Move, 200 + 10)
-        if main_state.turn== -1 and main_state.Skill1_Start==True:
+        if main_state.EnemyPlayer==0 and main_state.turn== -1 and main_state.Skill1_Start==True:
             self.effect_charm.clip_draw(int(self.Charm_frame) * 70, 0, 80, 110, 600 - self.Charm_Move, 200 + 10)
-        if main_state.turn ==1 and main_state.Skill2_Start ==True:
+        if DeckSelection.character==0 and main_state.turn ==1 and main_state.Skill2_Start ==True:
             self.effect_shelter.clip_draw(int(self.Shelter_frame) * 133, 0, 134, 255, 600, 200 + 60)
-        if main_state.turn == -1 and main_state.Skill2_Start ==True:
+        if main_state.EnemyPlayer==0 and main_state.turn == -1 and main_state.Skill2_Start ==True:
             self.effect_shelter.clip_draw(int(self.Shelter_frame) * 133, 0, 134, 255, 200, 200 + 60)
-        if main_state.turn ==1 and main_state.Skill3_Start ==True:
+        if DeckSelection.character==0 and main_state.turn ==1 and main_state.Skill3_Start ==True:
             self.effect_jade.clip_draw(int(self.Jade_frame) * 117, 0, 117, 100, 200 + self.Jade_Move, 200)
-        if main_state.turn == -1 and main_state.Skill3_Start ==True:
+        if main_state.EnemyPlayer==0 and main_state.turn == -1 and main_state.Skill3_Start ==True:
             self.effect_jade.clip_draw(int(self.Jade_frame) * 117, 0, 117, 100, 600 - self.Jade_Move, 200)
-        if main_state.turn ==1 and main_state.Last_Start ==True:
+        if DeckSelection.character==0 and main_state.turn ==1 and main_state.Last_Start ==True:
             if self.Lastcheak >= 9 and self.Lastcheak<14:
                 self.effect_power_shelter.clip_draw(int(self.Power_Shelter_frame) * 133, 0, 133, 207, 600, 230)
                 self.effect_border.clip_draw(int(self.Border_frame) * 261, 0, 262, 126, 600 - 10, 160)
                 self.effect_explosion.clip_draw(int(self.Explosin_frame) * 133, 0, 133, 126,self.Explosin_PX[int(self.Explosin_X_frame)],self.Explosin_PY[int(self.Explosin_Y_frame)])
 
-        if main_state.turn == -1 and main_state.Last_Start ==True:
+        if main_state.EnemyPlayer==0 and main_state.turn == -1 and main_state.Last_Start ==True:
             if self.Lastcheak >= 9 and self.Lastcheak<14:
                 self.effect_power_shelter.clip_draw(int(self.Power_Shelter_frame) * 133, 0, 133, 207, 200, 230)
                 self.effect_border.clip_draw(int(self.Border_frame) * 261, 0, 262, 126, 200 + 10, 160)

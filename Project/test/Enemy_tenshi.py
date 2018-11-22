@@ -83,8 +83,10 @@ class StandState:
         if EnemyHP.Damagecheak==1:
             tenshi.add_event(Damage)
         if main_state.turn== -1 and ationcheak == 1: #test
+            tenshi.skill1_sound.play()
             tenshi.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
+            tenshi.skill2_sound.play()
             tenshi.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             tenshi.add_event(Skill3)
@@ -104,10 +106,7 @@ class Skill1State:
     def enter(tenshi, event):
         tenshi.frame1 = 0
         tenshi.frame2 = 0
-        tenshi.S1frame = 0
-        tenshi.Skill1Eframe1 = 0
         tenshi.skill1cheak = 0
-        tenshi.Skill1Y = 160
         tenshi.Skill1frame1 = [0,75,143,214,294,379,500,616,695,776,852,929,1006,1076,1146,1210]
         tenshi.Skill1frame2 = [75,67,70,77,82,120,112,73,73,73,71,68,65,63,64]
         tenshi.TenshiS1X = [0, 106, 235, 367, 509, 646, 746, 875]
@@ -126,36 +125,25 @@ class Skill1State:
         if int(tenshi.skill1cheak)<15:
             tenshi.frame1 = (tenshi.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
             tenshi.frame2 = (tenshi.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
-            if int(tenshi.skill1cheak)>7:
-                tenshi.S1frame = (tenshi.S1frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
-                tenshi.Skill1Eframe1 = (tenshi.Skill1Eframe1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
-            if int(tenshi.skill1cheak) > 9:
-                tenshi.Skill1Y -= int(MOTION_SPEED_PPS)*3
+            main_state.Skill1_Start = True
             tenshi.skill1cheak =(tenshi.skill1cheak+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time)%16
         if int(tenshi.skill1cheak)>=15:
             tenshi.skill1cheak=0
-            tenshi.Skill1Y = 160
             tenshi.add_event(Stand)
+            main_state.Skill1_Start = False
             main_state.turn = 1
 
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 1:
             tenshi.skill1.clip_draw(tenshi.Skill1frame1[int(tenshi.frame1)],0,tenshi.Skill1frame2[int(tenshi.frame2)],160, tenshi.x, tenshi.y+30)
-            if int(tenshi.skill1cheak) > 7:
-                tenshi.S1effect.clip_draw(tenshi.TenshiS1X[int(tenshi.S1frame)],0,tenshi.TenshiS1Y[int(tenshi.Skill1Eframe1)],165,200,tenshi.y+tenshi.Skill1Y)
 
 class Skill2State:
     @staticmethod
     def enter(tenshi,event):
         tenshi.frame1 = 0
         tenshi.frame2 = 0
-        tenshi.S2frame = 0
-        tenshi.Skill2Eframe1 = 0
         tenshi.skill2cheak = 0
-        tenshi.TSkill2Px1 = 75
-        tenshi.TSkill2Px2 = 95
-        tenshi.TSkill2Px3 = 65
         tenshi.Skill2frame1 = [0,70,149,228,305,378,448,520,590,664,740,814,888,960,1026,1100]
         tenshi.Skill2frame2 = [70,79,79,77,73,69,68,67,70,69,66,69,66,60,60]
         if event == Skill2:
@@ -167,15 +155,10 @@ class Skill2State:
     @staticmethod
     def do(tenshi):
         if int(tenshi.skill2cheak) < 21:
+            main_state.Skill2_Start = True
             if int(tenshi.skill2cheak) < 10:
                 tenshi.frame1 = (tenshi.frame1 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
                 tenshi.frame2 = (tenshi.frame2 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-            if int(tenshi.skill2cheak) >= 10:
-                tenshi.S2frame = (tenshi.S2frame +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
-                if int(tenshi.skill2cheak) < 21:
-                    tenshi.TSkill2Px1 += int(MOTION_SPEED_PPS)*5
-                    tenshi.TSkill2Px2 += int(MOTION_SPEED_PPS)*5
-                    tenshi.TSkill2Px3 += int(MOTION_SPEED_PPS)*5
                 if int(tenshi.skill2cheak) >= 16:
                     tenshi.frame1 = (tenshi.frame1+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
                     tenshi.frame2 = (tenshi.frame2 +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
@@ -183,6 +166,7 @@ class Skill2State:
         if int(tenshi.skill2cheak) >= 21:
             tenshi.skill2cheak = 0
             tenshi.add_event(Stand)
+            main_state.Skill2_Start = False
             main_state.turn = 1
 
 
@@ -190,10 +174,6 @@ class Skill2State:
     def draw(tenshi):
         if tenshi.motion == 2:
             tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 0, tenshi.Skill2frame2[int(tenshi.frame2)], 115,tenshi.x, tenshi.y)
-            if int(tenshi.skill2cheak) >= 10:
-                tenshi.S2effect.clip_draw(70,int(tenshi.S2frame)*50,70,50,tenshi.x-tenshi.TSkill2Px1,tenshi.y)
-                tenshi.S2effect.clip_draw(70,int(tenshi.S2frame)*50,70,50,tenshi.x-tenshi.TSkill2Px2,tenshi.y+25)
-                tenshi.S2effect.clip_draw(70,int(tenshi.S2frame)*50,70,50,tenshi.x-tenshi.TSkill2Px3,tenshi.y-25)
 
 class Skill3State:
     @staticmethod
@@ -360,10 +340,8 @@ class Enemy_Tenshi:
         self.stand = load_image('TenshiStanding-Motion.png')
 
         self.skill1 = load_image('TenshiSkill1-Motion.png')
-        self.S1effect = load_image('TenshiSkill1.png')
 
         self.skill2 = load_image('TenshiSkill2-Motion.png')
-        self.S2effect = load_image('TenshiSkill2-1.png')
 
         self.skill3 = load_image('TenshiSkill3-Motion.png')
         self.S3effect = load_image('TenshiSkill3.png')
@@ -375,6 +353,14 @@ class Enemy_Tenshi:
         self.Damage = load_image('TenshiDamage-Motion.png')
 
         self.Down = load_image('TenshiDown-Motion.png')
+        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill1.wav')
+        self.skill1_sound.set_volume(50)
+        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill2.wav')
+        self.skill2_sound.set_volume(50)
+        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill3.wav')
+        self.skill3_sound.set_volume(50)
+        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-Last.wav')
+        self.last_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0

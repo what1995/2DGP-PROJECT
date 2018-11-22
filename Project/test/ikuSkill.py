@@ -2,6 +2,7 @@ from pico2d import *
 import os
 import game_framework
 import main_state
+import DeckSelection
 import iku
 import Enemy_iku
 import EnemyHP
@@ -105,28 +106,28 @@ class IKU_Skill1:
 
 
     def draw(self):
-        if main_state.turn== 1 and main_state.Skill1_Start==True:
+        if DeckSelection.character==2 and main_state.turn== 1 and main_state.Skill1_Start==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Px,self.Ball_Py)
             draw_rectangle(*self.get_bb())
-        if main_state.turn== -1 and main_state.Skill1_Start==True:
+        if main_state.EnemyPlayer==2 and main_state.turn== -1 and main_state.Skill1_Start==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Ex,self.Line_Ey)
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Ex,self.Ball_Ey)
             draw_rectangle(*self.get_bb())
-        if main_state.turn ==1 and main_state.Skill2_Start ==True:
+        if DeckSelection.character==2 and main_state.turn ==1 and main_state.Skill2_Start ==True:
             self.drill.clip_draw(int(self.Drill_frame) * 193, 60, 193, 60, self.Drill_Pmove, 200-5)
-        if main_state.turn == -1 and main_state.Skill2_Start ==True:
+        if main_state.EnemyPlayer==2 and main_state.turn == -1 and main_state.Skill2_Start ==True:
             self.drill.clip_draw(int(self.Drill_frame) * 193, 0, 193, 60, self.Drill_Emove, 200-5)
-        if main_state.turn ==1 and main_state.Skill3_Start ==True:
+        if DeckSelection.character==2 and main_state.turn ==1 and main_state.Skill3_Start ==True:
             self.effect_lightning.clip_draw(int(self.Lightning_frame) * 260, 0, 260, 250, self.Lightning_Px, 200 + 25)
-        if main_state.turn == -1 and main_state.Skill3_Start ==True:
+        if main_state.EnemyPlayer==2 and main_state.turn == -1 and main_state.Skill3_Start ==True:
             self.effect_lightning.clip_draw(int(self.Lightning_frame) * 260, 0, 260, 250, self.Lightning_Ex, 200 + 25)
-        if main_state.turn ==1 and main_state.Last_Start ==True:
+        if DeckSelection.character==2 and main_state.turn ==1 and main_state.Last_Start ==True:
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0, self.Last_Py[int(self.Last_Lightning_frame2)],255, 600 - 50, 200 + 70)
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0, self.Last_Py[int(self.Last_Lightning_frame2)],255, 600 + 40, 200 + 70)
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int(self.Last_Lightning_frame)], 0, self.Last_Py[int(self.Last_Lightning_frame2)], 255, 600,200 + 70)
             self.effect_Last_Ball.clip_draw(int(self.Last_Ball_frame) * 270, 0, 270, 255, 600 + 15, 200 + 210)
-        if main_state.turn == -1 and main_state.Last_Start ==True:
+        if main_state.EnemyPlayer==2 and main_state.turn == -1 and main_state.Last_Start ==True:
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200 - 50, 200 + 70)
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200 + 40, 200 + 70)
             self.effect_Last_Lightning.clip_draw(self.Last_Px[int(self.Last_Lightning_frame)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200, 200 + 70)

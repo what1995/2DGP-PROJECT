@@ -10,6 +10,7 @@ import Deck
 import ikuSkill
 import marisaSkill
 import reimuSkill
+import tenshiSkill
 import game_world
 from iku import Iku
 from reimu import Reimu
@@ -69,15 +70,15 @@ def enter():
 
 
     if EnemyPlayer == 0:
-        Enemy_marisa = Enemy_Marisa()
-        enemy_marisa_skill1_effect= marisaSkill.MARISA_Skill1()
-        game_world.add_object(enemy_marisa_skill1_effect, 2)
-        game_world.add_object(Enemy_marisa, 1)
-    elif EnemyPlayer == 1:
         Enemy_reimu = Enemy_Reimu()
         enemy_reimu_skill1_effect = reimuSkill.REIMU_Skill1()
         game_world.add_object(enemy_reimu_skill1_effect, 2)
         game_world.add_object(Enemy_reimu, 1)
+    elif EnemyPlayer == 1:
+        Enemy_marisa = Enemy_Marisa()
+        enemy_marisa_skill1_effect = marisaSkill.MARISA_Skill1()
+        game_world.add_object(enemy_marisa_skill1_effect, 2)
+        game_world.add_object(Enemy_marisa, 1)
     elif EnemyPlayer == 2:
         Enemy_iku = Enemy_Iku()
         enemy_iku_skill1_effect=ikuSkill.IKU_Skill1()
@@ -85,6 +86,8 @@ def enter():
         game_world.add_object(Enemy_iku, 1)
     elif EnemyPlayer == 3:
         Enemy_tenshi = Enemy_Tenshi()
+        enemy_tenshi_skill1_effect=tenshiSkill.TENSHI_Skill1()
+        game_world.add_object(enemy_tenshi_skill1_effect, 2)
         game_world.add_object(Enemy_tenshi, 1)
     if DeckSelection.character == 0:
         reimu = Reimu()
@@ -103,6 +106,8 @@ def enter():
         game_world.add_object(iku_skill1_effect, 2)
     elif DeckSelection.character == 3:
         tenshi = Tenshi()
+        tenshi_skill1_effect = tenshiSkill.TENSHI_Skill1()
+        game_world.add_object(tenshi_skill1_effect, 2)
         game_world.add_object(tenshi, 1)
     background = BackGround()
     PlayerHP=Player_HP()
@@ -128,7 +133,9 @@ def resume():
 
 def handle_events():
     global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global skillcheak,iku_skill1_effect,Bg_Music
+    global skillcheak,Bg_Music
+    global reimu_skill1_effect, marisa_skill1_effect, iku_skill1_effect, tenshi_skill1_effect, Bg_Music
+    global enemy_reimu_skill1_effect, enemy_marisa_skill1_effect, enemy_iku_skill1_effect, enemy_tenshi_skill1_effect
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -136,7 +143,14 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+                game_world.remove_object(reimu_skill1_effect)
+                game_world.remove_object(marisa_skill1_effect)
                 game_world.remove_object(iku_skill1_effect)
+                game_world.remove_object(tenshi_skill1_effect)
+                game_world.remove_object(enemy_reimu_skill1_effect)
+                game_world.remove_object(enemy_marisa_skill1_effect)
+                game_world.remove_object(iku_skill1_effect)
+                game_world.remove_object(enemy_tenshi_skill1_effect)
                 game_world.remove_object(reimu)
                 game_world.remove_object(marisa)
                 game_world.remove_object(iku)
@@ -162,9 +176,9 @@ def handle_events():
             if DeckSelection.character == 3and turn ==1:
                 tenshi.handle_event(event)
             if EnemyPlayer==0and turn ==-1:
-                Enemy_marisa.handle_event(event)
-            if EnemyPlayer==1and turn ==-1:
                 Enemy_reimu.handle_event(event)
+            if EnemyPlayer==1and turn ==-1:
+                Enemy_marisa.handle_event(event)
             if EnemyPlayer==2and turn ==-1:
                 Enemy_iku.handle_event(event)
             if EnemyPlayer==3and turn ==-1:
