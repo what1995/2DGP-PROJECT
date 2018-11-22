@@ -176,7 +176,7 @@ class Skill2State:
         if int(iku.skill2cheak) >= 15:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
-            iku.skill2Px += int(MOTION_SPEED_PPS)
+            iku.skill2Px -= int(MOTION_SPEED_PPS)
             iku.Skill2Eframe1 = (iku.Skill2Eframe1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         iku.skill2cheak = (iku.skill2cheak + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 20
         if int(iku.skill2cheak) >= 19:

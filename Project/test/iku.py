@@ -146,11 +146,8 @@ class Skill2State:
     def enter(iku,event):
         iku.frame1 = 0
         iku.frame2 = 0
-        iku.S2frame = 0
-        iku.Skill2Eframe1 = 0
         iku.skill2cheak = 0
         iku.skill2Px = 300
-        iku.skill2Mx = 330
         iku.Skill2frame1 = [0, 70, 130, 200, 283, 356, 422, 490, 597, 732, 912, 1087, 1247, 1375, 1463, 1520]
         iku.Skill2frame2 = [70, 60, 70, 83, 73, 66, 66, 101, 133, 178, 173, 157, 124, 83, 63]
         if event == Skill2:
@@ -169,14 +166,13 @@ class Skill2State:
             skillcheak=1
             main_state.HPcheak =1
             if iku.skill2cheak > 8:
-                iku.skill2Mx += int(MOTION_SPEED_PPS)
+                main_state.Skill2_Start = True
                 iku.skill2Px += int(MOTION_SPEED_PPS)
-
         if int(iku.skill2cheak) >= 15:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            main_state.Skill2_Start = False
             iku.skill2Px -= int(MOTION_SPEED_PPS)
-            iku.Skill2Eframe1 = (iku.Skill2Eframe1 +SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         iku.skill2cheak = (iku.skill2cheak+ SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%20
         if int(iku.skill2cheak) >= 19:
             skillcheak=0
@@ -190,8 +186,6 @@ class Skill2State:
     def draw(iku):
         if iku.motion == 2:
             iku.skill2.clip_draw(iku.Skill2frame1[int(iku.frame1)], 145, iku.Skill2frame2[int(iku.frame2)], 145,iku.x+iku.skill2Px, iku.y)
-            if int(iku.skill2cheak) > 6 and int(iku.skill2cheak) < 15:
-                iku.S2effect.clip_draw(int(iku.S2frame)* 193, 60, 193, 60, iku.x + iku.skill2Mx, iku.y - 5)
 
 class Skill3State:
     @staticmethod
