@@ -26,8 +26,8 @@ SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
 SKILL3_PER_ACTION=20
 # iku lastspell Action Speed
 LASTTIME_PER_ACTION=2
-LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
-LASTCHEAK_PER_ACTION=20
+LASTACTION_PER_TIME= 0.5/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=35
 #Damage
 DAMAGETIME_PER_ACTION=0.5
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
@@ -269,7 +269,7 @@ class Laststate:
     @staticmethod
     def do(iku):
         global HP,HPcheak
-        if int(iku.lastcheak) < 19:
+        if int(iku.lastcheak) < 34:
             if int(iku.lastcheak) < 8:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -278,12 +278,12 @@ class Laststate:
                 iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 main_state.HPcheak = 1
-            if int(iku.lastcheak) >= 16:
+            if int(iku.lastcheak) >= 32:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
 
-        iku.lastcheak = (iku.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) %20
-        if int(iku.lastcheak) >= 19:
+        iku.lastcheak = (iku.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) %35
+        if int(iku.lastcheak) >= 34:
             iku.lastcheak = 0
             iku.add_event(Stand)
             main_state.turn = -1
@@ -401,6 +401,12 @@ class Iku:
         self.Down = load_image('Iku-Down-Motion.png')
         self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill1.wav')
         self.skill1_sound.set_volume(50)
+        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill2.wav')
+        self.skill2_sound.set_volume(50)
+        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill3.wav')
+        self.skill3_sound.set_volume(50)
+        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-Last.wav')
+        self.last_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0
@@ -442,12 +448,15 @@ class Iku:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
@@ -456,12 +465,15 @@ class Iku:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
                         main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
@@ -470,12 +482,15 @@ class Iku:
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
                         main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
