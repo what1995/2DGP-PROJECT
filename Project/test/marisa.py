@@ -112,8 +112,9 @@ class Skill1State:
             marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
         if int(marisa.skill1cheak) >6:
             if marisa.skill1cheak < 15:
-                marisa.Skill1Eframe1 = (marisa.Skill1Eframe1+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+                main_state.Skill1_Start=True
             if int(marisa.skill1cheak) >= 15:
+                main_state.Skill1_Start = False
                 marisa.frame1 = (marisa.frame1+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 10
                 marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
 
@@ -122,13 +123,12 @@ class Skill1State:
             marisa.skill1cheak=0
             marisa.add_event(Stand)
             main_state.turn = -1
+            Deck.spellcheak += 3
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 1:
             marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105, marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
-            if int(marisa.skill1cheak) > 6:
-                marisa.S1effect.clip_draw(int(marisa.Skill1Eframe1) * 260, 0, 260, 505, 600, marisa.y + 150)
 
 class Skill2State:
     @staticmethod
@@ -136,9 +136,6 @@ class Skill2State:
         marisa.frame1 = 0
         marisa.frame2 = 0
         marisa.skill2cheak = 0
-        marisa.Skill2Ex1 = 120
-        marisa.Skill2Ex2 = 100
-        marisa.Skill2Ex3 = 80
         marisa.Skill2frame1 =  [0, 85, 165, 240, 318, 395, 464, 525]
         marisa.Skill2frame2 = [85, 80, 75, 78, 76, 67, 64]
         if event == Skill2:
@@ -152,32 +149,28 @@ class Skill2State:
         if int(marisa.skill2cheak) < 7:
             marisa.frame1 = (marisa.frame1  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
             marisa.frame2 = (marisa.frame2  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
-            marisa.Skill2Ex1 += int(MOTION_SPEED_PPS)*5
-            marisa.Skill2Ex2 += int(MOTION_SPEED_PPS)*5
-            marisa.Skill2Ex3 += int(MOTION_SPEED_PPS)*5
+            main_state.Skill2_Start=True
             marisa.skill2cheak = (marisa.skill2cheak+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%9
         if int(marisa.skill2cheak) >= 7:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
+            main_state.Skill2_Start = False
             main_state.turn = -1
+            Deck.spellcheak += 3
 
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 2:
             marisa.skill2.clip_draw(marisa.Skill2frame1[int(marisa.frame1)], 120, marisa.Skill2frame2[int(marisa.frame2)], 120,marisa.x, marisa.y)
-            marisa.S2effect.clip_draw(0, 125, 132, 125, marisa.x + marisa.Skill2Ex1,  marisa.y)
-            marisa.S2effect.clip_draw(132, 125, 132, 125, marisa.x + marisa.Skill2Ex2,  marisa.y)
-            marisa.S2effect.clip_draw(264, 125, 132, 125, marisa.x + marisa.Skill2Ex3,  marisa.y)
+
 
 class Skill3State:
     @staticmethod
     def enter(marisa,event):
         marisa.frame1 = 0
         marisa.frame2 = 0
-        marisa.S3frame = 0
         marisa.skill3cheak = 0
-        marisa.Skill3Ex1 = 120
         marisa.Skill3frame1 = [0, 65, 125, 195, 275, 332, 412, 500, 590, 661]
         marisa.Skill3frame2 = [65, 60, 70, 80, 60, 76, 85, 89, 68, 61]
         if event == Skill3:
@@ -195,8 +188,7 @@ class Skill3State:
                 marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
                 marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
             if int(marisa.skill3cheak) >= 7:
-                marisa.S3frame = (marisa.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 3
-                marisa.Skill3Ex1 += int(MOTION_SPEED_PPS)*5
+                main_state.Skill3_Start = True
             if int(marisa.skill3cheak) >= 13:
                     marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
                     marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -204,14 +196,14 @@ class Skill3State:
         if int(marisa.skill3cheak) >= 17:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
+            main_state.Skill3_Start = False
             main_state.turn = -1
+            Deck.spellcheak += 3
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 3:
             marisa.skill3.clip_draw(marisa.Skill3frame1[int(marisa.frame1)], 110, marisa.Skill3frame2[int(marisa.frame2)], 110,marisa.x, marisa.y)
-            if int(marisa.skill3cheak) >= 7:
-                marisa.S3effect.clip_draw(int(marisa.S3frame) * 260, 255, 260, 255,marisa.x + marisa.Skill3Ex1,  marisa.y + 25)
 
 class Laststate:
     @staticmethod
@@ -243,21 +235,22 @@ class Laststate:
             marisa.frame1 = (marisa.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
             marisa.frame2 = (marisa.frame2+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
             if int(marisa.lastcheak) > 4 and int(marisa.lastcheak)<11:
-                marisa.LastspellEframe1 = (marisa.LastspellEframe1+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 7
+                main_state.Last_Start=True
 
             marisa.lastcheak = (marisa.lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%20
         if int(marisa.lastcheak) >= 18:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
+            main_state.Last_Start = False
             main_state.turn = -1
+            Deck.spellcheak += 3
 
 
     @staticmethod
     def draw(marisa):
         if marisa.motion == 4:
             marisa.Lastspell.clip_draw(marisa.Lastframe1[int(marisa.frame1)], 120, marisa.Lastframe2[int(marisa.frame2)], 120,marisa.x+250, marisa.y)
-            if  int(marisa.lastcheak) > 4 and int(marisa.lastcheak)< 11:
-                marisa.Lasteffect.clip_draw(int(marisa.LastspellEframe1) * 261, 250, 260, 250, marisa.x+405, marisa.y-10)
+
 
 class Damagestate:
     @staticmethod
@@ -345,20 +338,25 @@ class Marisa:
         self.stand = load_image('MarisaStanding-Motion.png')
 
         self.skill1 = load_image('MarisaSkill1-Motion.png')
-        self.S1effect = load_image('MarisaSkill1.png')
 
         self.skill2 = load_image('MarisaSkill2-Motion.png')
-        self.S2effect = load_image('MarisaSkill2.png')
 
         self.skill3 = load_image('MarisaSkill3-Motion.png')
-        self.S3effect = load_image('MarisaSKill3.png')
 
         self.Lastspell = load_image('MarisaLastspell-Motion.png')
-        self.Lasteffect = load_image('MarisaLastspell.png')
 
         self.Damage = load_image('MarisaDamage-Motion.png')
 
         self.Down = load_image('MarisaDown-Motion.png')
+
+        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill1.wav')
+        self.skill1_sound.set_volume(50)
+        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill2.wav')
+        self.skill2_sound.set_volume(50)
+        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill3.wav')
+        self.skill3_sound.set_volume(50)
+        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-Last.wav')
+        self.last_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0
@@ -396,41 +394,53 @@ class Marisa:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        self.last_sound.play()
                         self.add_event(Last)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]

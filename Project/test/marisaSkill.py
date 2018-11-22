@@ -5,7 +5,7 @@ import main_state
 import marisa
 import Enemy_marisa
 import EnemyHP
-#iku stand
+#marisa stand
 STAND_TIME_PER_ACTION=1
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
 STAND_PER_ACTION=9
@@ -13,12 +13,12 @@ STAND_PER_ACTION=9
 #skill1
 SKILL1TIME_PER_ACTION=2
 SKILL1ACTION_PER_TIME= 1.0/SKILL1TIME_PER_ACTION
-SKILL1_PER_ACTION=24
+SKILL1_PER_ACTION=20
 
 #skill2
-SKILL2TIME_PER_ACTION=2
+SKILL2TIME_PER_ACTION=1
 SKILL2ACTION_PER_TIME= 1.0/SKILL2TIME_PER_ACTION
-SKILL2_PER_ACTION=20
+SKILL2_PER_ACTION=9
 
 #skill3
 SKILL3TIME_PER_ACTION=2
@@ -26,8 +26,8 @@ SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
 SKILL3_PER_ACTION=20
 # iku lastspell Action Speed
 LASTTIME_PER_ACTION=2
-LASTACTION_PER_TIME= 0.5/LASTTIME_PER_ACTION
-LASTCHEAK_PER_ACTION=35
+LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=20
 #Damage
 DAMAGETIME_PER_ACTION=0.5
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
@@ -51,20 +51,32 @@ class MARISA_Skill1:
 
 
     def __init__(self):
-        pass
-
-
+        self.effect_Boom =None
+        self.effect_Balls=None
+        self.effect_MagicShot=None
+        self.effect_Lazer=None
+        if self.effect_Boom==None:
+            self.effect_Boom = load_image('MarisaSkill1.png')
+        if self.effect_Balls==None:
+            self.effect_Balls = load_image('MarisaSkill2.png')
+        if self.effect_MagicShot==None:
+            self.effect_MagicShot = load_image('MarisaSKill3.png')
+        if self.effect_Lazer==None:
+            self.effect_Lazer = load_image('MarisaLastspell.png')
 
         #skill1
-
-
+        self.Boom_Px = 600
+        self.Boom_Ex = 200
+        self.Boom_frame=0
         #skill2
-
-        
+        self.Balls_First = 120
+        self.Balls_Second = 100
+        self.Balls_Third =80
         #skill3
-
-
+        self.MagicShot_Fly =120
+        self.MagicShot_frame = 0
         #Last
+        self.Lazer_frame=0
 
 
 
@@ -74,30 +86,45 @@ class MARISA_Skill1:
 
     def draw(self):
         if main_state.turn== 1 and main_state.Skill1_Start==True:
-            pass
+            self.effect_Boom.clip_draw(int(self.Boom_frame) * 260, 0, 260, 505, self.Boom_Px, 200+150)
         if main_state.turn== -1 and main_state.Skill1_Start==True:
-            pass
+            self.effect_Boom.clip_draw(int(self.Boom_frame) * 260, 0, 260, 505,self.Boom_Ex, 200+150)
         if main_state.turn ==1 and main_state.Skill2_Start ==True:
-            pass
+            self.effect_Balls.clip_draw(0, 125, 132, 125, 200 + self.Balls_First, 200)
+            self.effect_Balls.clip_draw(132, 125, 132, 125, 200 + self.Balls_Second, 200)
+            self.effect_Balls.clip_draw(264, 125, 132, 125, 200 + self.Balls_Third,200)
         if main_state.turn == -1 and main_state.Skill2_Start ==True:
-            pass
+            self.effect_Balls.clip_draw(0, 125, 132, 125, 600 - self.Balls_First, 200)
+            self.effect_Balls.clip_draw(132, 125, 132, 125, 600 - self.Balls_Second, 200)
+            self.effect_Balls.clip_draw(264, 125, 132, 125, 600 - self.Balls_Third, 200)
         if main_state.turn ==1 and main_state.Skill3_Start ==True:
-            pass
+            self.effect_MagicShot.clip_draw(int(self.MagicShot_frame) * 260, 255, 260, 255, 200 + self.MagicShot_Fly,200 + 25)
         if main_state.turn == -1 and main_state.Skill3_Start ==True:
-            pass
+            self.effect_MagicShot.clip_draw(int(self.MagicShot_frame) * 260, 0, 260, 255, 600 - self.MagicShot_Fly,200 + 25)
         if main_state.turn ==1 and main_state.Last_Start ==True:
-            pass
+            self.effect_Lazer.clip_draw(int(self.Lazer_frame) * 261, 250, 260, 250, 200 + 405, 200 - 10)
         if main_state.turn == -1 and main_state.Last_Start ==True:
-            pass
+            self.effect_Lazer.clip_draw(int(self.Lazer_frame) * 261, 0, 260, 250, 600 - 405, 200 - 10)
 
     def update(self):
         if main_state.Skill1_Start == True:
-            pass
+            self.Boom_frame = (self.Boom_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if main_state.Skill1_Start==False:
+            self.Boom_frame=0
         if main_state.Skill2_Start == False:
             pass
         if main_state.Skill2_Start ==True:
-            pass
+             self.Balls_First  += int(MOTION_SPEED_PPS) * 5
+             self.Balls_Second += int(MOTION_SPEED_PPS) * 5
+             self.Balls_Third  += int(MOTION_SPEED_PPS) * 5
+        if main_state.Skill2_Start ==False:
+             self.Balls_First  = 120
+             self.Balls_Second = 100
+             self.Balls_Third  = 80
         if main_state.Skill3_Start==True:
-            pass
+            self.MagicShot_frame = (self.MagicShot_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 3
+            self.MagicShot_Fly += int(MOTION_SPEED_PPS) * 5
+        if main_state.Skill3_Start==False:
+            self.MagicShot_Fly = 120
         if main_state.Last_Start==True:
-            pass
+            self.Lazer_frame = (self.Lazer_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 7

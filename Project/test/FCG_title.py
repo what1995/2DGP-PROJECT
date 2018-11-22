@@ -14,7 +14,7 @@ def enter():
     global image, start,music
     image=load_image('Main.png')
     start=load_image('startButton.png')
-    music = load_music('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage\\Background\\title1.mp3')
+    music = load_music('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage\\Background\\title.mp3')
     music.set_volume(40)
     music.repeat_play()
 
