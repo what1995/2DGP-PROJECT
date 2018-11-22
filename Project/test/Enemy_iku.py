@@ -90,6 +90,7 @@ class StandState:
             iku.skill2_sound.play()
             iku.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
+            iku.skill3_sound.play()
             iku.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
             iku.add_event(Last)
@@ -210,14 +211,7 @@ class Skill3State:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                 iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
             if int(iku.skill3cheak) >= 5:
-
-                iku.S3frame = (iku.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
-                if int(iku.skill3cheak) == 12:
-                    # HP=10
-                    HPcheak = 3
-                if int(iku.skill3cheak) == 13:
-                    # HP=10
-                    HPcheak = 0
+                main_state.Skill3_Start=True
                 if int(iku.skill3cheak) > 17:
                     iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                     iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -225,14 +219,13 @@ class Skill3State:
         if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
+            main_state.Skill3_Start = False
             main_state.turn = 1
 
     @staticmethod
     def draw(iku):
         if iku.motion == 3:
             iku.skill3.clip_draw(iku.Skill3frame1[int(iku.frame1)], 0, iku.Skill3frame2[int(iku.frame2)], 145,iku.x, iku.y)
-            if int(iku.skill3cheak) >= 5:
-                iku.S3effect.clip_draw(int(iku.S3frame) * 260, 0, 260, 250, 200,  iku.y + 25)
 
 class Laststate:
     @staticmethod
@@ -270,12 +263,6 @@ class Laststate:
                 iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
                 iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
-                if int(iku.lastcheak) == 10:
-                    # HP=10
-                    HPcheak = 4
-                if int(iku.lastcheak) > 10:
-                    # HP=10
-                    HPcheak = 0
 
             if int(iku.lastcheak) >= 16:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -387,7 +374,6 @@ class Enemy_Iku:
         self.skill2 = load_image('IkuSkill2-Motion.png')
 
         self.skill3 = load_image('IkuSkill3-Motion.png')
-        self.S3effect = load_image('IkuSkill3-1.png')
 
         self.Lastspell = load_image('IkuLastspell-Motion.png')
         self.Lasteffect = load_image('IkuLastspell1-1.png')

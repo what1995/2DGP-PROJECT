@@ -54,12 +54,21 @@ class IKU_Skill1:
         self.effect_Line = None
         self.effect_Ball = None
         self.drill=None
+        self.effect_lightning = None
+        self.effect_Last_Ball = None
+        self.effect_Last_Lightning =None
         if self.effect_Line ==None:
             self.effect_Line = load_image('IkuSkill1-1.png')
         if self.effect_Ball ==None:
             self.effect_Ball = load_image('IkuSkill1-2.png')
         if self.drill ==None:
             self.drill = load_image('ikuSkill2-1.png')
+        if self.effect_lightning == None:
+            self.effect_lightning = load_image('ikuSkill3-1.png')
+        if self.effect_Last_Ball ==None:
+            self.effect_Last_Ball = load_image('IkuLastspell1-1.png')
+        if self.effect_Last_Lightning ==None:
+            self.effect_Last_Lightning = load_image('IkuLastspell1-2.png')
 
 
         #skill1
@@ -74,6 +83,18 @@ class IKU_Skill1:
         self.Drill_Pmove = 530
         self.Drill_Emove=270
         self.Drill_frame =0
+        
+        #skill3
+        self.Lightning_Px = 600
+        self.Lightning_Ex = 200
+        self.Lightning_frame = 0
+
+        #Last
+        self.Last_Px = [0, 120, 75]
+        self.Last_Py = [120, 75]
+        self.Last_Ball_frame =0
+        self.Last_Lightning_frame=0
+
 
     def get_bb(self):
         if main_state.turn == 1:
@@ -95,6 +116,14 @@ class IKU_Skill1:
             self.drill.clip_draw(int(self.Drill_frame) * 193, 60, 193, 60, self.Drill_Pmove, 200-5)
         if main_state.turn == -1 and main_state.Skill2_Start ==True:
             self.drill.clip_draw(int(self.Drill_frame) * 193, 0, 193, 60, self.Drill_Emove, 200-5)
+        if main_state.turn ==1 and main_state.Skill3_Start ==True:
+            self.effect_lightning.clip_draw(int(self.Lightning_frame) * 260, 0, 260, 250, self.Lightning_Px, 200 + 25)
+        if main_state.turn == -1 and main_state.Skill3_Start ==True:
+            self.effect_lightning.clip_draw(int(self.Lightning_frame) * 260, 0, 260, 250, self.Lightning_Ex, 200 + 25)
+        if main_state.turn ==1 and main_state.Last_Start ==True:
+            pass
+        if main_state.turn == -1 and main_state.Last_Start ==True:
+            pass
 
     def update(self):
         if main_state.Skill1_Start == True:
@@ -109,3 +138,7 @@ class IKU_Skill1:
             if main_state.turn == -1:
                 self.Drill_Emove -= int(MOTION_SPEED_PPS)
             self.Drill_frame = (self.Drill_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
+        if main_state.Skill3_Start==True:
+            self.Lightning_frame = (self.Lightning_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
+        if main_state.Last_Start==True:
+            pass

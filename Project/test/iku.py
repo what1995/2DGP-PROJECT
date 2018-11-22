@@ -192,19 +192,14 @@ class Skill3State:
     def enter(iku,event):
         iku.frame1 = 0
         iku.frame2 = 0
-        iku.S3frame = 0
-        iku.Skill3Eframe1 = 0
         iku.skill3cheak = 0
         iku.Skill3frame1 = [0, 64, 126, 196, 268, 338, 405]
         iku.Skill3frame2 = [64, 62, 70, 72, 67, 68]
         if event == Skill3:
             iku.motion = 3
-
-
     @staticmethod
     def exit(iku,event):
         pass
-
     @staticmethod
     def do(iku):
         global HP,HPcheak,skillcheak
@@ -213,7 +208,7 @@ class Skill3State:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                 iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
             if int(iku.skill3cheak) >= 5:
-                iku.S3frame = (iku.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
+                main_state.Skill3_Start=True
                 if int(iku.skill3cheak) >= 7:
                     main_state.HPcheak=1
                 if int(iku.skill3cheak) > 17:
@@ -223,6 +218,7 @@ class Skill3State:
         if int(iku.skill3cheak) >= 18:
             iku.skill3cheak = 0
             iku.add_event(Stand)
+            main_state.Skill3_Start = False
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -230,8 +226,7 @@ class Skill3State:
     def draw(iku):
         if iku.motion == 3:
             iku.skill3.clip_draw(iku.Skill3frame1[int(iku.frame1)], 145, iku.Skill3frame2[int(iku.frame2)], 145,iku.x, iku.y)
-            if int(iku.skill3cheak) >= 5:
-                iku.S3effect.clip_draw(int(iku.S3frame) * 260, 0, 260, 250, 600,  iku.y + 25)
+
 
 class Laststate:
     @staticmethod
@@ -383,7 +378,6 @@ class Iku:
         self.skill2 = load_image('IkuSkill2-Motion.png')
 
         self.skill3 = load_image('IkuSkill3-Motion.png')
-        self.S3effect = load_image('IkuSkill3-1.png')
 
         self.Lastspell = load_image('IkuLastspell-Motion.png')
         self.Lasteffect = load_image('IkuLastspell1-1.png')
