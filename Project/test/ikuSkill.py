@@ -94,6 +94,7 @@ class IKU_Skill1:
         self.Last_Py = [120, 75]
         self.Last_Ball_frame =0
         self.Last_Lightning_frame=0
+        self.Last_Lightning_frame2 = 0
 
 
     def get_bb(self):
@@ -121,9 +122,15 @@ class IKU_Skill1:
         if main_state.turn == -1 and main_state.Skill3_Start ==True:
             self.effect_lightning.clip_draw(int(self.Lightning_frame) * 260, 0, 260, 250, self.Lightning_Ex, 200 + 25)
         if main_state.turn ==1 and main_state.Last_Start ==True:
-            pass
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0, self.Last_Py[int(self.Last_Lightning_frame2)],255, 600 - 50, 200 + 70)
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0, self.Last_Py[int(self.Last_Lightning_frame2)],255, 600 + 40, 200 + 70)
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int(self.Last_Lightning_frame)], 0, self.Last_Py[int(self.Last_Lightning_frame2)], 255, 600,200 + 70)
+            self.effect_Last_Ball.clip_draw(int(self.Last_Ball_frame) * 270, 0, 270, 255, 600 + 15, 200 + 210)
         if main_state.turn == -1 and main_state.Last_Start ==True:
-            pass
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200 - 50, 200 + 70)
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int((self.Last_Lightning_frame + 1) % 2)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200 + 40, 200 + 70)
+            self.effect_Last_Lightning.clip_draw(self.Last_Px[int(self.Last_Lightning_frame)], 0,self.Last_Py[int(self.Last_Lightning_frame2)], 255, 200, 200 + 70)
+            self.effect_Last_Ball.clip_draw(int(self.Last_Ball_frame) * 270, 0, 270, 255, 200 + 15, 200 + 210)
 
     def update(self):
         if main_state.Skill1_Start == True:
@@ -141,4 +148,7 @@ class IKU_Skill1:
         if main_state.Skill3_Start==True:
             self.Lightning_frame = (self.Lightning_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
         if main_state.Last_Start==True:
+            self.Last_Ball_frame = (self.Last_Ball_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
+            self.Last_Lightning_frame = (self.Last_Lightning_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
+            self.Last_Lightning_frame2 = (self.Last_Lightning_frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
             pass

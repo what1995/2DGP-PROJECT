@@ -27,8 +27,8 @@ SKILL3ACTION_PER_TIME= 1.0/SKILL3TIME_PER_ACTION
 SKILL3_PER_ACTION=20
 # iku lastspell Action Speed
 LASTTIME_PER_ACTION=2
-LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
-LASTCHEAK_PER_ACTION=20
+LASTACTION_PER_TIME= 0.5/LASTTIME_PER_ACTION
+LASTCHEAK_PER_ACTION=35
 #Damage
 DAMAGETIME_PER_ACTION=0.5
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
@@ -93,6 +93,7 @@ class StandState:
             iku.skill3_sound.play()
             iku.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
+            iku.last_sound.play()
             iku.add_event(Last)
 
 
@@ -255,23 +256,21 @@ class Laststate:
 
     @staticmethod
     def do(iku):
-        if int(iku.lastcheak) < 19:
+        if int(iku.lastcheak) < 34:
             if int(iku.lastcheak) < 8:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
             if int(iku.lastcheak) >= 8:
-                iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
-                iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
-                iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
-
-            if int(iku.lastcheak) >= 16:
+                main_state.Last_Start=True
+            if int(iku.lastcheak) >= 32:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
 
-        iku.lastcheak = (iku.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) %20
-        if int(iku.lastcheak) >= 19:
+        iku.lastcheak = (iku.lastcheak + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) %35
+        if int(iku.lastcheak) >= 34:
             iku.lastcheak = 0
             iku.add_event(Stand)
+            main_state.Last_Start = False
             main_state.turn = 1
 
 
@@ -279,11 +278,6 @@ class Laststate:
     def draw(iku):
         if iku.motion == 4:
             iku.Lastspell.clip_draw(iku.Lastframe1[int(iku.frame1)], 0, iku.Lastframe2[int(iku.frame2)], 140,iku.x, iku.y)
-            if int(iku.lastcheak) >= 8:
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0,iku.IkuLastY[int(iku.Lastspellc)], 255, 200 + 50, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255, 200- 40, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int(iku.Lastspelld)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255,200, iku.y + 70)
-                iku.Lasteffect.clip_draw(int(iku.LastspellEframe1) * 270, 0, 270, 255, 200 + 20, iku.y + 210)
 
 class Damagestate:
     @staticmethod

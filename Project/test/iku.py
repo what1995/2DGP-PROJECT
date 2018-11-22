@@ -263,10 +263,8 @@ class Laststate:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
             if int(iku.lastcheak) >= 8:
-                iku.LastspellEframe1 = (iku.LastspellEframe1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
-                iku.Lastspelld = (iku.Lastspelld +LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
-                iku.Lastspellc = (iku.Lastspellc + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2
                 main_state.HPcheak = 1
+                main_state.Last_Start=True
             if int(iku.lastcheak) >= 32:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
@@ -275,19 +273,15 @@ class Laststate:
         if int(iku.lastcheak) >= 34:
             iku.lastcheak = 0
             iku.add_event(Stand)
+            main_state.Last_Start = False
             main_state.turn = -1
             Deck.spellcheak += 3
-        #delay(0.1)
 
     @staticmethod
     def draw(iku):
         if iku.motion == 4:
             iku.Lastspell.clip_draw(iku.Lastframe1[int(iku.frame1)], 140, iku.Lastframe2[int(iku.frame2)], 140,iku.x, iku.y)
-            if int(iku.lastcheak) >= 8:
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0,iku.IkuLastY[int(iku.Lastspellc)], 255, 600 - 50, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int((iku.Lastspelld + 1) % 2)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255, 600 + 40, iku.y + 70)
-                iku.Lasteffect2.clip_draw(iku.IkuLastX[int(iku.Lastspelld)], 0, iku.IkuLastY[int(iku.Lastspellc)], 255,600, iku.y + 70)
-                iku.Lasteffect.clip_draw(int(iku.LastspellEframe1) * 270, 0, 270, 255, 600 + 15, iku.y + 210)
+
 
 class Damagestate:
     @staticmethod
