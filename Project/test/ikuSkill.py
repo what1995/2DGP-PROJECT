@@ -71,8 +71,10 @@ class IKU_Skill1:
         self.Ball_frame =0
 
         #skill2
-        self.Drill_move = 530
+        self.Drill_Pmove = 530
+        self.Drill_Emove=270
         self.Drill_frame =0
+
     def get_bb(self):
         if main_state.turn == 1:
             return self.Ball_Px-20,self.Ball_Py-25,self.Ball_Px+30,self.Ball_Py+25
@@ -90,15 +92,20 @@ class IKU_Skill1:
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Ex,self.Ball_Ey)
             draw_rectangle(*self.get_bb())
         if main_state.turn ==1 and main_state.Skill2_Start ==True:
-            self.drill.clip_draw(int(self.Drill_frame) * 193, 60, 193, 60, self.Drill_move, 200-5)
+            self.drill.clip_draw(int(self.Drill_frame) * 193, 60, 193, 60, self.Drill_Pmove, 200-5)
+        if main_state.turn == -1 and main_state.Skill2_Start ==True:
+            self.drill.clip_draw(int(self.Drill_frame) * 193, 0, 193, 60, self.Drill_Emove, 200-5)
 
     def update(self):
         if main_state.Skill1_Start == True:
             self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
-        if main_state.Skill2_Start ==True:
-            self.Drill_move += int(MOTION_SPEED_PPS)
-            self.Drill_frame = (self.Drill_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         if main_state.Skill2_Start == False:
-            self.Drill_move=530
-            pass
+            self.Drill_Pmove = 530
+            self.Drill_Emove = 270
+        if main_state.Skill2_Start ==True:
+            if main_state.turn == 1:
+                self.Drill_Pmove += int(MOTION_SPEED_PPS)
+            if main_state.turn == -1:
+                self.Drill_Emove -= int(MOTION_SPEED_PPS)
+            self.Drill_frame = (self.Drill_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6

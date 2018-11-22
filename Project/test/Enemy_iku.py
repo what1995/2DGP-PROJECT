@@ -87,6 +87,7 @@ class StandState:
             iku.skill1_sound.play()
             iku.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
+            iku.skill2_sound.play()
             iku.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             iku.add_event(Skill3)
@@ -165,19 +166,13 @@ class Skill2State:
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
         if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
             if iku.skill2cheak > 8:
-                iku.skill2Mx += int(MOTION_SPEED_PPS)
+                main_state.Skill2_Start = True
                 iku.skill2Px += int(MOTION_SPEED_PPS)
-            if int(iku.skill2cheak) == 9:
-                # HP=10
-                HPcheak = 2
-            if int(iku.skill2cheak) == 10:
-                # HP=10
-                HPcheak = 0
         if int(iku.skill2cheak) >= 15:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            main_state.Skill2_Start = False
             iku.skill2Px -= int(MOTION_SPEED_PPS)
-            iku.Skill2Eframe1 = (iku.Skill2Eframe1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         iku.skill2cheak = (iku.skill2cheak + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 20
         if int(iku.skill2cheak) >= 19:
             iku.skill2cheak = 0
@@ -188,8 +183,6 @@ class Skill2State:
     def draw(iku):
         if iku.motion == 2:
             iku.skill2.clip_draw(iku.Skill2frame1[int(iku.frame1)], 0, iku.Skill2frame2[int(iku.frame2)], 145,iku.x-iku.skill2Px, iku.y)
-            if int(iku.skill2cheak) > 6 and int(iku.skill2cheak) < 15:
-                iku.S2effect.clip_draw(int(iku.S2frame)* 193, 0, 193, 60, iku.x - iku.skill2Mx, iku.y - 5)
 
 class Skill3State:
     @staticmethod
@@ -392,7 +385,6 @@ class Enemy_Iku:
         self.skill1 = load_image('IkuSkill1-Motion.png')
 
         self.skill2 = load_image('IkuSkill2-Motion.png')
-        self.S2effect = load_image('IkuSkill2-1.png')
 
         self.skill3 = load_image('IkuSkill3-Motion.png')
         self.S3effect = load_image('IkuSkill3-1.png')
@@ -406,6 +398,12 @@ class Enemy_Iku:
         self.Down = load_image('Iku-Down-Motion.png')
         self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill1.wav')
         self.skill1_sound.set_volume(50)
+        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill2.wav')
+        self.skill2_sound.set_volume(50)
+        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill3.wav')
+        self.skill3_sound.set_volume(50)
+        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-Last.wav')
+        self.last_sound.set_volume(50)
         self.dir = 1
         self.motion = 0
         self.frame = 0

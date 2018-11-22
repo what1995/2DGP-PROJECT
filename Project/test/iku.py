@@ -381,7 +381,6 @@ class Iku:
         self.skill1 = load_image('IkuSkill1-Motion.png')
 
         self.skill2 = load_image('IkuSkill2-Motion.png')
-        self.S2effect = load_image('IkuSkill2-1.png')
 
         self.skill3 = load_image('IkuSkill3-Motion.png')
         self.S3effect = load_image('IkuSkill3-1.png')
