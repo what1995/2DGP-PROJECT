@@ -54,10 +54,19 @@ class TENSHI_Skill1:
     def __init__(self):
         self.hight_stone = None
         self.mini_ston=None
+        self.lazerbeam=None
+        self.circle=None
+        self.letter=None
         if self.hight_stone==None:
             self.hight_stone=load_image('TenshiSkill1.png')
         if self.mini_ston==None:
             self.mini_ston = load_image('TenshiSkill2-1.png')
+        if self.lazerbeam==None:
+            self.lazerbeam =load_image('TenshiSkill3.png')
+        if self.circle==None:
+            self.circle=load_image('TenshiLastspell1-2.png')
+        if self.letter==None:
+            self.letter=load_image('TenshiLastspell1-1.png')
 
 
 
@@ -80,9 +89,12 @@ class TENSHI_Skill1:
 
         
         #skill3
+        self.Lazerbeam_frame =0
 
 
         #Last
+        self.Letter_frame=0
+        self.Lastcheak=0
 
 
 
@@ -106,13 +118,19 @@ class TENSHI_Skill1:
             self.mini_ston.clip_draw(70, int(self.Mini_Stone_frame) * 50, 70, 50, 750 - self.Mini_Stone_Second, 200 + 25)
             self.mini_ston.clip_draw(70, int(self.Mini_Stone_frame) * 50, 70, 50, 750 - self.Mini_Stone_Third, 200 - 25)
         if DeckSelection.character==3 and main_state.turn ==1 and main_state.Skill3_Start ==True:
-            pass
+            self.lazerbeam.clip_draw(int(self.Lazerbeam_frame) * 260, 107, 260, 120, 200 + 350, 200 - 10)
         if main_state.EnemyPlayer==3 and main_state.turn == -1 and main_state.Skill3_Start ==True:
-            pass
+            self.lazerbeam.clip_draw(int(self.Lazerbeam_frame) * 260, 0, 260, 120, 600 - 350, 200 - 10)
         if DeckSelection.character==3 and main_state.turn ==1 and main_state.Last_Start ==True:
-            pass
+            if int(self.Lastcheak) > 3:
+                self.circle.clip_draw(0,0,250,250,600, 200 )
+            if int(self.Lastcheak) > 4:
+                self.letter.clip_draw(self.Letter_frame *260,0,260,250,600, 200 )
         if main_state.EnemyPlayer==3 and main_state.turn == -1 and main_state.Last_Start ==True:
-            pass
+            if int(self.Lastcheak) > 3:
+                self.circle.clip_draw(0,0,250,250,200, 200 )
+            if int(self.Lastcheak) > 4:
+                self.letter.clip_draw(self.Letter_frame *260,0,260,250,200, 200 )
 
     def update(self):
         if main_state.Skill1_Start == True:
@@ -144,6 +162,15 @@ class TENSHI_Skill1:
             if self.Skill2cheak >6:
                 self.Mini_Stone_Third += int(MOTION_SPEED_PPS) * 5
         if main_state.Skill3_Start==True:
-            pass
+            self.Lazerbeam_frame = (self.Lazerbeam_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 7
+        if main_state.Skill3_Start == False:
+            self.Lazerbeam_frame=0
         if main_state.Last_Start==True:
-            pass
+            self.Lastcheak = (self.Lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%21
+            if int(self.Lastcheak) == 9:
+                self.Letter_frame = 1
+            if int(self.Lastcheak) == 15:
+                self.Letter_frame = 2
+        if main_state.Last_Start == False:
+            self.Letter_frame = 0
+            self.Lastcheak = 0

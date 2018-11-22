@@ -89,8 +89,10 @@ class StandState:
             tenshi.skill2_sound.play()
             tenshi.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
+            tenshi.skill3_sound.play()
             tenshi.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
+            tenshi.last_sound.play()
             tenshi.add_event(Last)
 
 
@@ -180,7 +182,6 @@ class Skill3State:
     def enter(tenshi,event):
         tenshi.frame1 = 0
         tenshi.frame2 = 0
-        tenshi.S3frame = 0
         tenshi.skill3cheak = 0
         tenshi.Skill3frame1 = [0,77,155,240,340,425,528,710,876,960,1040,1110,1190]
         tenshi.Skill3frame2 = [77,78,83,99,80,98,178,160,70,70,63,68]
@@ -199,8 +200,9 @@ class Skill3State:
                 tenshi.frame1 = (tenshi.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
                 tenshi.frame2 = (tenshi.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
             if  int(tenshi.skill3cheak)>6 and  int(tenshi.skill3cheak)<14:
-                tenshi.S3frame = (tenshi.S3frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 7
+                main_state.Skill3_Start=True
             if  int(tenshi.skill3cheak) >= 14:
+                main_state.Skill3_Start = False
                 tenshi.frame1 = (tenshi.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
                 tenshi.frame2 = (tenshi.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
             tenshi.skill3cheak = (tenshi.skill3cheak+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time)%17
@@ -213,18 +215,14 @@ class Skill3State:
     def draw(tenshi):
         if tenshi.motion == 3:
             tenshi.skill3.clip_draw(tenshi.Skill3frame1[int(tenshi.frame1)], 0, tenshi.Skill3frame2[int(tenshi.frame2)], 115,tenshi.x-200, tenshi.y)
-            if int(tenshi.skill3cheak)>6 and  int(tenshi.skill3cheak)<14:
-                tenshi.S3effect.clip_draw(int(tenshi.S3frame)*260,0,260,120,tenshi.x-350,tenshi.y-10)
+
 
 class Laststate:
     @staticmethod
     def enter(tenshi, event):
         tenshi.frame1 = 0
         tenshi.frame2 = 0
-        tenshi.lastframe = 0
-        tenshi.lastEframe1 = 0
         tenshi.lastcheak = 0
-        tenshi.LastspellEframe1 = 0
         tenshi.Lastframe1 = [0,72,142,266,435,577,715,842,928,1064,1200,1328,1430,1540,1640,1790,1965,2130,2295,2395,2465]
         tenshi.Lastframe2 = [72,70,124,169,142,137,124,85,132,131,124,96,109,95,145,167,155,150,90,72]
 
@@ -240,15 +238,12 @@ class Laststate:
         if int(tenshi.lastcheak) < 20:
             tenshi.frame1 = (tenshi.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20
             tenshi.frame2 = (tenshi.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20
-            if int(tenshi.lastcheak) == 9:
-                tenshi.LastspellEframe1 = 1
-            if int(tenshi.lastcheak) == 15:
-                tenshi.LastspellEframe1 = 2
-
+            main_state.Last_Start = True
             tenshi.lastcheak = (tenshi.lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%21
         if int(tenshi.lastcheak) >= 20:
             tenshi.lastcheak = 0
             tenshi.add_event(Stand)
+            main_state.Last_Start = False
             main_state.turn = 1
 
 
@@ -256,10 +251,6 @@ class Laststate:
     def draw(tenshi):
         if tenshi.motion == 4:
             tenshi.Lastspell.clip_draw(tenshi.Lastframe1[int(tenshi.frame1)], 0, tenshi.Lastframe2[int(tenshi.frame2)], 165,tenshi.x-200, tenshi.y+30)
-            if int(tenshi.lastcheak) > 3:
-                tenshi.Lasteffect2.clip_draw(0,0,250,250,200, tenshi.y )
-                if int(tenshi.lastcheak) > 4:
-                    tenshi.Lasteffect.clip_draw(int(tenshi.LastspellEframe1)*260,0,260,250,200, tenshi.y )
 
 class Damagestate:
     @staticmethod
@@ -344,11 +335,10 @@ class Enemy_Tenshi:
         self.skill2 = load_image('TenshiSkill2-Motion.png')
 
         self.skill3 = load_image('TenshiSkill3-Motion.png')
-        self.S3effect = load_image('TenshiSkill3.png')
+
 
         self.Lastspell = load_image('TenshiLastspell-Motion.png')
-        self.Lasteffect = load_image('TenshiLastspell1-1.png')
-        self.Lasteffect2 = load_image('TenshiLastspell1-2.png')
+
 
         self.Damage = load_image('TenshiDamage-Motion.png')
 
