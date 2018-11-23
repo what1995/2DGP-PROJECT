@@ -109,23 +109,36 @@ class MARISA_Skill1:
 
     def update(self):
         if main_state.Skill1_Start == True:
+            main_state.skill1_atk_cheak=1
             self.Boom_frame = (self.Boom_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
         if main_state.Skill1_Start==False:
+            main_state.skill1_atk_cheak = 0
             self.Boom_frame=0
-        if main_state.Skill2_Start == False:
-            pass
         if main_state.Skill2_Start ==True:
-             self.Balls_First  += int(MOTION_SPEED_PPS) * 5
-             self.Balls_Second += int(MOTION_SPEED_PPS) * 5
-             self.Balls_Third  += int(MOTION_SPEED_PPS) * 5
+            if self.Balls_First >350 and self.Balls_First<400:
+                main_state.skill2_atk_cheak=1
+            if self.Balls_First>=400:
+                main_state.skill2_atk_cheak=0
+            self.Balls_First  += int(MOTION_SPEED_PPS) * 5
+            self.Balls_Second += int(MOTION_SPEED_PPS) * 5
+            self.Balls_Third  += int(MOTION_SPEED_PPS) * 5
         if main_state.Skill2_Start ==False:
-             self.Balls_First  = 120
-             self.Balls_Second = 100
-             self.Balls_Third  = 80
+            main_state.skill2_atk_cheak = 0
+            self.Balls_First  = 120
+            self.Balls_Second = 100
+            self.Balls_Third  = 80
         if main_state.Skill3_Start==True:
+            if self.MagicShot_Fly >350 and self.MagicShot_Fly<400:
+                main_state.skill3_atk_cheak=1
+            if self.MagicShot_Fly>=400:
+                main_state.skill3_atk_cheak=0
             self.MagicShot_frame = (self.MagicShot_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 3
             self.MagicShot_Fly += int(MOTION_SPEED_PPS) * 5
         if main_state.Skill3_Start==False:
+            main_state.skill3_atk_cheak = 0
             self.MagicShot_Fly = 120
         if main_state.Last_Start==True:
+            main_state.last_atk_cheak = 1
             self.Lazer_frame = (self.Lazer_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 7
+        if main_state.Last_Start==False:
+            main_state.last_atk_cheak = 0

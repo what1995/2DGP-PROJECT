@@ -376,9 +376,9 @@ class Enemy_Marisa:
         self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-Last.wav')
         self.last_sound.set_volume(50)
         self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-damage.wav')
-        self.damage_sound.set_volume(50)
+        self.damage_sound.set_volume(30)
         self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-down.wav')
-        self.down_sound.set_volume(50)
+        self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-item.wav')
         self.item_sound.set_volume(50)
 
