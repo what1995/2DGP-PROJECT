@@ -81,6 +81,7 @@ class StandState:
         marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         if int(EnemyHP.damage) >252:
+            marisa.down_sound.play()
             marisa.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             marisa.skill1_sound.play()

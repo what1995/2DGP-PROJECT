@@ -34,6 +34,8 @@ class Enemy_HP:
                 damage +=Damage_SPEED_PPS
             if int(damage) == int(self.Power):
                 main_state.HPcheak=0
+        if main_state.HPinit==1:
+            damage=0
 
 
     def draw(self):

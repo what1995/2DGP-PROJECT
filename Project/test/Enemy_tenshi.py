@@ -79,6 +79,7 @@ class StandState:
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         if int(EnemyHP.damage) >252:
+            tenshi.down_sound.play()
             tenshi.add_event(Down)
         if EnemyHP.Damagecheak==1:
             tenshi.add_event(Damage)

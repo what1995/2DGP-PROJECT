@@ -79,6 +79,7 @@ class StandState:
         global ationcheak
         reimu.frame1 = (reimu.frame1+ STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 11
         if int(EnemyHP.damage) >252:
+            reimu.down_sound.play()
             reimu.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             reimu.skill1_sound.play()

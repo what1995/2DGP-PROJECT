@@ -56,17 +56,19 @@ Player_AtkBuff=1
 Player_DefBuff=1
 HPcheak=0
 HP=0
+HPinit = 0
 Skill1_Start= False
 Skill2_Start= False
 Skill3_Start= False
 Last_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
-    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music
+    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit
     global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
+    HPinit=0
 
 
     if EnemyPlayer == 0:
@@ -121,6 +123,7 @@ def enter():
 
 
 def exit():
+    EnemyHP.damage = 0
     game_world.clear()
 
 def pause():
@@ -133,7 +136,7 @@ def resume():
 
 def handle_events():
     global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global skillcheak,Bg_Music
+    global skillcheak,Bg_Music,HP,HPinit
     global reimu_skill1_effect, marisa_skill1_effect, iku_skill1_effect, tenshi_skill1_effect, Bg_Music
     global enemy_reimu_skill1_effect, enemy_marisa_skill1_effect, enemy_iku_skill1_effect, enemy_tenshi_skill1_effect
     events = get_events()
@@ -143,28 +146,29 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_world.remove_object(reimu_skill1_effect)
-                game_world.remove_object(marisa_skill1_effect)
-                game_world.remove_object(iku_skill1_effect)
-                game_world.remove_object(tenshi_skill1_effect)
-                game_world.remove_object(enemy_reimu_skill1_effect)
-                game_world.remove_object(enemy_marisa_skill1_effect)
-                game_world.remove_object(iku_skill1_effect)
-                game_world.remove_object(enemy_tenshi_skill1_effect)
-                game_world.remove_object(reimu)
-                game_world.remove_object(marisa)
-                game_world.remove_object(iku)
-                game_world.remove_object(tenshi)
-                game_world.remove_object(Enemy_reimu)
-                game_world.remove_object(Enemy_marisa)
-                game_world.remove_object(Enemy_iku)
-                game_world.remove_object(Enemy_tenshi)
-                game_world.remove_object(background)
-                game_world.remove_object(PlayerHP)
-                game_world.remove_object(EnemyHP)
-                game_world.remove_object(deck)
-                Bg_Music.bgm.stop()
-                game_framework.push_state(DeckSelection)
+            HPinit=1
+            game_world.remove_object(reimu_skill1_effect)
+            game_world.remove_object(marisa_skill1_effect)
+            game_world.remove_object(iku_skill1_effect)
+            game_world.remove_object(tenshi_skill1_effect)
+            game_world.remove_object(enemy_reimu_skill1_effect)
+            game_world.remove_object(enemy_marisa_skill1_effect)
+            game_world.remove_object(iku_skill1_effect)
+            game_world.remove_object(enemy_tenshi_skill1_effect)
+            game_world.remove_object(reimu)
+            game_world.remove_object(marisa)
+            game_world.remove_object(iku)
+            game_world.remove_object(tenshi)
+            game_world.remove_object(Enemy_reimu)
+            game_world.remove_object(Enemy_marisa)
+            game_world.remove_object(Enemy_iku)
+            game_world.remove_object(Enemy_tenshi)
+            game_world.remove_object(background)
+            game_world.remove_object(PlayerHP)
+            game_world.remove_object(EnemyHP)
+            game_world.remove_object(deck)
+            Bg_Music.bgm.stop()
+            game_framework.push_state(DeckSelection)
 
         else:
             if DeckSelection.character == 0 and turn ==1:
