@@ -333,6 +333,12 @@ class Tenshi:
         self.skill3_sound.set_volume(50)
         self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-Last.wav')
         self.last_sound.set_volume(50)
+        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-damage.wav')
+        self.damage_sound.set_volume(50)
+        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-down.wav')
+        self.down_sound.set_volume(50)
+        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-item.wav')
+        self.item_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0

@@ -363,6 +363,12 @@ class Enemy_Reimu:
         self.skill3_sound.set_volume(50)
         self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-Last.wav')
         self.last_sound.set_volume(50)
+        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-damage.wav')
+        self.damage_sound.set_volume(50)
+        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-down.wav')
+        self.down_sound.set_volume(50)
+        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-item.wav')
+        self.item_sound.set_volume(50)
 
         self.dir = 1
         self.motion = 0
