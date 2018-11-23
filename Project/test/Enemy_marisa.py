@@ -31,7 +31,7 @@ LASTTIME_PER_ACTION=2
 LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
 LASTCHEAK_PER_ACTION=20
 #Damage
-DAMAGETIME_PER_ACTION=0.5
+DAMAGETIME_PER_ACTION=1
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
 DAMAGE_PER_ACTION=4
 
@@ -80,6 +80,9 @@ class StandState:
         global ationcheak
         marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        if main_state.turn== 1 and main_state.skill1_atk_cheak or main_state.skill2_atk_cheak or main_state.skill3_atk_cheak or main_state.last_atk_cheak== 1:
+            marisa.damage_sound.play()
+            marisa.add_event(Damage)
         if int(EnemyHP.damage) >252:
             marisa.down_sound.play()
             marisa.add_event(Down)

@@ -78,6 +78,9 @@ class StandState:
         global ationcheak
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
+        if main_state.turn== 1 and main_state.skill1_atk_cheak or main_state.skill2_atk_cheak or main_state.skill3_atk_cheak or main_state.last_atk_cheak== 1:
+            tenshi.damage_sound.play()
+            tenshi.add_event(Damage)
         if int(EnemyHP.damage) >252:
             tenshi.down_sound.play()
             tenshi.add_event(Down)

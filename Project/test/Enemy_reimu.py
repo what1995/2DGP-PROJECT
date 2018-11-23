@@ -30,7 +30,7 @@ LASTTIME_PER_ACTION=2
 LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
 LASTCHEAK_PER_ACTION=23
 #Damage
-DAMAGETIME_PER_ACTION=0.5
+DAMAGETIME_PER_ACTION=1
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
 DAMAGE_PER_ACTION=4
 
@@ -78,6 +78,9 @@ class StandState:
     def do(reimu):
         global ationcheak
         reimu.frame1 = (reimu.frame1+ STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 11
+        if main_state.turn== 1 and main_state.skill1_atk_cheak or main_state.skill2_atk_cheak or main_state.skill3_atk_cheak or main_state.last_atk_cheak== 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
         if int(EnemyHP.damage) >252:
             reimu.down_sound.play()
             reimu.add_event(Down)
