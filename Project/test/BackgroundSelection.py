@@ -92,7 +92,7 @@ def draw():
 
 
 def update():
-    pass
+    main_state.HPinit=1
 
 
 

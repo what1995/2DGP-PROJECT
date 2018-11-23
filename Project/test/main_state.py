@@ -56,7 +56,7 @@ Player_AtkBuff=1
 Player_DefBuff=1
 HPcheak=0
 HP=0
-HPinit = 0
+HPinit = 1
 Skill1_Start= False
 Skill2_Start= False
 Skill3_Start= False
@@ -68,7 +68,7 @@ def enter():
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
-    HPinit=0
+    HPinit=1
 
 
     if EnemyPlayer == 0:
@@ -145,6 +145,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
+            HPinit=1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             HPinit=1
             game_world.remove_object(reimu_skill1_effect)

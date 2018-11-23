@@ -36,6 +36,8 @@ class Enemy_HP:
                 main_state.HPcheak=0
         if main_state.HPinit==1:
             damage=0
+            main_state.HP=0
+            main_state.HPinit=0
 
 
     def draw(self):
