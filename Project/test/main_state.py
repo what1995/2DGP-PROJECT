@@ -42,6 +42,9 @@ deck=None
 Bg_Music=None
 turn = 1
 skill1_atk_cheak=None
+skill2_atk_cheak=None
+skill3_atk_cheak=None
+last_atk_cheak=None
 reimu_skill1_effect=None
 marisa_skill1_effect=None
 iku_skill1_effect=None
@@ -185,7 +188,7 @@ def handle_events():
 
 
 def update():
-    global skill1_atk_cheak
+    global skill1_atk_cheak,skill2_atk_cheak,skill3_atk_cheak,last_atk_cheak
     for game_objcet in game_world.all_objects():
         game_objcet.update()
 

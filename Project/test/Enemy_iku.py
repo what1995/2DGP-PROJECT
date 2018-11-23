@@ -77,7 +77,7 @@ class StandState:
         global ationcheak,damagecheak
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
-        if main_state.turn== 1 and main_state.skill1_atk_cheak== 1:
+        if main_state.turn== 1 and main_state.skill1_atk_cheak or main_state.skill2_atk_cheak or main_state.skill3_atk_cheak or main_state.last_atk_cheak== 1:
             iku.damage_sound.play()
             iku.add_event(Damage)
         if int(EnemyHP.damage) >252:
