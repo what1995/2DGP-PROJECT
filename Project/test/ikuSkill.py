@@ -48,6 +48,7 @@ import game_world
 
 
 name = 'ikuskill'
+test=0
 class IKU_Skill1:
 
 
@@ -134,9 +135,13 @@ class IKU_Skill1:
             self.effect_Last_Ball.clip_draw(int(self.Last_Ball_frame) * 270, 0, 270, 255, 200 + 15, 200 + 210)
 
     def update(self):
+        global test
         if main_state.Skill1_Start == True:
+            main_state.skill1_atk_cheak=1
             self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
+        if main_state.Skill1_Start==False:
+            main_state.skill1_atk_cheak = 0
         if main_state.Skill2_Start == False:
             self.Drill_Pmove = 530
             self.Drill_Emove = 270

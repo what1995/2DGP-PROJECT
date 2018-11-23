@@ -41,7 +41,7 @@ EnemyPlayer=None
 deck=None
 Bg_Music=None
 turn = 1
-skillcheak=0
+skill1_atk_cheak=None
 reimu_skill1_effect=None
 marisa_skill1_effect=None
 iku_skill1_effect=None
@@ -62,7 +62,7 @@ Skill2_Start= False
 Skill3_Start= False
 Last_Start= False
 def enter():
-    global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck
+    global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck,damageheak
     global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit
     global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
     EnemyPlayer=DeckSelection.Enemycharacter
@@ -136,7 +136,7 @@ def resume():
 
 def handle_events():
     global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global skillcheak,Bg_Music,HP,HPinit
+    global damageheak,Bg_Music,HP,HPinit
     global reimu_skill1_effect, marisa_skill1_effect, iku_skill1_effect, tenshi_skill1_effect, Bg_Music
     global enemy_reimu_skill1_effect, enemy_marisa_skill1_effect, enemy_iku_skill1_effect, enemy_tenshi_skill1_effect
     events = get_events()
@@ -181,20 +181,11 @@ def handle_events():
                 iku.handle_event(event)
             if DeckSelection.character == 3and turn ==1:
                 tenshi.handle_event(event)
-            if EnemyPlayer==0and turn ==-1:
-                Enemy_reimu.handle_event(event)
-            if EnemyPlayer==1and turn ==-1:
-                Enemy_marisa.handle_event(event)
-            if EnemyPlayer==2and turn ==-1:
-                Enemy_iku.handle_event(event)
-            if EnemyPlayer==3and turn ==-1:
-                Enemy_tenshi.handle_event(event)
 
 
 
 def update():
-    global iku, background, Player, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn, turncheak
-
+    global skill1_atk_cheak
     for game_objcet in game_world.all_objects():
         game_objcet.update()
 

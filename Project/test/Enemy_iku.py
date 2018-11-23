@@ -47,23 +47,18 @@ MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 # iku Event
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
-key_event_table = {
-(SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT): Skill1,
-    (SDL_KEYDOWN, SDLK_a): Skill2,
-    (SDL_KEYDOWN, SDLK_s): Skill3,
-    (SDL_KEYDOWN, SDLK_d): Last,
-(SDL_KEYDOWN, SDLK_z): Damage,
-(SDL_KEYDOWN, SDLK_x): Down
-}
+
 
 
 # Iku States
 ationcheak = 0
+damagecheak=1
+test=2
 class StandState:
 
     @staticmethod
     def enter(iku, event):
-        global ationcheak
+        global ationcheak,damagecheak
         iku.motion = 0
         iku.frame1 = 0
         iku.frame2 = 0
@@ -73,14 +68,18 @@ class StandState:
 
 
 
+
     @staticmethod
     def exit(iku, event):
         pass
     @staticmethod
     def do(iku):
-        global ationcheak
+        global ationcheak,damagecheak
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        if main_state.turn== 1 and main_state.skill1_atk_cheak== 1:
+            iku.damage_sound.play()
+            iku.add_event(Damage)
         if int(EnemyHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
@@ -234,17 +233,7 @@ class Laststate:
     def enter(iku, event):
         iku.frame1 = 0
         iku.frame2 = 0
-        iku.lastframe = 0
-        iku.lastEframe1 = 0
         iku.lastcheak = 0
-        iku.LastspellEframe1 = 0
-        iku.Lastspellframe1 = 0
-        iku.Lastspellframe2 = 0
-        iku.Lastspellframe3 = 0
-        iku.Lastspellc = 0
-        iku.Lastspelld = 0
-        iku.IkuLastX = [0, 120, 75]
-        iku.IkuLastY = [120, 75]
         iku.Lastframe1 = [0, 60, 120, 180, 243, 315, 440, 570, 700, 825, 945, 1035]
         iku.Lastframe2 = [60, 60, 60, 63, 72, 125, 130, 130, 125, 120]
 
@@ -386,9 +375,9 @@ class Enemy_Iku:
         self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-Last.wav')
         self.last_sound.set_volume(50)
         self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-damage.wav')
-        self.damage_sound.set_volume(50)
+        self.damage_sound.set_volume(30)
         self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-down.wav')
-        self.down_sound.set_volume(50)
+        self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-item.wav')
         self.item_sound.set_volume(50)
 
@@ -420,11 +409,6 @@ class Enemy_Iku:
 
 
     def handle_event(self, event):
-        if (event.type, event.button) in key_event_table:
-            key_event = key_event_table[(event.type, event.button)]
-            self.add_event(key_event)
-        elif (event.type, event.key) in key_event_table:
-            key_event = key_event_table[(event.type, event.key)]
-            self.add_event(key_event)
+        pass
 
 
