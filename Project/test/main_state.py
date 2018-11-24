@@ -93,7 +93,7 @@ def enter():
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
     HPinit=1
-    P_HPinit=0
+    P_HPinit=1
 
 
     if EnemyPlayer == 0:
