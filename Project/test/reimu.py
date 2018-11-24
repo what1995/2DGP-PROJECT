@@ -30,7 +30,7 @@ LASTTIME_PER_ACTION=2
 LASTACTION_PER_TIME= 1.0/LASTTIME_PER_ACTION
 LASTCHEAK_PER_ACTION=23
 #Damage
-DAMAGETIME_PER_ACTION=0.5
+DAMAGETIME_PER_ACTION=1
 DAMAGEACTION_PER_TIME= 1.0/DAMAGETIME_PER_ACTION
 DAMAGE_PER_ACTION=4
 
@@ -84,6 +84,54 @@ class StandState:
         if int(PlayerHP.damage) >252:
             reimu.down_sound.play()
             reimu.add_event(Down)
+        if main_state.EnemyPlayer == 0 and main_state.reimu_skill1_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 0 and main_state.reimu_skill2_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 0 and  main_state.reimu_skill3_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 0 and main_state.reimu_last_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 1 and main_state.marisa_skill1_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 1 and main_state.marisa_skill2_atk_cheak==1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 1 and main_state.marisa_skill3_atk_cheak ==1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 1 and main_state.marisa_last_atk_cheak==1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 2 and main_state.iku_skill1_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 2 and main_state.iku_skill2_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 2 and main_state.iku_skill3_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 2 and main_state.iku_last_atk_cheak== 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 3 and main_state.tenshi_skill1_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 3 and main_state.tenshi_skill2_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 3 and main_state.tenshi_skill3_atk_cheak == 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
+        if main_state.EnemyPlayer == 3 and main_state.tenshi_last_atk_cheak== 1:
+            reimu.damage_sound.play()
+            reimu.add_event(Damage)
 
 class Skill1State:
 
