@@ -109,6 +109,7 @@ class MARISA_Skill1:
 
     def update(self):
         if main_state.Skill1_Start == True:
+            main_state.HPcheak = 1
             main_state.marisa_skill1_atk_cheak=1
             self.Boom_frame = (self.Boom_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
         if main_state.Skill1_Start==False:
@@ -116,6 +117,7 @@ class MARISA_Skill1:
             self.Boom_frame=0
         if main_state.Skill2_Start ==True:
             if self.Balls_First >350 and self.Balls_First<360:
+                main_state.HPcheak = 1
                 main_state.marisa_skill2_atk_cheak=1
             if self.Balls_First>=360:
                 main_state.marisa_skill2_atk_cheak=0
@@ -129,6 +131,7 @@ class MARISA_Skill1:
             self.Balls_Third  = 80
         if main_state.Skill3_Start==True:
             if self.MagicShot_Fly >350 and self.MagicShot_Fly<360:
+                main_state.HPcheak = 1
                 main_state.marisa_skill3_atk_cheak=1
             if self.MagicShot_Fly>=360:
                 main_state.marisa_skill3_atk_cheak=0
@@ -138,6 +141,7 @@ class MARISA_Skill1:
             main_state.marisa_skill3_atk_cheak = 0
             self.MagicShot_Fly = 120
         if main_state.Last_Start==True:
+            main_state.HPcheak = 1
             main_state.marisa_last_atk_cheak = 1
             self.Lazer_frame = (self.Lazer_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 7
         if main_state.Last_Start==False:

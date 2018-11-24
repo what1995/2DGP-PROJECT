@@ -132,6 +132,7 @@ class REIMU_Skill1:
     def update(self):
         if main_state.Skill1_Start == True:
             if self.Charm_Move >350:
+                main_state.HPcheak = 1
                 main_state.reimu_skill1_atk_cheak = 1
             if self.Charm_Move>=400:
                 main_state.reimu_skill1_atk_cheak = 0
@@ -142,6 +143,7 @@ class REIMU_Skill1:
             self.Charm_Move=80
 
         if main_state.Skill2_Start ==True:
+            main_state.HPcheak = 1
             main_state.reimu_skill2_atk_cheak = 1
             self.Shelter_frame = (self.Shelter_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
         if main_state.Skill2_Start == False:
@@ -149,6 +151,7 @@ class REIMU_Skill1:
             self.Shelter_frame=0
         if main_state.Skill3_Start==True:
             if self.Jade_Move >350:
+                main_state.HPcheak = 1
                 main_state.reimu_skill3_atk_cheak = 1
             if self.Jade_Move>=360:
                 main_state.reimu_skill3_atk_cheak = 0
@@ -163,6 +166,7 @@ class REIMU_Skill1:
             self.Border_frame = (self.Border_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 8
             self.Explosin_frame  = (self.Explosin_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 3
             if self.Lastcheak>=9:
+                main_state.HPcheak = 1
                 main_state.reimu_last_atk_cheak = 1
                 self.Explosin_Y_frame = (self.Explosin_Y_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
                 self.Explosin_X_frame = (self.Explosin_X_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2

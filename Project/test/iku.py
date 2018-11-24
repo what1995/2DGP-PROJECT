@@ -121,7 +121,6 @@ class Skill1State:
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
         if int(iku.skill1cheak)>=7 and int(iku.skill1cheak)<20:
             skillcheak=1
-            main_state.HPcheak = 1
             main_state.Skill1_Start=True
 
         if int(iku.skill1cheak)>20:
@@ -164,7 +163,6 @@ class Skill2State:
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
         if int(iku.skill2cheak) > 5 and int(iku.skill2cheak) < 15:
             skillcheak=1
-            main_state.HPcheak =1
             if iku.skill2cheak > 8:
                 main_state.Skill2_Start = True
                 iku.skill2Px += int(MOTION_SPEED_PPS)
@@ -209,8 +207,6 @@ class Skill3State:
                 iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
             if int(iku.skill3cheak) >= 5:
                 main_state.Skill3_Start=True
-                if int(iku.skill3cheak) >= 7:
-                    main_state.HPcheak=1
                 if int(iku.skill3cheak) > 17:
                     iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
                     iku.frame2 = (iku.frame2 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -263,7 +259,6 @@ class Laststate:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
                 iku.frame2 = (iku.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
             if int(iku.lastcheak) >= 8:
-                main_state.HPcheak = 1
                 main_state.Last_Start=True
             if int(iku.lastcheak) >= 32:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10
