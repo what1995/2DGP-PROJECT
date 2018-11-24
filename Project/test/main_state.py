@@ -47,16 +47,11 @@ reimu_skill2_atk_cheak=0
 reimu_skill3_atk_cheak=0
 reimu_last_atk_cheak=0
 
-marisa_atk_cheak=None
 marisa_skill1_atk_cheak=None
 marisa_skill2_atk_cheak=None
 marisa_skill3_atk_cheak=None
 marisa_last_atk_cheak=None
 
-Marisa_Skill1_Start= False
-Marisa_Skill2_Start= False
-Marisa_Skill3_Start= False
-Marisa_Last_Start= False
 
 iku_skill1_atk_cheak=None
 iku_skill2_atk_cheak=None
@@ -181,7 +176,7 @@ def handle_events():
             game_world.remove_object(tenshi_skill1_effect)
             game_world.remove_object(enemy_reimu_skill1_effect)
             game_world.remove_object(enemy_marisa_skill1_effect)
-            game_world.remove_object(iku_skill1_effect)
+            game_world.remove_object(enemy_iku_skill1_effect)
             game_world.remove_object(enemy_tenshi_skill1_effect)
             game_world.remove_object(reimu)
             game_world.remove_object(marisa)
