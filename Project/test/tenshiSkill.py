@@ -134,6 +134,10 @@ class TENSHI_Skill1:
 
     def update(self):
         if main_state.Skill1_Start == True:
+            if self.Hight_Stone_Move <135:
+                main_state.tenshi_skill1_atk_cheak =1
+            if self.Hight_Stone_Move <130:
+                main_state.tenshi_skill1_atk_cheak=0
             self.SKill1cheak=(self.SKill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 16
             if self.SKill1cheak > 7:
                 self.Hight_Stone_FX_frame = (self.Hight_Stone_FX_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
@@ -141,18 +145,24 @@ class TENSHI_Skill1:
             if self.SKill1cheak >9:
                 self.Hight_Stone_Move -= int(MOTION_SPEED_PPS) * 3
         if main_state.Skill1_Start == False:
+            main_state.tenshi_skill1_atk_cheak = 0
             self.Hight_Stone_frame = 0
             self.Hight_Stone_FX_frame = 0
             self.Hight_Stone_FY_frame = 0
             self.Hight_Stone_Move = 160
             self.SKill1cheak = 0
         if main_state.Skill2_Start == False:
+            main_state.tenshi_skill2_atk_cheak = 0
             self.Mini_Stone_frame=(self.Mini_Stone_frame +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
             self.Mini_Stone_First  = 75
             self.Mini_Stone_Second = 95
             self.Mini_Stone_Third  = 85
             self.Skill2cheak=0
         if main_state.Skill2_Start ==True:
+            if self.Mini_Stone_Second >450:
+                main_state.tenshi_skill2_atk_cheak=1
+            if self.Mini_Stone_Second >470:
+                main_state.tenshi_skill2_atk_cheak = 0
             self.Skill2cheak=( self.Skill2cheak +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%22
             self.Mini_Stone_frame = (self.Mini_Stone_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
             if self.Skill2cheak >2:
@@ -162,15 +172,23 @@ class TENSHI_Skill1:
             if self.Skill2cheak >6:
                 self.Mini_Stone_Third += int(MOTION_SPEED_PPS) * 5
         if main_state.Skill3_Start==True:
+            if int(self.Lazerbeam_frame)==4:
+                main_state.tenshi_skill3_atk_cheak=1
+            if int(self.Lazerbeam_frame)==5:
+                main_state.tenshi_skill3_atk_cheak=0
             self.Lazerbeam_frame = (self.Lazerbeam_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 7
         if main_state.Skill3_Start == False:
+            main_state.tenshi_skill3_atk_cheak = 0
             self.Lazerbeam_frame=0
         if main_state.Last_Start==True:
             self.Lastcheak = (self.Lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%21
+            if int(self.Lastcheak) == 6:
+                main_state.tenshi_last_atk_cheak=1
             if int(self.Lastcheak) == 9:
                 self.Letter_frame = 1
             if int(self.Lastcheak) == 15:
                 self.Letter_frame = 2
         if main_state.Last_Start == False:
+            main_state.tenshi_last_atk_cheak = 0
             self.Letter_frame = 0
             self.Lastcheak = 0
