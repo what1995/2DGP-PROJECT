@@ -92,7 +92,7 @@ def enter():
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
-    HPinit=0
+    HPinit=1
     P_HPinit=0
 
 

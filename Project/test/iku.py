@@ -3,6 +3,7 @@ import os
 import game_framework
 import main_state
 import Deck
+import PlayerHP
 import Enemy_iku
 import EnemyHP
 #iku stand
@@ -85,6 +86,9 @@ class StandState:
     def do(iku):
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(PlayerHP.damage) >252:
+            iku.down_sound.play()
+            iku.add_event(Down)
 
 
 
@@ -334,8 +338,7 @@ class Downstate:
                 iku.frame2 = (iku.frame2 +DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 7
             iku.Downcheak = (iku.Downcheak + DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)%21
         if int(iku.Downcheak) >= 20:
-            iku.Downcheak = 20
-            #iku.add_event(Stand)
+            pass
 
 
         #iku.timer -= 1

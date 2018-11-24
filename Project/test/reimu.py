@@ -5,6 +5,7 @@ import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_framework
 import game_world
+import PlayerHP
 #reimu stand
 STAND_TIME_PER_ACTION=1.2
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
@@ -80,6 +81,9 @@ class StandState:
     def draw(reimu):
         if reimu.motion ==0:
             reimu.stand.clip_draw(int(reimu.frame1) *100,105,97,105, reimu.x, reimu.y)
+        if int(PlayerHP.damage) >252:
+            reimu.down_sound.play()
+            reimu.add_event(Down)
 
 class Skill1State:
 
@@ -297,8 +301,7 @@ class Downstate:
                 reimu.frame2 = (reimu.frame2+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time) % 10
             reimu.Downcheak = (reimu.Downcheak+ DOWN_PER_ACTION * DOWNACTION_PER_TIME * game_framework.frame_time)%21
         if int(reimu.Downcheak) >= 20:
-            reimu.Downcheak = 0
-            reimu.add_event(Stand)
+            pass
 
 
     @staticmethod
