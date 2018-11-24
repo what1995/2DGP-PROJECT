@@ -135,7 +135,10 @@ class TENSHI_Skill1:
     def update(self):
         if main_state.Skill1_Start == True:
             if self.Hight_Stone_Move <135:
-                main_state.HPcheak = 1
+                if main_state.turn == 1:
+                    main_state.HPcheak = 1
+                if main_state.turn == -1:
+                    main_state.P_HPcheak = 1
                 main_state.tenshi_skill1_atk_cheak =1
             if self.Hight_Stone_Move <130:
                 main_state.tenshi_skill1_atk_cheak=0
@@ -165,7 +168,10 @@ class TENSHI_Skill1:
             if self.Mini_Stone_Second >470:
                 main_state.tenshi_skill2_atk_cheak = 0
             if self.Mini_Stone_Second > 550:
-                main_state.HPcheak = 1
+                if main_state.turn == 1:
+                    main_state.HPcheak = 1
+                if main_state.turn == -1:
+                    main_state.P_HPcheak = 1
             self.Skill2cheak=( self.Skill2cheak +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%22
             self.Mini_Stone_frame = (self.Mini_Stone_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
             if self.Skill2cheak >2:
@@ -176,7 +182,10 @@ class TENSHI_Skill1:
                 self.Mini_Stone_Third += int(MOTION_SPEED_PPS) * 5
         if main_state.Skill3_Start==True:
             if int(self.Lazerbeam_frame)==4:
-                main_state.HPcheak = 1
+                if main_state.turn == 1:
+                    main_state.HPcheak = 1
+                if main_state.turn == -1:
+                    main_state.P_HPcheak = 1
                 main_state.tenshi_skill3_atk_cheak=1
             if int(self.Lazerbeam_frame)==5:
                 main_state.tenshi_skill3_atk_cheak=0
@@ -187,7 +196,10 @@ class TENSHI_Skill1:
         if main_state.Last_Start==True:
             self.Lastcheak = (self.Lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%21
             if int(self.Lastcheak) == 6:
-                main_state.HPcheak = 1
+                if main_state.turn == 1:
+                    main_state.HPcheak = 1
+                if main_state.turn == -1:
+                    main_state.P_HPcheak = 1
                 main_state.tenshi_last_atk_cheak=1
             if int(self.Lastcheak) == 9:
                 self.Letter_frame = 1

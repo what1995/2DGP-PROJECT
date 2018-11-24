@@ -137,7 +137,10 @@ class IKU_Skill1:
     def update(self):
         global test
         if main_state.Skill1_Start == True:
-            main_state.HPcheak = 1
+            if main_state.turn==1:
+                main_state.HPcheak = 1
+            if main_state.turn== -1:
+                main_state.P_HPcheak=1
             main_state.iku_skill1_atk_cheak=1
             self.Line_frame = (self.Line_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             self.Ball_frame = (self.Ball_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
@@ -149,7 +152,11 @@ class IKU_Skill1:
             self.Drill_Emove = 270
         if main_state.Skill2_Start ==True:
             if self.Drill_Pmove >550:
-                main_state.HPcheak = 1
+                if main_state.turn == 1:
+                    main_state.HPcheak = 1
+            if self.Drill_Emove >250:
+                if main_state.turn == -1:
+                    main_state.P_HPcheak = 1
                 main_state.iku_skill2_atk_cheak = 1
             if main_state.turn == 1:
                 self.Drill_Pmove += int(MOTION_SPEED_PPS)
@@ -157,13 +164,19 @@ class IKU_Skill1:
                 self.Drill_Emove -= int(MOTION_SPEED_PPS)
             self.Drill_frame = (self.Drill_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 6
         if main_state.Skill3_Start==True:
-            main_state.HPcheak = 1
+            if main_state.turn==1:
+                main_state.HPcheak = 1
+            if main_state.turn== -1:
+                main_state.P_HPcheak=1
             main_state.iku_skill3_atk_cheak=1
             self.Lightning_frame = (self.Lightning_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 4
         if main_state.Skill3_Start == False:
             main_state.iku_skill3_atk_cheak=0
         if main_state.Last_Start==True:
-            main_state.HPcheak = 1
+            if main_state.turn==1:
+                main_state.HPcheak = 1
+            if main_state.turn== -1:
+                main_state.P_HPcheak=1
             main_state.iku_last_atk_cheak=1
             self.Last_Ball_frame = (self.Last_Ball_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 4
             self.Last_Lightning_frame = (self.Last_Lightning_frame + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 2

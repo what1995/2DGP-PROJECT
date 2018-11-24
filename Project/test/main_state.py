@@ -76,20 +76,24 @@ enemy_tenshi_skill1_effect=None
 Player_AtkBuff=1
 Player_DefBuff=1
 HPcheak=0
-HP=0
-HPinit = 1
+HP=0 #enemy
+P_HP=0
+P_HPcheak=0
+HPinit = 0
+P_HPinit = 0
 Skill1_Start= False
 Skill2_Start= False
 Skill3_Start= False
 Last_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck,damageheak
-    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit
+    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit,P_HPinit
     global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
-    HPinit=1
+    HPinit=0
+    P_HPinit=0
 
 
     if EnemyPlayer == 0:
@@ -157,7 +161,7 @@ def resume():
 
 def handle_events():
     global iku, background, reimu, tenshi, marisa, PlayerHP, EnemyHP, Enemy_marisa, Enemy_reimu, Enemy_tenshi, Enemy_iku, EnemyPlayer, turn,turncheak
-    global damageheak,Bg_Music,HP,HPinit
+    global damageheak,Bg_Music,HP,HPinit,P_HPinit
     global reimu_skill1_effect, marisa_skill1_effect, iku_skill1_effect, tenshi_skill1_effect, Bg_Music
     global enemy_reimu_skill1_effect, enemy_marisa_skill1_effect, enemy_iku_skill1_effect, enemy_tenshi_skill1_effect
     events = get_events()
@@ -167,9 +171,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
-            HPinit=1
+            HPinit,P_HPinit=1 ,1
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             HPinit=1
+            P_HPinit=1
             game_world.remove_object(reimu_skill1_effect)
             game_world.remove_object(marisa_skill1_effect)
             game_world.remove_object(iku_skill1_effect)
