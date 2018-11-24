@@ -3,6 +3,7 @@ import os
 import EnemyHP
 import main_state
 import random
+import DeckSelection
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
@@ -78,9 +79,19 @@ class StandState:
         global ationcheak
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
-        if main_state.turn== 1 and main_state.skill1_atk_cheak or main_state.skill2_atk_cheak or main_state.skill3_atk_cheak or main_state.last_atk_cheak== 1:
+        if DeckSelection.character == 0 and main_state.reimu_skill1_atk_cheak or main_state.reimu_skill2_atk_cheak or main_state.reimu_skill3_atk_cheak or main_state.reimu_last_atk_cheak== 1:
             tenshi.damage_sound.play()
             tenshi.add_event(Damage)
+        if DeckSelection.character == 1 and main_state.marisa_atk_cheak == 1:
+            tenshi.damage_sound.play(1)
+            tenshi.add_event(Damage)
+        if DeckSelection.character == 2 and main_state.iku_skill1_atk_cheak or main_state.iku_skill2_atk_cheak or main_state.iku_skill3_atk_cheak or main_state.iku_last_atk_cheak== 1:
+            tenshi.damage_sound.play()
+            tenshi.add_event(Damage)
+        if DeckSelection.character == 3 and main_state.tenshi_skill1_atk_cheak or main_state.tenshi_skill2_atk_cheak or main_state.tenshi_skill3_atk_cheak or main_state.tenshi_last_atk_cheak== 1:
+            tenshi.damage_sound.play()
+            tenshi.add_event(Damage)
+
         if int(EnemyHP.damage) >252:
             tenshi.down_sound.play()
             tenshi.add_event(Down)

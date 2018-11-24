@@ -41,10 +41,33 @@ EnemyPlayer=None
 deck=None
 Bg_Music=None
 turn = 1
-skill1_atk_cheak=None
-skill2_atk_cheak=None
-skill3_atk_cheak=None
-last_atk_cheak=None
+
+reimu_skill1_atk_cheak=0
+reimu_skill2_atk_cheak=0
+reimu_skill3_atk_cheak=0
+reimu_last_atk_cheak=0
+
+marisa_atk_cheak=None
+marisa_skill1_atk_cheak=None
+marisa_skill2_atk_cheak=None
+marisa_skill3_atk_cheak=None
+marisa_last_atk_cheak=None
+
+Marisa_Skill1_Start= False
+Marisa_Skill2_Start= False
+Marisa_Skill3_Start= False
+Marisa_Last_Start= False
+
+iku_skill1_atk_cheak=None
+iku_skill2_atk_cheak=None
+iku_skill3_atk_cheak=None
+iku_last_atk_cheak=None
+
+tenshi_skill1_atk_cheak=None
+tenshi_skill2_atk_cheak=None
+tenshi_skill3_atk_cheak=None
+tenshi_last_atk_cheak=None
+
 reimu_skill1_effect=None
 marisa_skill1_effect=None
 iku_skill1_effect=None

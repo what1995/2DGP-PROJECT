@@ -112,9 +112,9 @@ class Skill1State:
             marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
         if int(marisa.skill1cheak) >6:
             if marisa.skill1cheak < 15:
-                main_state.Skill1_Start=True
+                main_state.Marisa_Skill1_Start=True
             if int(marisa.skill1cheak) >= 15:
-                main_state.Skill1_Start = False
+                main_state.Marisa_Skill1_Start = False
                 marisa.frame1 = (marisa.frame1+SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 10
                 marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
 
@@ -149,12 +149,12 @@ class Skill2State:
         if int(marisa.skill2cheak) < 7:
             marisa.frame1 = (marisa.frame1  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
             marisa.frame2 = (marisa.frame2  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
-            main_state.Skill2_Start=True
+            main_state.Marisa_Skill2_Start=True
             marisa.skill2cheak = (marisa.skill2cheak+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%9
         if int(marisa.skill2cheak) >= 7:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
-            main_state.Skill2_Start = False
+            main_state.Marisa_Skill2_Start = False
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -188,7 +188,7 @@ class Skill3State:
                 marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
                 marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
             if int(marisa.skill3cheak) >= 7:
-                main_state.Skill3_Start = True
+                main_state.Marisa_Skill3_Start = True
             if int(marisa.skill3cheak) >= 13:
                     marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
                     marisa.frame2 = (marisa.frame2+ SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -196,7 +196,7 @@ class Skill3State:
         if int(marisa.skill3cheak) >= 17:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
-            main_state.Skill3_Start = False
+            main_state.Marisa_Skill3_Start = False
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -235,13 +235,13 @@ class Laststate:
             marisa.frame1 = (marisa.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
             marisa.frame2 = (marisa.frame2+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
             if int(marisa.lastcheak) > 4 and int(marisa.lastcheak)<11:
-                main_state.Last_Start=True
+                main_state.Marisa_Last_Start=True
 
             marisa.lastcheak = (marisa.lastcheak+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time)%20
         if int(marisa.lastcheak) >= 18:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
-            main_state.Last_Start = False
+            main_state.Marisa_Last_Start = False
             main_state.turn = -1
             Deck.spellcheak += 3
 
