@@ -135,13 +135,14 @@ class TENSHI_Skill1:
     def update(self):
         if main_state.Skill1_Start == True:
             if self.Hight_Stone_Move <135:
+                main_state.tenshi_skill1_atk_cheak =1
+            if self.Hight_Stone_Move <130:
+                main_state.tenshi_skill1_atk_cheak=0
+            if self.Hight_Stone_Move <110:
                 if main_state.turn == 1:
                     main_state.HPcheak = 1
                 if main_state.turn == -1:
                     main_state.P_HPcheak = 1
-                main_state.tenshi_skill1_atk_cheak =1
-            if self.Hight_Stone_Move <130:
-                main_state.tenshi_skill1_atk_cheak=0
             self.SKill1cheak=(self.SKill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 16
             if self.SKill1cheak > 7:
                 self.Hight_Stone_FX_frame = (self.Hight_Stone_FX_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
@@ -165,13 +166,12 @@ class TENSHI_Skill1:
         if main_state.Skill2_Start ==True:
             if self.Mini_Stone_Second >450:
                 main_state.tenshi_skill2_atk_cheak=1
-            if self.Mini_Stone_Second >470:
-                main_state.tenshi_skill2_atk_cheak = 0
-            if self.Mini_Stone_Second > 550:
                 if main_state.turn == 1:
                     main_state.HPcheak = 1
                 if main_state.turn == -1:
                     main_state.P_HPcheak = 1
+            if self.Mini_Stone_Second >470:
+                main_state.tenshi_skill2_atk_cheak = 0
             self.Skill2cheak=( self.Skill2cheak +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time)%22
             self.Mini_Stone_frame = (self.Mini_Stone_frame + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 3
             if self.Skill2cheak >2:

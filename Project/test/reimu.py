@@ -478,7 +478,7 @@ next_state_table = {
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
     Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
-    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Downstate: {Down:StandState,Stand:StandState,Damage:Downstate},
     Item_Doll:{Item1:StandState, Stand:StandState},
 Item_Potion:{Item2:StandState, Stand:StandState},
 Item_Clock:{Item3:StandState, Stand:StandState}
