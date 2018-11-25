@@ -38,6 +38,12 @@ DAMAGE_PER_ACTION=4
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+
+#itemuse
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 1.0/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=10
+
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -382,15 +388,116 @@ class Downstate:
     def draw(marisa):
         if marisa.motion == 6:
             marisa.Down.clip_draw(marisa.Downframe1[int(marisa.frame1)], 95, marisa.Downframe2[int(marisa.frame2)], 95, marisa.x, marisa.y-20)
+class Item_Doll:
+    @staticmethod
+    def enter(marisa,event):
+        marisa.frame1 = 0
+        marisa.frame2 = 0
+        marisa.item1cheak = 0
+        marisa.Skill1frame1 = [0, 71, 132, 197, 262, 322, 396, 468, 536, 600]
+        marisa.Skill1frame2 = [71, 61, 65, 65, 58, 72, 72, 66, 60]
+        if event == Item1:
+            marisa.motion = 7
+    @staticmethod
+    def exit(marisa,event):
+        pass
+    @staticmethod
+    def do(marisa):
+        global HP,HPcheak,skillcheak
+        if int(marisa.item1cheak) < 9:
+            marisa.frame1 = (marisa.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+            marisa.frame2 = (marisa.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
 
+            marisa.item1cheak = (marisa.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%10
+        if int(marisa.item1cheak) >= 9:
+            marisa.item1cheak = 0
+            marisa.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(marisa):
+        if marisa.motion == 7:
+            marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
+class Item_Potion:
+    @staticmethod
+    def enter(marisa, event):
+        marisa.frame1 = 0
+        marisa.frame2 = 0
+        marisa.item1cheak = 0
+        marisa.Skill1frame1 = [0, 71, 132, 197, 262, 322, 396, 468, 536, 600]
+        marisa.Skill1frame2 = [71, 61, 65, 65, 58, 72, 72, 66, 60]
+        if event == Item2:
+            marisa.motion = 8
+
+    @staticmethod
+    def exit(marisa, event):
+        pass
+
+    @staticmethod
+    def do(marisa):
+        global HP, HPcheak, skillcheak
+        if int(marisa.item1cheak) < 9:
+            marisa.frame1 = (marisa.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+            marisa.frame2 = (marisa.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+
+            marisa.item1cheak = (marisa.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 10
+        if int(marisa.item1cheak) >= 9:
+            marisa.item1cheak = 0
+            marisa.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(marisa):
+        if marisa.motion == 8:
+            marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(marisa, event):
+        marisa.frame1 = 0
+        marisa.frame2 = 0
+        marisa.item1cheak = 0
+        marisa.Skill1frame1 = [0, 71, 132, 197, 262, 322, 396, 468, 536, 600]
+        marisa.Skill1frame2 = [71, 61, 65, 65, 58, 72, 72, 66, 60]
+        if event == Item3:
+            marisa.motion = 9
+
+    @staticmethod
+    def exit(marisa, event):
+        pass
+
+    @staticmethod
+    def do(marisa):
+        global HP, HPcheak, skillcheak
+        if int(marisa.item1cheak) < 9:
+            marisa.frame1 = (marisa.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+            marisa.frame2 = (marisa.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+
+            marisa.item1cheak = (
+                                            marisa.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 10
+        if int(marisa.item1cheak) >= 9:
+            marisa.item1cheak = 0
+            marisa.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(marisa):
+        if marisa.motion == 9:
+            marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 
@@ -477,6 +584,19 @@ class Marisa:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -494,6 +614,19 @@ class Marisa:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -511,6 +644,19 @@ class Marisa:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)

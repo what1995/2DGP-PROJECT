@@ -455,6 +455,19 @@ class Tenshi:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -472,6 +485,19 @@ class Tenshi:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
@@ -489,6 +515,19 @@ class Tenshi:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
