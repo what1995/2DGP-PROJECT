@@ -46,8 +46,7 @@ MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
 MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
 MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 # iku Event
-Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
-
+Stand,Skill1,Skill2,Skill3, Last, Damage,Down,Item1,Item2,Item3 = range(10)
 
 
 

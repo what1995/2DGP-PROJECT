@@ -46,13 +46,19 @@ MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
 MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
 Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
 
+Stand,Skill1,Skill2,Skill3, Last, Damage,Down,Item1,Item2,Item3 = range(10)
+
 key_event_table = {
 (SDL_MOUSEBUTTONDOWN, 1): Skill1,
     (SDL_MOUSEBUTTONDOWN, 2): Skill2,
     (SDL_MOUSEBUTTONDOWN, 3): Skill3,
     (SDL_MOUSEBUTTONDOWN, 4): Last,
-(SDL_KEYDOWN, SDLK_z): Damage,
-(SDL_KEYDOWN, SDLK_x): Down
+    (SDL_MOUSEBUTTONDOWN, 99): Damage,
+(SDL_MOUSEBUTTONDOWN, 98): Down,
+(SDL_MOUSEBUTTONDOWN, 5): Item1,
+(SDL_MOUSEBUTTONDOWN, 6): Item2,
+(SDL_MOUSEBUTTONDOWN, 7): Item3
+
 }
 
 
