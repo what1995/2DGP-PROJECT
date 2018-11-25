@@ -38,6 +38,10 @@ DAMAGE_PER_ACTION=4
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+#item use
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 0.8/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=9
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -368,15 +372,116 @@ class Downstate:
     def draw(reimu):
         if reimu.motion == 6:
             reimu.Down.clip_draw(reimu.Downframe1[int(reimu.frame1)],65,reimu.Downframe2[int(reimu.frame2)],65, reimu.x, reimu.y-25)
+class Item_Doll:
+    @staticmethod
+    def enter(reimu,event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item1:
+            reimu.motion = 7
+    @staticmethod
+    def exit(reimu,event):
+        pass
+    @staticmethod
+    def do(reimu):
+        global HP,HPcheak,skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
 
+            reimu.item1cheak = (reimu.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 7:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 155, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
+class Item_Potion:
+    @staticmethod
+    def enter(reimu, event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item2:
+            reimu.motion = 8
+
+    @staticmethod
+    def exit(reimu, event):
+        pass
+
+    @staticmethod
+    def do(reimu):
+        global HP, HPcheak, skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+
+            reimu.item1cheak = (
+                                           reimu.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 8:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 155, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(reimu, event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item3:
+            reimu.motion = 9
+
+    @staticmethod
+    def exit(reimu, event):
+        pass
+
+    @staticmethod
+    def do(reimu):
+        global HP, HPcheak, skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+
+            reimu.item1cheak = (reimu.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 9:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 155, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 
@@ -451,19 +556,19 @@ class Reimu:
             if main_state.turn==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==5:
@@ -481,19 +586,19 @@ class Reimu:
                         self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
@@ -511,19 +616,19 @@ class Reimu:
                         self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:

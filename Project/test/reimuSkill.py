@@ -157,13 +157,14 @@ class REIMU_Skill1:
             self.Shelter_frame=0
         if main_state.Skill3_Start==True:
             if self.Jade_Move >350:
+                main_state.reimu_skill3_atk_cheak = 1
+            if self.Jade_Move>=360:
+                main_state.reimu_skill3_atk_cheak = 0
+            if self.Jade_Move >400:
                 if main_state.turn == 1:
                     main_state.HPcheak = 1
                 if main_state.turn == -1:
                     main_state.P_HPcheak = 1
-                main_state.reimu_skill3_atk_cheak = 1
-            if self.Jade_Move>=360:
-                main_state.reimu_skill3_atk_cheak = 0
             self.Jade_Move += int(MOTION_SPEED_PPS) * 5
             self.Jade_frame = (self.Jade_frame + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 2
         if main_state.Skill3_Start == False:

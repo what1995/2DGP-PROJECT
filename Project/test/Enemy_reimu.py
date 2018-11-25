@@ -39,6 +39,10 @@ DAMAGE_PER_ACTION=4
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+#item use
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 0.8/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=9
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -59,7 +63,7 @@ class StandState:
         reimu.motion = 0
         reimu.frame1 = 0
         reimu.frame2 = 0
-        ationcheak = random.randint(1, 4)
+        ationcheak = random.randint(5, 7)
 
 
 
@@ -122,22 +126,35 @@ class StandState:
         if int(EnemyHP.damage) >252:
             reimu.down_sound.play()
             reimu.add_event(Down)
-        if main_state.turn== -1 and ationcheak == 1: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
             reimu.skill1_sound.play()
             main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill1)
-        if main_state.turn== -1 and ationcheak == 2: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
             reimu.skill2_sound.play()
             main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill2)
-        if main_state.turn== -1 and ationcheak == 3: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
             reimu.skill3_sound.play()
             main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill3)
-        if main_state.turn== -1 and ationcheak == 4: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
             reimu.last_sound.play()
             main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Last)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+            reimu.item_sound.play()
+            main_state.Enemy_DefBuff = 0
+            reimu.add_event(Item1)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+            reimu.item_sound.play()
+            main_state.Enemy_AtkBuff = 3
+            reimu.add_event(Item2)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+            reimu.item_sound.play()
+            main_state.HP -= 100
+            EnemyHP.damage -= 100
+            reimu.add_event(Item3)
 
 
 
@@ -376,15 +393,113 @@ class Downstate:
     def draw(reimu):
         if reimu.motion == 6:
             reimu.Down.clip_draw(reimu.Downframe1[int(reimu.frame1)],0,reimu.Downframe2[int(reimu.frame2)],65, reimu.x, reimu.y-25)
+class Item_Doll:
+    @staticmethod
+    def enter(reimu,event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item1:
+            reimu.motion = 7
+    @staticmethod
+    def exit(reimu,event):
+        pass
+    @staticmethod
+    def do(reimu):
+        global HP,HPcheak,skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
 
+            reimu.item1cheak = (reimu.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 7:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 0, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
+class Item_Potion:
+    @staticmethod
+    def enter(reimu, event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item2:
+            reimu.motion = 8
+
+    @staticmethod
+    def exit(reimu, event):
+        pass
+
+    @staticmethod
+    def do(reimu):
+        global HP, HPcheak, skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+
+            reimu.item1cheak = (
+                                           reimu.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 8:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 0, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(reimu, event):
+        reimu.frame1 = 0
+        reimu.frame2 = 0
+        reimu.item1cheak = 0
+        reimu.Skill2frame1 = [0, 66, 120, 217, 304, 392, 480, 572, 675]
+        reimu.Skill2frame2 = [66, 54, 97, 87, 88, 88, 92, 103]
+        if event == Item3:
+            reimu.motion = 9
+
+    @staticmethod
+    def exit(reimu, event):
+        pass
+
+    @staticmethod
+    def do(reimu):
+        global HP, HPcheak, skillcheak
+        if int(reimu.item1cheak) < 8:
+            reimu.frame1 = (reimu.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+            reimu.frame2 = (reimu.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 8
+
+            reimu.item1cheak = (reimu.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(reimu.item1cheak) >= 8:
+            reimu.item1cheak = 0
+            reimu.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(reimu):
+        if reimu.motion == 9:
+            reimu.skill2.clip_draw(reimu.Skill2frame1[int(reimu.frame1)], 0, reimu.Skill2frame2[int(reimu.frame2)],120, reimu.x, reimu.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
     Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
-    Downstate: {Down:StandState,Stand:StandState,Damage:StandState}
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 

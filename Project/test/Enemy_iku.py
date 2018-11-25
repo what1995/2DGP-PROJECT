@@ -134,31 +134,31 @@ class StandState:
         if int(EnemyHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
-        if main_state.turn== -1 and ationcheak == 1: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
             iku.skill1_sound.play()
             main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill1)
-        if main_state.turn== -1 and ationcheak == 2: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
             iku.skill2_sound.play()
             main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill2)
-        if main_state.turn== -1 and ationcheak == 3: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
             iku.skill3_sound.play()
             main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill3)
-        if main_state.turn== -1 and ationcheak == 4: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
             iku.last_sound.play()
             main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Last)
-        if main_state.turn== -1 and ationcheak == 5: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
             iku.item_sound.play()
             main_state.Enemy_DefBuff = 0
             iku.add_event(Item1)
-        if main_state.turn== -1 and ationcheak == 6: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
             iku.item_sound.play()
             main_state.Enemy_AtkBuff = 3
             iku.add_event(Item2)
-        if main_state.turn== -1 and ationcheak == 7: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
             iku.item_sound.play()
             main_state.HP -= 100
             EnemyHP.damage -= 100
@@ -441,7 +441,7 @@ class Item_Doll:
     @staticmethod
     def draw(iku):
         if iku.motion == 7:
-            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
 class Item_Potion:
     @staticmethod
     def enter(iku,event):
@@ -472,7 +472,7 @@ class Item_Potion:
     @staticmethod
     def draw(iku):
         if iku.motion == 8:
-            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 
 class Item_Clock:
     @staticmethod
@@ -504,7 +504,7 @@ class Item_Clock:
     @staticmethod
     def draw(iku):
         if iku.motion == 9:
-            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},

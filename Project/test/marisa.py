@@ -475,8 +475,7 @@ class Item_Clock:
             marisa.frame1 = (marisa.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
             marisa.frame2 = (marisa.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
 
-            marisa.item1cheak = (
-                                            marisa.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 10
+            marisa.item1cheak = (marisa.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 10
         if int(marisa.item1cheak) >= 9:
             marisa.item1cheak = 0
             marisa.add_event(Stand)
@@ -569,19 +568,19 @@ class Marisa:
             if main_state.turn==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==5:
@@ -599,19 +598,19 @@ class Marisa:
                         self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
@@ -629,19 +628,19 @@ class Marisa:
                         self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:

@@ -123,19 +123,19 @@ class StandState:
             tenshi.add_event(Down)
         if EnemyHP.Damagecheak==1:
             tenshi.add_event(Damage)
-        if main_state.turn== -1 and ationcheak == 1: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
             tenshi.skill1_sound.play()
             main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill1)
-        if main_state.turn== -1 and ationcheak == 2: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
             tenshi.skill2_sound.play()
             main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill2)
-        if main_state.turn== -1 and ationcheak == 3: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
             tenshi.skill3_sound.play()
             main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill3)
-        if main_state.turn== -1 and ationcheak == 4: #test
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
             tenshi.last_sound.play()
             main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Last)
