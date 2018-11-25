@@ -38,6 +38,10 @@ class Enemy_HP:
             damage=0
             main_state.HP=0
             main_state.HPinit=0
+        if damage <0:
+            damage=0
+        if main_state.HP <0:
+            main_state.HP=0
 
 
     def draw(self):

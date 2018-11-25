@@ -39,6 +39,12 @@ DAMAGE_PER_ACTION=4
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+
+#ItemUse
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 1.0/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=7
+
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -64,7 +70,7 @@ class StandState:
         iku.frame2 = 0
         iku.Standframe1 = [0, 73, 140, 200, 265, 324, 385, 446, 510, 580]
         iku.Standframe2 = [74, 64, 60, 62, 58, 59, 63, 65, 70]
-        ationcheak = random.randint(1, 4)
+        ationcheak = random.randint(1, 7)
 
 
 
@@ -144,6 +150,19 @@ class StandState:
             iku.last_sound.play()
             main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Last)
+        if main_state.turn== -1 and ationcheak == 5: #test
+            iku.item_sound.play()
+            main_state.Enemy_DefBuff = 0
+            iku.add_event(Item1)
+        if main_state.turn== -1 and ationcheak == 6: #test
+            iku.item_sound.play()
+            main_state.Enemy_AtkBuff = 3
+            iku.add_event(Item2)
+        if main_state.turn== -1 and ationcheak == 7: #test
+            iku.item_sound.play()
+            main_state.HP -= 100
+            EnemyHP.damage -= 100
+            iku.add_event(Item3)
 
 
 
@@ -392,15 +411,111 @@ class Downstate:
     def draw(iku):
         if iku.motion == 6:
             iku.Down.clip_draw(iku.Downframe1[int(iku.frame1)], 0, iku.Downframe2[int(iku.frame2)], 105, iku.x, iku.y-30)
+class Item_Doll:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item1cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item1:
+            iku.motion = 7
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item1cheak) < 6:
+            if int(iku.item1cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
 
+            iku.item1cheak = (iku.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item1cheak) >= 6:
+            iku.item1cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 7:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
+class Item_Potion:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item2cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item2:
+            iku.motion = 8
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item2cheak) < 6:
+            if int(iku.item2cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+
+            iku.item2cheak = (iku.item2cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item2cheak) >= 6:
+            iku.item2cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 8:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item3cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item3:
+            iku.motion = 9
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item3cheak) < 6:
+            if int(iku.item3cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+
+            iku.item3cheak = (iku.item3cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item3cheak) >= 6:
+            iku.item3cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 9:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 
