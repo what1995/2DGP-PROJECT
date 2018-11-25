@@ -39,6 +39,10 @@ DAMAGE_PER_ACTION=6
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+#item use
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 1.0/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=16
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -60,7 +64,7 @@ class StandState:
         tenshi.frame2 = 0
         tenshi.Standframe1 = [0,65,126,196,271,345]
         tenshi.Standframe2 = [65,61,70,75,74]
-        ationcheak = random.randint(1, 4)
+        ationcheak = random.randint(1, 7)
     @staticmethod
     def exit(tenshi, event):
         pass
@@ -139,6 +143,19 @@ class StandState:
             tenshi.last_sound.play()
             main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Last)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+            tenshi.item_sound.play()
+            main_state.Enemy_DefBuff = 0
+            tenshi.add_event(Item1)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+            tenshi.item_sound.play()
+            main_state.Enemy_AtkBuff = 3
+            tenshi.add_event(Item2)
+        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+            tenshi.item_sound.play()
+            main_state.HP -= 100
+            EnemyHP.damage -= 100
+            tenshi.add_event(Item3)
 
 
 
@@ -365,15 +382,112 @@ class Downstate:
     def draw(tenshi):
         if tenshi.motion == 6:
             tenshi.Down.clip_draw(tenshi.Downframe1[int(tenshi.frame1)], 0, tenshi.Downframe2[int(tenshi.frame2)], 75, tenshi.x, tenshi.y-33)
+class Item_Doll:
+    @staticmethod
+    def enter(tenshi,event):
+        tenshi.frame1 = 0
+        tenshi.frame2 = 0
+        tenshi.item1cheak = 0
+        tenshi.Skill2frame1 = [0, 70, 149, 228, 305, 378, 448, 520, 590, 664, 740, 814, 888, 960, 1026, 1100]
+        tenshi.Skill2frame2 = [70, 79, 79, 77, 73, 69, 68, 67, 70, 69, 66, 69, 66, 60, 60]
+        if event == Item1:
+            tenshi.motion = 7
+    @staticmethod
+    def exit(tenshi,event):
+        pass
+    @staticmethod
+    def do(tenshi):
+        global HP,HPcheak,skillcheak
+        if int(tenshi.item1cheak) < 15:
+            tenshi.frame1 = (tenshi.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            tenshi.frame2 = (tenshi.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
 
+            tenshi.item1cheak = (tenshi.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%16
+        if int(tenshi.item1cheak) >= 15:
+            tenshi.item1cheak = 0
+            tenshi.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(tenshi):
+        if tenshi.motion == 7:
+            tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 0,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
+class Item_Potion:
+    @staticmethod
+    def enter(tenshi, event):
+        tenshi.frame1 = 0
+        tenshi.frame2 = 0
+        tenshi.item1cheak = 0
+        tenshi.Skill2frame1 = [0, 70, 149, 228, 305, 378, 448, 520, 590, 664, 740, 814, 888, 960, 1026, 1100]
+        tenshi.Skill2frame2 = [70, 79, 79, 77, 73, 69, 68, 67, 70, 69, 66, 69, 66, 60, 60]
+        if event == Item2:
+            tenshi.motion = 8
+
+    @staticmethod
+    def exit(tenshi, event):
+        pass
+
+    @staticmethod
+    def do(tenshi):
+        global HP, HPcheak, skillcheak
+        if int(tenshi.item1cheak) < 15:
+            tenshi.frame1 = (tenshi.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            tenshi.frame2 = (tenshi.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+
+            tenshi.item1cheak = (tenshi.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 16
+        if int(tenshi.item1cheak) >= 15:
+            tenshi.item1cheak = 0
+            tenshi.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(tenshi):
+        if tenshi.motion == 8:
+            tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 0,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(tenshi, event):
+        tenshi.frame1 = 0
+        tenshi.frame2 = 0
+        tenshi.item1cheak = 0
+        tenshi.Skill2frame1 = [0, 70, 149, 228, 305, 378, 448, 520, 590, 664, 740, 814, 888, 960, 1026, 1100]
+        tenshi.Skill2frame2 = [70, 79, 79, 77, 73, 69, 68, 67, 70, 69, 66, 69, 66, 60, 60]
+        if event == Item3:
+            tenshi.motion = 9
+
+    @staticmethod
+    def exit(tenshi, event):
+        pass
+
+    @staticmethod
+    def do(tenshi):
+        global HP, HPcheak, skillcheak
+        if int(tenshi.item1cheak) < 15:
+            tenshi.frame1 = (tenshi.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+            tenshi.frame2 = (tenshi.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
+
+            tenshi.item1cheak = (tenshi.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 16
+        if int(tenshi.item1cheak) >= 15:
+            tenshi.item1cheak = 0
+            tenshi.add_event(Stand)
+            main_state.turn = 1
+
+    @staticmethod
+    def draw(tenshi):
+        if tenshi.motion == 9:
+            tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 0,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState, Down: Downstate},
-    Downstate: {Down:StandState,Stand:StandState,Damage:Downstate}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 

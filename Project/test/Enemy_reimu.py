@@ -63,7 +63,7 @@ class StandState:
         reimu.motion = 0
         reimu.frame1 = 0
         reimu.frame2 = 0
-        ationcheak = random.randint(5, 7)
+        ationcheak = random.randint(1, 7)
 
 
 
