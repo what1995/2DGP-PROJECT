@@ -174,6 +174,8 @@ class Skill1State:
         if int(marisa.skill1cheak)>=18:
             marisa.skill1cheak=0
             marisa.add_event(Stand)
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -207,6 +209,8 @@ class Skill2State:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
             main_state.Skill2_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -249,6 +253,8 @@ class Skill3State:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -294,6 +300,8 @@ class Laststate:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 

@@ -131,19 +131,19 @@ class StandState:
             iku.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             iku.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
             iku.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             iku.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
             iku.last_sound.play()
-            main_state.P_HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             iku.add_event(Last)
 
 
@@ -186,6 +186,8 @@ class Skill1State:
             iku.skill1cheak=0
             iku.add_event(Stand)
             main_state.Skill1_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -229,6 +231,8 @@ class Skill2State:
         if int(iku.skill2cheak) >= 19:
             iku.skill2cheak = 0
             iku.add_event(Stand)
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -271,6 +275,8 @@ class Skill3State:
             iku.skill3cheak = 0
             iku.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -311,6 +317,8 @@ class Laststate:
             iku.lastcheak = 0
             iku.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 

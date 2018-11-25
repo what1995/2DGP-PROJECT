@@ -34,6 +34,10 @@ class Player_HP:
             damage = 0
             main_state.P_HP = 0
             main_state.P_HPinit = 0
+        if damage <0:
+            damage=0
+        if main_state.P_HP <0:
+            main_state.P_HP=0
 
     def draw(self):
         global damage

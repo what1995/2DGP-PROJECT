@@ -38,6 +38,10 @@ DAMAGE_PER_ACTION=4
 DOWNTIME_PER_ACTION=3
 DOWNACTION_PER_TIME= 1.0/DOWNTIME_PER_ACTION
 DOWN_PER_ACTION=21
+#ItemUse
+ITEM1TIME_PER_ACTION=1
+ITEM1ACTION_PER_TIME= 1.0/ITEM1TIME_PER_ACTION
+ITEM1_PER_ACTION=7
 #motion speed
 PIXEL_PER_METER=(10.0/0.3)
 MOTION_SPEED_KMPH = 0.2
@@ -50,15 +54,19 @@ import game_world
 cheak1 = 0
 skillcheak=0
 # iku Event
-Stand,Skill1, Skill2,Skill3, Last, Damage,Down = range(7)
+Stand,Skill1,Skill2,Skill3, Last, Damage,Down,Item1,Item2,Item3 = range(10)
 
 key_event_table = {
 (SDL_MOUSEBUTTONDOWN, 1): Skill1,
     (SDL_MOUSEBUTTONDOWN, 2): Skill2,
     (SDL_MOUSEBUTTONDOWN, 3): Skill3,
     (SDL_MOUSEBUTTONDOWN, 4): Last,
-(SDL_KEYDOWN, SDLK_z): Damage,
-(SDL_KEYDOWN, SDLK_x): Down
+    (SDL_MOUSEBUTTONDOWN, 99): Damage,
+(SDL_MOUSEBUTTONDOWN, 98): Down,
+(SDL_MOUSEBUTTONDOWN, 5): Item1,
+(SDL_MOUSEBUTTONDOWN, 6): Item2,
+(SDL_MOUSEBUTTONDOWN, 7): Item3
+
 }
 
 name = 'iku'
@@ -183,6 +191,8 @@ class Skill1State:
             skillcheak=0
             iku.add_event(Stand)
             main_state.Skill1_Start=False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -228,6 +238,8 @@ class Skill2State:
             skillcheak=0
             iku.skill2cheak = 0
             iku.add_event(Stand)
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -267,6 +279,8 @@ class Skill3State:
             iku.skill3cheak = 0
             iku.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -321,6 +335,8 @@ class Laststate:
             iku.lastcheak = 0
             iku.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -396,14 +412,116 @@ class Downstate:
         if iku.motion == 6:
             iku.Down.clip_draw(iku.Downframe1[int(iku.frame1)], 105, iku.Downframe2[int(iku.frame2)], 105, iku.x, iku.y-30)
 
+
+
+class Item_Doll:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item1cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item1:
+            iku.motion = 7
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item1cheak) < 6:
+            if int(iku.item1cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+
+            iku.item1cheak = (iku.item1cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item1cheak) >= 6:
+            iku.item1cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 7:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
+class Item_Potion:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item2cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item2:
+            iku.motion = 8
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item2cheak) < 6:
+            if int(iku.item2cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+
+            iku.item2cheak = (iku.item2cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item2cheak) >= 6:
+            iku.item2cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 8:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
+
+class Item_Clock:
+    @staticmethod
+    def enter(iku,event):
+        iku.frame1 = 0
+        iku.frame2 = 0
+        iku.item3cheak = 0
+        iku.item1frame1 = [0, 64, 126, 196, 268, 338, 405]
+        iku.item1frame2 = [64, 62, 70, 72, 67, 68]
+        if event == Item3:
+            iku.motion = 9
+    @staticmethod
+    def exit(iku,event):
+        pass
+    @staticmethod
+    def do(iku):
+        global HP,HPcheak,skillcheak
+        if int(iku.item3cheak) < 6:
+            if int(iku.item3cheak) < 5:
+                iku.frame1 = (iku.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+                iku.frame2 = (iku.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 6
+
+            iku.item3cheak = (iku.item3cheak+ ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time)%7
+        if int(iku.item3cheak) >= 6:
+            iku.item3cheak = 0
+            iku.add_event(Stand)
+            main_state.turn = -1
+            Deck.spellcheak += 3
+
+    @staticmethod
+    def draw(iku):
+        if iku.motion == 9:
+            iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
-    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate},
+    StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
     Skill1State: {Skill1: StandState,  Stand:StandState},
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState},
+Item_Potion:{Item2:StandState, Stand:StandState},
+Item_Clock:{Item3:StandState, Stand:StandState}
 
 }
 
@@ -476,55 +594,94 @@ class Iku:
             if main_state.turn==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
-                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[Deck.spellcheak%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item2)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
-                        main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item2)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
-                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
-                        main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 30 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
-                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
-                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+                        main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
                         self.last_sound.play()
                         self.add_event(Last)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:
+                        main_state.Player_DefBuff =0
+                        self.item_sound.play()
+                        self.add_event(Item1)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==6:
+                        main_state.Player_AtkBuff = 3
+                        self.item_sound.play()
+                        self.add_event(Item2)
+                    if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==7:
+                        main_state.P_HP -= 100
+                        PlayerHP.damage -= 100
+                        self.item_sound.play()
+                        self.add_event(Item3)
         elif (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)

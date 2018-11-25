@@ -135,19 +135,19 @@ class StandState:
             marisa.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             marisa.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             marisa.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
             marisa.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             marisa.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             marisa.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             marisa.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
             marisa.last_sound.play()
-            main_state.P_HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             marisa.add_event(Last)
 
 
@@ -192,6 +192,8 @@ class Skill1State:
         if int(marisa.skill1cheak)>=18:
             marisa.skill1cheak=0
             marisa.add_event(Stand)
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 
@@ -227,6 +229,8 @@ class Skill2State:
             marisa.skill2cheak = 0
             marisa.add_event(Stand)
             main_state.Skill2_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 
@@ -268,6 +272,8 @@ class Skill3State:
             marisa.skill3cheak = 0
             marisa.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -312,6 +318,8 @@ class Laststate:
             marisa.lastcheak = 0
             marisa.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 

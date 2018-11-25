@@ -135,19 +135,19 @@ class StandState:
             tenshi.add_event(Damage)
         if main_state.turn== -1 and ationcheak == 1: #test
             tenshi.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
             tenshi.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             tenshi.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
             tenshi.last_sound.play()
-            main_state.P_HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             tenshi.add_event(Last)
 
 
@@ -188,6 +188,8 @@ class Skill1State:
             tenshi.skill1cheak=0
             tenshi.add_event(Stand)
             main_state.Skill1_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -224,6 +226,8 @@ class Skill2State:
             tenshi.skill2cheak = 0
             tenshi.add_event(Stand)
             main_state.Skill2_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 
@@ -264,6 +268,8 @@ class Skill3State:
         if  int(tenshi.skill3cheak)>= 16:
             tenshi.skill3cheak = 0
             tenshi.add_event(Stand)
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -299,6 +305,8 @@ class Laststate:
             tenshi.lastcheak = 0
             tenshi.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 

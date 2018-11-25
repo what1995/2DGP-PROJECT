@@ -164,6 +164,8 @@ class Skill1State:
             tenshi.skill1cheak=0
             tenshi.add_event(Stand)
             main_state.Skill1_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -202,6 +204,8 @@ class Skill2State:
             tenshi.skill2cheak = 0
             tenshi.add_event(Stand)
             main_state.Skill2_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -243,6 +247,8 @@ class Skill3State:
         if  int(tenshi.skill3cheak)>= 16:
             tenshi.skill3cheak = 0
             tenshi.add_event(Stand)
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
     @staticmethod
@@ -278,6 +284,8 @@ class Laststate:
             tenshi.lastcheak = 0
             tenshi.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 

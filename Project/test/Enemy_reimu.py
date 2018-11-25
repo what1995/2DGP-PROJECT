@@ -133,19 +133,19 @@ class StandState:
             reimu.add_event(Down)
         if main_state.turn== -1 and ationcheak == 1: #test
             reimu.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill1)
         if main_state.turn== -1 and ationcheak == 2: #test
             reimu.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill2)
         if main_state.turn== -1 and ationcheak == 3: #test
             reimu.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Skill3)
         if main_state.turn== -1 and ationcheak == 4: #test
             reimu.last_sound.play()
-            main_state.P_HP += 50 * main_state.Player_AtkBuff * main_state.Player_DefBuff
+            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
             reimu.add_event(Last)
 
 
@@ -186,6 +186,8 @@ class Skill1State:
             reimu.skill1cheak=0
             reimu.add_event(Stand)
             main_state.Skill1_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -219,6 +221,8 @@ class Skill2State:
         if int(reimu.skill2cheak) >= 12:
             reimu.skill2cheak = 0
             reimu.add_event(Stand)
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 
@@ -259,6 +263,8 @@ class Skill3State:
             reimu.skill3cheak = 0
             reimu.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
     @staticmethod
@@ -307,6 +313,8 @@ class Laststate:
             reimu.lastcheak = 0
             reimu.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Enemy_AtkBuff = 1
+            main_state.Player_DefBuff = 1
             main_state.turn = 1
 
 
@@ -384,8 +392,8 @@ next_state_table = {
     Skill2State: {Skill2: StandState, Stand:StandState},
     Skill3State: {Skill3: StandState ,Stand: StandState},
     Laststate: {Last:StandState,Stand: StandState},
-    Damagestate: {Damage:StandState, Stand:StandState},
-    Downstate: {Down:StandState,Stand:StandState}
+    Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState}
 
 }
 

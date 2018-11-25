@@ -75,6 +75,10 @@ enemy_tenshi_skill1_effect=None
 
 Player_AtkBuff=1
 Player_DefBuff=1
+
+Enemy_AtkBuff=1
+Enemy_DefBuff=1
+
 HPcheak=0
 HP=0 #enemy
 P_HP=0

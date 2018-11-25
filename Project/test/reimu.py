@@ -161,6 +161,8 @@ class Skill1State:
             reimu.skill1cheak=0
             reimu.add_event(Stand)
             main_state.Skill1_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             Deck.spellcheak += 3
             main_state.turn = -1
 
@@ -195,6 +197,8 @@ class Skill2State:
         if int(reimu.skill2cheak) >= 12:
             reimu.skill2cheak = 0
             reimu.add_event(Stand)
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -238,6 +242,8 @@ class Skill3State:
             reimu.skill3cheak = 0
             reimu.add_event(Stand)
             main_state.Skill3_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
@@ -287,6 +293,8 @@ class Laststate:
             reimu.lastcheak = 0
             reimu.add_event(Stand)
             main_state.Last_Start = False
+            main_state.Player_AtkBuff = 1
+            main_state.Enemy_DefBuff = 1
             main_state.turn = -1
             Deck.spellcheak += 3
 
