@@ -74,6 +74,7 @@ class StandState:
     def do(reimu):
         global ationcheak
         reimu.frame1 = (reimu.frame1+ STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 11
+        main_state.Enemy_Motion_Cheak = False
         if DeckSelection.character == 0 and main_state.reimu_skill1_atk_cheak == 1:
             reimu.damage_sound.play()
             reimu.add_event(Damage)
@@ -185,6 +186,7 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(reimu):
+        main_state.Enemy_Motion_Cheak = True
         if int(reimu.skill1cheak)<14:
             reimu.frame1 = (reimu.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
             reimu.frame2 = (reimu.frame2+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 12
@@ -221,6 +223,7 @@ class Skill2State:
         pass
     @staticmethod
     def do(reimu):
+        main_state.Enemy_Motion_Cheak = True
         if int(reimu.skill2cheak) < 8:
             reimu.frame1 = (reimu.frame1+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
             reimu.frame2 = (reimu.frame2+  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 8
@@ -260,6 +263,7 @@ class Skill3State:
 
     @staticmethod
     def do(reimu):
+        main_state.Enemy_Motion_Cheak = True
         if int(reimu.skill3cheak) < 24:
             if int(reimu.skill3cheak) < 5:
                 reimu.frame1 = (reimu.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -312,6 +316,7 @@ class Laststate:
 
     @staticmethod
     def do(reimu):
+        main_state.Enemy_Motion_Cheak = True
         if int(reimu.lastcheak) < 22:
             if int(reimu.lastcheak) < 9:
                 reimu.frame1 = (reimu.frame1  + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 15

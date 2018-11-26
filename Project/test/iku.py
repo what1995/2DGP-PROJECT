@@ -94,6 +94,7 @@ class StandState:
     def do(iku):
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        main_state.Character_Motion_Cheak=False
         if int(PlayerHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
@@ -176,6 +177,7 @@ class Skill1State:
     @staticmethod
     def do(iku):
         global HP,HPcheak,skillcheak,skillstart
+        main_state.Character_Motion_Cheak = True
         if int(iku.skill1cheak)<8:
             iku.frame1 = (iku.frame1+ SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
             iku.frame2 = (iku.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
@@ -220,6 +222,7 @@ class Skill2State:
     @staticmethod
     def do(iku):
         global HP,HPcheak,skillcheak
+        main_state.Character_Motion_Cheak = True
         if int(iku.skill2cheak) < 11:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
             iku.frame2 = (iku.frame2 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
@@ -265,6 +268,7 @@ class Skill3State:
     @staticmethod
     def do(iku):
         global HP,HPcheak,skillcheak
+        main_state.Character_Motion_Cheak = True
         if int(iku.skill3cheak) < 19:
             if int(iku.skill3cheak) < 5:
                 iku.frame1 = (iku.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -320,6 +324,7 @@ class Laststate:
     @staticmethod
     def do(iku):
         global HP,HPcheak
+        main_state.Character_Motion_Cheak = True
         if int(iku.lastcheak) < 34:
             if int(iku.lastcheak) < 8:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10

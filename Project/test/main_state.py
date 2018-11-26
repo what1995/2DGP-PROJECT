@@ -46,6 +46,8 @@ deck=None
 Bg_Music=None
 turn = 1
 DeckShow=1
+Character_Motion_Cheak=False
+Enemy_Motion_Cheak=False
 End=False
 reimu_skill1_atk_cheak=0
 reimu_skill2_atk_cheak=0
@@ -96,8 +98,11 @@ Skill3_Start= False
 Last_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck,damageheak
-    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit,P_HPinit,DeckShow
-    global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
+    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit,P_HPinit,DeckShow,End
+    global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect,Character_Motion_Cheak,Enemy_Motion_Cheak
+    Character_Motion_Cheak = False
+    Enemy_Motion_Cheak = False
+    End=False
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
@@ -180,7 +185,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if End==True:
+            if End==True and Enemy_Motion_Cheak == False and Character_Motion_Cheak ==False:
                 HPinit = 1
                 P_HPinit = 1
                 game_world.remove_object(reimu_skill1_effect)

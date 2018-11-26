@@ -83,6 +83,7 @@ class StandState:
         global ationcheak,damagecheak
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        main_state.Enemy_Motion_Cheak = False
         if DeckSelection.character == 0 and main_state.reimu_skill1_atk_cheak == 1:
             iku.damage_sound.play()
             iku.add_event(Damage)
@@ -191,6 +192,7 @@ class Skill1State:
         pass
     @staticmethod
     def do(iku):
+        main_state.Enemy_Motion_Cheak = True
         global HP, HPcheak , ationcheak
         if int(iku.skill1cheak) < 8:
             iku.frame1 = (iku.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 11
@@ -234,6 +236,7 @@ class Skill2State:
         pass
     @staticmethod
     def do(iku):
+        main_state.Enemy_Motion_Cheak = True
         global HP, HPcheak
         if int(iku.skill2cheak) < 11:
             iku.frame1 = (iku.frame1 + SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 15
@@ -281,6 +284,7 @@ class Skill3State:
 
     @staticmethod
     def do(iku):
+        main_state.Enemy_Motion_Cheak = True
         global HP, HPcheak
         if int(iku.skill3cheak) < 19:
             if int(iku.skill3cheak) < 5:
@@ -324,6 +328,7 @@ class Laststate:
 
     @staticmethod
     def do(iku):
+        main_state.Enemy_Motion_Cheak = True
         if int(iku.lastcheak) < 34:
             if int(iku.lastcheak) < 8:
                 iku.frame1 = (iku.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 10

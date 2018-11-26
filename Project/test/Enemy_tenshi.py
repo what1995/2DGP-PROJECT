@@ -73,6 +73,7 @@ class StandState:
         global ationcheak
         tenshi.frame1 = (tenshi.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
         tenshi.frame2 = (tenshi.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 5
+        main_state.Enemy_Motion_Cheak = False
         if DeckSelection.character == 0 and main_state.reimu_skill1_atk_cheak == 1:
             tenshi.damage_sound.play()
             tenshi.add_event(Damage)
@@ -185,6 +186,7 @@ class Skill1State:
         #    boy.fire_ball()
     @staticmethod
     def do(tenshi):
+        main_state.Enemy_Motion_Cheak = True
         if int(tenshi.skill1cheak)<15:
             tenshi.frame1 = (tenshi.frame1 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
             tenshi.frame2 = (tenshi.frame2 + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 15
@@ -220,6 +222,7 @@ class Skill2State:
         pass
     @staticmethod
     def do(tenshi):
+        main_state.Enemy_Motion_Cheak = True
         if int(tenshi.skill2cheak) < 21:
             main_state.Skill2_Start = True
             if int(tenshi.skill2cheak) < 10:
@@ -262,6 +265,7 @@ class Skill3State:
 
     @staticmethod
     def do(tenshi):
+        main_state.Enemy_Motion_Cheak = True
         if int(tenshi.skill3cheak) < 16:
             if  int(tenshi.skill3cheak) < 10:
                 tenshi.frame1 = (tenshi.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 12
@@ -305,6 +309,7 @@ class Laststate:
 
     @staticmethod
     def do(tenshi):
+        main_state.Enemy_Motion_Cheak = True
         if int(tenshi.lastcheak) < 20:
             tenshi.frame1 = (tenshi.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20
             tenshi.frame2 = (tenshi.frame2 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 20

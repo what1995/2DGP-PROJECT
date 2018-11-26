@@ -78,6 +78,7 @@ class StandState:
         global ationcheak
         marisa.frame1 = (marisa.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         marisa.frame2 = (marisa.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
+        main_state.Enemy_Motion_Cheak = False
         if DeckSelection.character == 0 and main_state.reimu_skill1_atk_cheak == 1:
             marisa.damage_sound.play()
             marisa.add_event(Damage)
@@ -188,6 +189,7 @@ class Skill1State:
 
     @staticmethod
     def do(marisa):
+        main_state.Enemy_Motion_Cheak = True
         if int(marisa.skill1cheak) < 6:
             marisa.frame1 = (marisa.frame1 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
             marisa.frame2 = (marisa.frame2 +SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 9
@@ -232,6 +234,7 @@ class Skill2State:
         pass
     @staticmethod
     def do(marisa):
+        main_state.Enemy_Motion_Cheak = True
         if int(marisa.skill2cheak) < 7:
             marisa.frame1 = (marisa.frame1  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
             marisa.frame2 = (marisa.frame2  +  SKILL2_PER_ACTION * SKILL2ACTION_PER_TIME * game_framework.frame_time) % 7
@@ -271,6 +274,7 @@ class Skill3State:
 
     @staticmethod
     def do(marisa):
+        main_state.Enemy_Motion_Cheak = True
         if int(marisa.skill3cheak) < 17:
             if int(marisa.skill3cheak) < 7:
                 marisa.frame1 = (marisa.frame1 + SKILL3_PER_ACTION * SKILL3ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -321,6 +325,7 @@ class Laststate:
 
     @staticmethod
     def do(marisa):
+        main_state.Enemy_Motion_Cheak = True
         if int(marisa.lastcheak) < 18:
             marisa.frame1 = (marisa.frame1 + LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
             marisa.frame2 = (marisa.frame2+ LASTCHEAK_PER_ACTION * LASTACTION_PER_TIME * game_framework.frame_time) % 17
