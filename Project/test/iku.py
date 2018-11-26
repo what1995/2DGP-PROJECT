@@ -450,6 +450,7 @@ class Item_Doll:
     @staticmethod
     def draw(iku):
         if iku.motion == 7:
+            iku.item_use.clip_draw(0,0,40,65,200,280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
 class Item_Potion:
     @staticmethod
@@ -482,6 +483,7 @@ class Item_Potion:
     @staticmethod
     def draw(iku):
         if iku.motion == 8:
+            iku.item_use.clip_draw(40, 0, 40, 65, 200, 280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 
 class Item_Clock:
@@ -515,6 +517,7 @@ class Item_Clock:
     @staticmethod
     def draw(iku):
         if iku.motion == 9:
+            iku.item_use.clip_draw(80, 0, 40, 65, 200, 280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 145, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
@@ -563,6 +566,7 @@ class Iku:
         self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-item.wav')
         self.item_sound.set_volume(50)
+        self.item_use = load_image('commonCard.png')
 
         self.dir = 1
         self.motion = 0
@@ -633,7 +637,7 @@ class Iku:
                         PlayerHP.damage -= 100
                         main_state.DeckShow = 0
                         self.item_sound.play()
-                        self.add_event(Item2)
+                        self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
@@ -670,7 +674,7 @@ class Iku:
                         PlayerHP.damage -= 100
                         main_state.DeckShow = 0
                         self.item_sound.play()
-                        self.add_event(Item2)
+                        self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff

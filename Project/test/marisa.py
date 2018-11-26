@@ -422,6 +422,7 @@ class Item_Doll:
     @staticmethod
     def draw(marisa):
         if marisa.motion == 7:
+            marisa.item_use.clip_draw(0, 0, 40, 65, 200, 280)
             marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
 class Item_Potion:
     @staticmethod
@@ -455,6 +456,7 @@ class Item_Potion:
     @staticmethod
     def draw(marisa):
         if marisa.motion == 8:
+            marisa.item_use.clip_draw(40, 0, 40, 65, 200, 280)
             marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
 
 class Item_Clock:
@@ -478,7 +480,6 @@ class Item_Clock:
         if int(marisa.item1cheak) < 9:
             marisa.frame1 = (marisa.frame1 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
             marisa.frame2 = (marisa.frame2 + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 9
-
             marisa.item1cheak = (marisa.item1cheak + ITEM1_PER_ACTION * ITEM1ACTION_PER_TIME * game_framework.frame_time) % 10
         if int(marisa.item1cheak) >= 9:
             marisa.item1cheak = 0
@@ -489,6 +490,7 @@ class Item_Clock:
     @staticmethod
     def draw(marisa):
         if marisa.motion == 9:
+            marisa.item_use.clip_draw(80, 0, 40, 65, 200, 280)
             marisa.skill1.clip_draw(marisa.Skill1frame1[int(marisa.frame1)], 105,marisa.Skill1frame2[int(marisa.frame2)], 105, marisa.x, marisa.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
@@ -536,7 +538,7 @@ class Marisa:
         self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-item.wav')
         self.item_sound.set_volume(50)
-
+        self.item_use = load_image('commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0

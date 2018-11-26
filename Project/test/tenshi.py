@@ -400,6 +400,7 @@ class Item_Doll:
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 7:
+            tenshi.item_use.clip_draw(0, 0, 40, 65, 200, 280)
             tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 115,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
 class Item_Potion:
     @staticmethod
@@ -433,6 +434,7 @@ class Item_Potion:
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 8:
+            tenshi.item_use.clip_draw(40, 0, 40, 65, 200, 280)
             tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 115,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
 
 class Item_Clock:
@@ -467,6 +469,7 @@ class Item_Clock:
     @staticmethod
     def draw(tenshi):
         if tenshi.motion == 9:
+            tenshi.item_use.clip_draw(80, 0, 40, 65, 200, 280)
             tenshi.skill2.clip_draw(tenshi.Skill2frame1[int(tenshi.frame1)], 115,tenshi.Skill2frame2[int(tenshi.frame2)], 115, tenshi.x, tenshi.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
@@ -513,7 +516,7 @@ class Tenshi:
         self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-item.wav')
         self.item_sound.set_volume(50)
-
+        self.item_use = load_image('commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0

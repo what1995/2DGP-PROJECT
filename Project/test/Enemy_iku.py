@@ -452,6 +452,7 @@ class Item_Doll:
     @staticmethod
     def draw(iku):
         if iku.motion == 7:
+            iku.item_use.clip_draw(0, 0, 40, 65, 600, 280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145,iku.x, iku.y)
 class Item_Potion:
     @staticmethod
@@ -484,6 +485,7 @@ class Item_Potion:
     @staticmethod
     def draw(iku):
         if iku.motion == 8:
+            iku.item_use.clip_draw(40, 0, 40, 65, 600, 280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 
 class Item_Clock:
@@ -517,6 +519,7 @@ class Item_Clock:
     @staticmethod
     def draw(iku):
         if iku.motion == 9:
+            iku.item_use.clip_draw(80, 0, 40, 65, 600, 280)
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
@@ -565,7 +568,7 @@ class Enemy_Iku:
         self.down_sound.set_volume(70)
         self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-item.wav')
         self.item_sound.set_volume(50)
-
+        self.item_use = load_image('commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0
