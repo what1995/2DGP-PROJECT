@@ -11,6 +11,7 @@ os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
 name = "deckSelection"
+reset =None
 image = None
 next = None
 character = None
@@ -35,7 +36,7 @@ def enter():
     global iku,reimu,tenshi,marisa,character,Enemycharacter,next
     global reimuSkill1, reimuSkill2, reimuSkill3,marisaSkill1,marisaSkill2,marisaSkill3,ikuSkill1,ikuSkill2,ikuSkill3
     global reimuLast,marisaLast,ikuLast,tenshiLast,tenshiSkill1,tenshiSkill2,tenshiSkill3,commonItem1,commonItem2,commonItem3
-    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck
+    global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,reset
     reimu= load_image('Reimu-Deck.png')
     reimuDeck= load_image('RimuSpellCard.png')
     reimuSkill1 = load_image('Reimu-Skill1-Dic.png')
@@ -65,6 +66,8 @@ def enter():
     commonItem1 = load_image('Common-Card1-Dic.png')
     commonItem2 = load_image('Common-Card2-Dic.png')
     commonItem3 = load_image('Common-Card3-Dic.png')
+    reset=load_image('Reset.png')
+
     character = CharacterSelection.character
 
 
@@ -132,11 +135,21 @@ def handle_events():
                     common3cheak += 1
                 if Deckcheak1==12 and mouse_x > 625 and mouse_x < 750 and mouse_y>450and mouse_y<550:
                     game_framework.push_state(BackgroundSelection)
+                if mouse_x > 550 and mouse_x < 750 and mouse_y>30and mouse_y<90:
+                    Deckcheak1 = 0
+                    Deckcheak2 = 0
+                    skill1cheak = 0
+                    skill2cheak = 0
+                    skill3cheak = 0
+                    lastcheak = 0
+                    common1cheak = 0
+                    common2cheak = 0
+                    common3cheak = 0
 
 
 
 def draw():
-    global Deck1,Deck2,Deckcheak1,Deckcheak2,mouse_x,mouse_y
+    global Deck1,Deck2,Deckcheak1,Deckcheak2,mouse_x,mouse_y,reset
     Deck1 = 0
     clear_canvas()
 
@@ -211,6 +224,7 @@ def draw():
         commonItem2.draw(620,360)
     if mouse_x > 325 and mouse_x < 375 and mouse_y > 165 and mouse_y < 235:
         commonItem3.draw(620,360)
+    reset.draw(650, 50)
     next.draw(700,500)
     for Deck1 in range(0,Deckcheak1):
         if character == 0:
