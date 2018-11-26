@@ -1,10 +1,12 @@
 import random
 import json
+import EnemyHP
 import os
 
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 from pico2d import *
 import game_framework
+import FCG_title
 import DeckSelection
 import Deck
 import ikuSkill
@@ -12,6 +14,8 @@ import marisaSkill
 import reimuSkill
 import tenshiSkill
 import game_world
+import EnemyHP
+import PlayerHP
 from iku import Iku
 from reimu import Reimu
 from tenshi import Tenshi
@@ -41,7 +45,8 @@ EnemyPlayer=None
 deck=None
 Bg_Music=None
 turn = 1
-
+DeckShow=1
+End=False
 reimu_skill1_atk_cheak=0
 reimu_skill2_atk_cheak=0
 reimu_skill3_atk_cheak=0
@@ -91,13 +96,15 @@ Skill3_Start= False
 Last_Start= False
 def enter():
     global iku, background,reimu,tenshi,marisa,PlayerHP,EnemyHP,Enemy_marisa,Enemy_reimu,Enemy_tenshi,Enemy_iku,EnemyPlayer,turn,deck,damageheak
-    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit,P_HPinit
+    global reimu_skill1_effect,marisa_skill1_effect,iku_skill1_effect,tenshi_skill1_effect, Bg_Music,HPinit,P_HPinit,DeckShow
     global enemy_reimu_skill1_effect,enemy_marisa_skill1_effect,enemy_iku_skill1_effect,enemy_tenshi_skill1_effect
     EnemyPlayer=DeckSelection.Enemycharacter
     Bg_Music =BG_Music()
     game_world.add_object(Bg_Music, 0)
     HPinit=1
     P_HPinit=1
+    turn=1
+    DeckShow=1
 
 
     if EnemyPlayer == 0:
@@ -172,6 +179,31 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            if End==True:
+                HPinit = 1
+                P_HPinit = 1
+                game_world.remove_object(reimu_skill1_effect)
+                game_world.remove_object(marisa_skill1_effect)
+                game_world.remove_object(iku_skill1_effect)
+                game_world.remove_object(tenshi_skill1_effect)
+                game_world.remove_object(enemy_reimu_skill1_effect)
+                game_world.remove_object(enemy_marisa_skill1_effect)
+                game_world.remove_object(enemy_iku_skill1_effect)
+                game_world.remove_object(enemy_tenshi_skill1_effect)
+                game_world.remove_object(reimu)
+                game_world.remove_object(marisa)
+                game_world.remove_object(iku)
+                game_world.remove_object(tenshi)
+                game_world.remove_object(Enemy_reimu)
+                game_world.remove_object(Enemy_marisa)
+                game_world.remove_object(Enemy_iku)
+                game_world.remove_object(Enemy_tenshi)
+                game_world.remove_object(background)
+                game_world.remove_object(PlayerHP)
+                game_world.remove_object(EnemyHP)
+                game_world.remove_object(deck)
+                game_framework.push_state(FCG_title)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
             Deck.spellcheak += 3
         elif event.type == SDL_KEYDOWN and event.key == SDLK_z:

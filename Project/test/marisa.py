@@ -565,95 +565,116 @@ class Marisa:
         if event.type == SDL_MOUSEMOTION:
             mouse_x, mouse_y = event.x, 600 - event.y
         if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):  ##스킬키 체크
-            if main_state.turn==1:
+            if main_state.turn==1and main_state.DeckShow==1:
                 if mouse_x > 270 and mouse_x < 330 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[Deck.spellcheak%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==5:
                         main_state.Player_DefBuff =0
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item1)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==6:
                         main_state.Player_AtkBuff = 3
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item2)
                     if Deck.PlayerDeck[Deck.spellcheak%12]==7:
                         main_state.P_HP -= 100
                         PlayerHP.damage -= 100
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item3)
                 if mouse_x > 370 and mouse_x < 430 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==5:
                         main_state.Player_DefBuff =0
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item1)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==6:
                         main_state.Player_AtkBuff = 3
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item2)
                     if Deck.PlayerDeck[(Deck.spellcheak+1)%12]==7:
                         main_state.P_HP -= 100
                         PlayerHP.damage -= 100
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item3)
                 if mouse_x > 470 and mouse_x < 530 and mouse_y > 55 and mouse_y < 145:
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==1:
                         main_state.HP += 20 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill1_sound.play()
                         self.add_event(Skill1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==2:
                         main_state.HP += 30* main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill2_sound.play()
                         self.add_event(Skill2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==3:
                         main_state.HP += 40 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.skill3_sound.play()
                         self.add_event(Skill3)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==4:
                         main_state.HP += 50 * main_state.Player_AtkBuff * main_state.Enemy_DefBuff
+                        main_state.DeckShow = 0
                         self.last_sound.play()
                         self.add_event(Last)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==5:
                         main_state.Player_DefBuff =0
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item1)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==6:
                         main_state.Player_AtkBuff = 3
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item2)
                     if Deck.PlayerDeck[(Deck.spellcheak+2)%12]==7:
                         main_state.P_HP -= 100
                         PlayerHP.damage -= 100
+                        main_state.DeckShow = 0
                         self.item_sound.play()
                         self.add_event(Item3)
         elif (event.type, event.key) in key_event_table:

@@ -131,38 +131,39 @@ class StandState:
         if DeckSelection.character == 3 and main_state.tenshi_last_atk_cheak== 1:
             iku.damage_sound.play()
             iku.add_event(Damage)
-        if int(EnemyHP.damage) >252:
+        if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
-            iku.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            iku.add_event(Skill1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
-            iku.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            iku.add_event(Skill2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
-            iku.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            iku.add_event(Skill3)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
-            iku.last_sound.play()
-            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            iku.add_event(Last)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
-            iku.item_sound.play()
-            main_state.Enemy_DefBuff = 0
-            iku.add_event(Item1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
-            iku.item_sound.play()
-            main_state.Enemy_AtkBuff = 3
-            iku.add_event(Item2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
-            iku.item_sound.play()
-            main_state.HP -= 100
-            EnemyHP.damage -= 100
-            iku.add_event(Item3)
+        if main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+                iku.skill1_sound.play()
+                main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                iku.add_event(Skill1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+                iku.skill2_sound.play()
+                main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                iku.add_event(Skill2)
+            if main_state.HPcheak==0  and main_state.turn== -1 and ationcheak == 3: #test
+                iku.skill3_sound.play()
+                main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                iku.add_event(Skill3)
+            if main_state.HPcheak==0  and main_state.turn== -1 and ationcheak == 4: #test
+                iku.last_sound.play()
+                main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                iku.add_event(Last)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+                iku.item_sound.play()
+                main_state.Enemy_DefBuff = 0
+                iku.add_event(Item1)
+            if main_state.HPcheak==0and main_state.turn== -1 and ationcheak == 6: #test
+                iku.item_sound.play()
+                main_state.Enemy_AtkBuff = 3
+                iku.add_event(Item2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+                iku.item_sound.play()
+                main_state.HP -= 100
+                EnemyHP.damage -= 100
+                iku.add_event(Item3)
 
 
 
@@ -207,6 +208,7 @@ class Skill1State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -252,6 +254,7 @@ class Skill2State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -296,6 +299,7 @@ class Skill3State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -338,6 +342,7 @@ class Laststate:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
     @staticmethod
@@ -437,6 +442,7 @@ class Item_Doll:
             iku.item1cheak = 0
             iku.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -468,6 +474,7 @@ class Item_Potion:
             iku.item2cheak = 0
             iku.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -500,6 +507,7 @@ class Item_Clock:
             iku.item3cheak = 0
             iku.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(iku):
@@ -507,15 +515,15 @@ class Item_Clock:
             iku.skill3.clip_draw(iku.item1frame1[int(iku.frame1)], 0, iku.item1frame2[int(iku.frame2)], 145, iku.x,iku.y)
 next_state_table = {
     StandState: {Skill1: Skill1State, Skill2: Skill2State, Skill3:Skill3State,Last:Laststate, Damage:Damagestate,Down:Downstate,Item1:Item_Doll,Item2:Item_Potion,Item3:Item_Clock},
-    Skill1State: {Skill1: StandState,  Stand:StandState},
-    Skill2State: {Skill2: StandState, Stand:StandState},
-    Skill3State: {Skill3: StandState ,Stand: StandState},
-    Laststate: {Last:StandState,Stand: StandState},
+    Skill1State: {Skill1: StandState,  Stand:StandState,Down:Downstate},
+    Skill2State: {Skill2: StandState, Stand:StandState,Down:Downstate},
+    Skill3State: {Skill3: StandState ,Stand: StandState,Down:Downstate},
+    Laststate: {Last:StandState,Stand: StandState,Down:Downstate},
     Damagestate: {Damage:StandState, Stand:StandState,Down:Downstate},
-    Downstate: {Down:StandState,Stand:StandState,Damage:StandState},
-    Item_Doll:{Item1:StandState, Stand:StandState},
-Item_Potion:{Item2:StandState, Stand:StandState},
-Item_Clock:{Item3:StandState, Stand:StandState}
+    Downstate: {Down:StandState,Stand:StandState,Damage:StandState,Skill1: StandState,Skill2: StandState,Skill3: StandState,Last:StandState,Item1:StandState,Item2:StandState,Item3:StandState},
+    Item_Doll:{Item1:StandState, Stand:StandState,Down:Downstate},
+Item_Potion:{Item2:StandState, Stand:StandState,Down:Downstate},
+Item_Clock:{Item3:StandState, Stand:StandState,Down:Downstate}
 
 }
 

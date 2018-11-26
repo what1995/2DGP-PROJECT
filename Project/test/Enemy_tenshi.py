@@ -122,40 +122,39 @@ class StandState:
             tenshi.damage_sound.play()
             tenshi.add_event(Damage)
 
-        if int(EnemyHP.damage) >252:
+        if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             tenshi.down_sound.play()
             tenshi.add_event(Down)
-        if EnemyHP.Damagecheak==1:
-            tenshi.add_event(Damage)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
-            tenshi.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            tenshi.add_event(Skill1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
-            tenshi.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            tenshi.add_event(Skill2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
-            tenshi.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            tenshi.add_event(Skill3)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
-            tenshi.last_sound.play()
-            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            tenshi.add_event(Last)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
-            tenshi.item_sound.play()
-            main_state.Enemy_DefBuff = 0
-            tenshi.add_event(Item1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
-            tenshi.item_sound.play()
-            main_state.Enemy_AtkBuff = 3
-            tenshi.add_event(Item2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
-            tenshi.item_sound.play()
-            main_state.HP -= 100
-            EnemyHP.damage -= 100
-            tenshi.add_event(Item3)
+        if main_state.HPcheak == 0 and int(EnemyHP.damage) < 251:
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+                tenshi.skill1_sound.play()
+                main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                tenshi.add_event(Skill1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+                tenshi.skill2_sound.play()
+                main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                tenshi.add_event(Skill2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
+                tenshi.skill3_sound.play()
+                main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                tenshi.add_event(Skill3)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
+                tenshi.last_sound.play()
+                main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                tenshi.add_event(Last)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+                tenshi.item_sound.play()
+                main_state.Enemy_DefBuff = 0
+                tenshi.add_event(Item1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+                tenshi.item_sound.play()
+                main_state.Enemy_AtkBuff = 3
+                tenshi.add_event(Item2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+                tenshi.item_sound.play()
+                main_state.HP -= 100
+                EnemyHP.damage -= 100
+                tenshi.add_event(Item3)
 
 
 
@@ -198,6 +197,7 @@ class Skill1State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(tenshi):
@@ -236,6 +236,7 @@ class Skill2State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
     @staticmethod
@@ -278,6 +279,7 @@ class Skill3State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(tenshi):
@@ -315,6 +317,7 @@ class Laststate:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
     @staticmethod
@@ -407,6 +410,7 @@ class Item_Doll:
             tenshi.item1cheak = 0
             tenshi.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(tenshi):
@@ -439,6 +443,7 @@ class Item_Potion:
             tenshi.item1cheak = 0
             tenshi.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(tenshi):
@@ -472,6 +477,7 @@ class Item_Clock:
             tenshi.item1cheak = 0
             tenshi.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(tenshi):

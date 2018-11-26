@@ -54,7 +54,7 @@ class PlayDeck:
         pass
 
     def draw(self):
-        if main_state.turn==1:
+        if main_state.turn==1 and main_state.DeckShow==1:
             if CharacterSelection.character==0:
                 for i in range(1, 8):
                     if PlayerDeck[spellcheak%12] == i:

@@ -123,38 +123,39 @@ class StandState:
             reimu.damage_sound.play()
             reimu.add_event(Damage)
 
-        if int(EnemyHP.damage) >252:
+        if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             reimu.down_sound.play()
             reimu.add_event(Down)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
-            reimu.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            reimu.add_event(Skill1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
-            reimu.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            reimu.add_event(Skill2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
-            reimu.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            reimu.add_event(Skill3)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
-            reimu.last_sound.play()
-            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            reimu.add_event(Last)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
-            reimu.item_sound.play()
-            main_state.Enemy_DefBuff = 0
-            reimu.add_event(Item1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
-            reimu.item_sound.play()
-            main_state.Enemy_AtkBuff = 3
-            reimu.add_event(Item2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
-            reimu.item_sound.play()
-            main_state.HP -= 100
-            EnemyHP.damage -= 100
-            reimu.add_event(Item3)
+        if main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+                reimu.skill1_sound.play()
+                main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                reimu.add_event(Skill1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+                reimu.skill2_sound.play()
+                main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                reimu.add_event(Skill2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
+                reimu.skill3_sound.play()
+                main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                reimu.add_event(Skill3)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
+                reimu.last_sound.play()
+                main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                reimu.add_event(Last)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+                reimu.item_sound.play()
+                main_state.Enemy_DefBuff = 0
+                reimu.add_event(Item1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+                reimu.item_sound.play()
+                main_state.Enemy_AtkBuff = 3
+                reimu.add_event(Item2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+                reimu.item_sound.play()
+                main_state.HP -= 100
+                EnemyHP.damage -= 100
+                reimu.add_event(Item3)
 
 
 
@@ -197,6 +198,7 @@ class Skill1State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(reimu):
@@ -232,6 +234,7 @@ class Skill2State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
     @staticmethod
@@ -274,6 +277,7 @@ class Skill3State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(reimu):
@@ -324,6 +328,7 @@ class Laststate:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
     @staticmethod
@@ -418,6 +423,7 @@ class Item_Doll:
             reimu.item1cheak = 0
             reimu.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(reimu):
@@ -451,6 +457,7 @@ class Item_Potion:
             reimu.item1cheak = 0
             reimu.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(reimu):
@@ -484,6 +491,7 @@ class Item_Clock:
             reimu.item1cheak = 0
             reimu.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(reimu):

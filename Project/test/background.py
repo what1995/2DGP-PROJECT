@@ -3,6 +3,7 @@ import os
 import BackgroundSelection
 import PlayerHP
 import EnemyHP
+import main_state
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 class BackGround:
     def __init__(self):
@@ -27,6 +28,9 @@ class BackGround:
 
         if int(PlayerHP.damage) >252:
             self.KnockOut.draw(400,300)
+            main_state.DeckShow =0
+            main_state.End=True
 
         elif int(EnemyHP.damage) >252:
             self.KnockOut.draw(400,300)
+            main_state.End = True

@@ -37,6 +37,7 @@ def enter():
     global reimuSkill1, reimuSkill2, reimuSkill3,marisaSkill1,marisaSkill2,marisaSkill3,ikuSkill1,ikuSkill2,ikuSkill3
     global reimuLast,marisaLast,ikuLast,tenshiLast,tenshiSkill1,tenshiSkill2,tenshiSkill3,commonItem1,commonItem2,commonItem3
     global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,reset
+    global skill1cheak,skill2cheak,skill3cheak,lastcheak,common1cheak,common2cheak,common3cheak,Deckcheak1,Deckcheak2
     reimu= load_image('Reimu-Deck.png')
     reimuDeck= load_image('RimuSpellCard.png')
     reimuSkill1 = load_image('Reimu-Skill1-Dic.png')
@@ -69,6 +70,15 @@ def enter():
     reset=load_image('Reset.png')
 
     character = CharacterSelection.character
+    Deckcheak1 = 0
+    Deckcheak2 = 0
+    skill1cheak = 0
+    skill2cheak = 0
+    skill3cheak = 0
+    lastcheak = 0
+    common1cheak = 0
+    common2cheak = 0
+    common3cheak = 0
 
 
 def exit():

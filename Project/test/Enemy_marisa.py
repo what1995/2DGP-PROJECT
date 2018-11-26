@@ -127,38 +127,39 @@ class StandState:
             marisa.damage_sound.play()
             marisa.add_event(Damage)
 
-        if int(EnemyHP.damage) >252:
+        if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             marisa.down_sound.play()
             marisa.add_event(Down)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
-            marisa.skill1_sound.play()
-            main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            marisa.add_event(Skill1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
-            marisa.skill2_sound.play()
-            main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            marisa.add_event(Skill2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
-            marisa.skill3_sound.play()
-            main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            marisa.add_event(Skill3)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
-            marisa.last_sound.play()
-            main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
-            marisa.add_event(Last)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
-            marisa.item_sound.play()
-            main_state.Enemy_DefBuff = 0
-            marisa.add_event(Item1)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
-            marisa.item_sound.play()
-            main_state.Enemy_AtkBuff = 3
-            marisa.add_event(Item2)
-        if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
-            marisa.item_sound.play()
-            main_state.HP -= 100
-            EnemyHP.damage -= 100
-            marisa.add_event(Item3)
+        if main_state.HPcheak == 0 and int(EnemyHP.damage) < 251:
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+                marisa.skill1_sound.play()
+                main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                marisa.add_event(Skill1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+                marisa.skill2_sound.play()
+                main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                marisa.add_event(Skill2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
+                marisa.skill3_sound.play()
+                main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                marisa.add_event(Skill3)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
+                marisa.last_sound.play()
+                main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
+                marisa.add_event(Last)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+                marisa.item_sound.play()
+                main_state.Enemy_DefBuff = 0
+                marisa.add_event(Item1)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+                marisa.item_sound.play()
+                main_state.Enemy_AtkBuff = 3
+                marisa.add_event(Item2)
+            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+                marisa.item_sound.play()
+                main_state.HP -= 100
+                EnemyHP.damage -= 100
+                marisa.add_event(Item3)
 
 
 
@@ -205,6 +206,7 @@ class Skill1State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
 
@@ -242,6 +244,7 @@ class Skill2State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
 
@@ -285,6 +288,7 @@ class Skill3State:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(marisa):
@@ -331,6 +335,7 @@ class Laststate:
             main_state.Enemy_AtkBuff = 1
             main_state.Player_DefBuff = 1
             main_state.turn = 1
+            main_state.DeckShow = 1
 
 
 
@@ -431,6 +436,7 @@ class Item_Doll:
             marisa.item1cheak = 0
             marisa.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(marisa):
@@ -463,6 +469,7 @@ class Item_Potion:
             marisa.item1cheak = 0
             marisa.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(marisa):
@@ -496,6 +503,7 @@ class Item_Clock:
             marisa.item1cheak = 0
             marisa.add_event(Stand)
             main_state.turn = 1
+            main_state.DeckShow = 1
 
     @staticmethod
     def draw(marisa):
