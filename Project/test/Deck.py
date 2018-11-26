@@ -83,71 +83,71 @@ class PlayDeck:
                     for i in range(1, 8):
                         if PlayerDeck[spellcheak % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x, self.y)
+                                self.Deckimage.draw(self.x-5, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x, self.y)
                             else:
-                                self.Deckimage.draw(self.x, self.y)
+                                self.Deckimage.draw(self.x-5, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x, self.y)
                         if PlayerDeck[(spellcheak + 1) % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x + 100, self.y)
+                                self.Deckimage.draw(self.x + 95, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x + 100, self.y)
                             else:
-                                self.Deckimage.draw(self.x + 100, self.y)
+                                self.Deckimage.draw(self.x + 95, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x + 100, self.y)
                         if PlayerDeck[(spellcheak + 2) % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x + 200, self.y)
+                                self.Deckimage.draw(self.x + 195, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x + 200, self.y)
                             else:
-                                self.Deckimage.draw(self.x + 200, self.y)
+                                self.Deckimage.draw(self.x + 195, self.y)
                                 self.marisaDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x + 200, self.y)
             if CharacterSelection.character==2:
                 for i in range(1, 8):
                     if PlayerDeck[spellcheak%12] == i:
                         if i < 5:
-                            self.Deckimage.draw(self.x, self.y)
+                            self.Deckimage.draw(self.x-5, self.y)
                             self.ikuDeck.clip_draw(45*(i-1), 0, 45, 65, self.x, self.y)
                         else:
-                            self.Deckimage.draw(self.x, self.y)
+                            self.Deckimage.draw(self.x-5, self.y)
                             self.ikuDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x, self.y)
                     if PlayerDeck[(spellcheak+1)%12] == i:
                         if i < 5:
-                            self.Deckimage.draw(self.x + 100, self.y)
+                            self.Deckimage.draw(self.x + 95, self.y)
                             self.ikuDeck.clip_draw(45*(i-1), 0, 45, 65, self.x+ 100, self.y)
                         else:
-                            self.Deckimage.draw(self.x+ 100, self.y)
+                            self.Deckimage.draw(self.x+ 95, self.y)
                             self.ikuDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x+ 100, self.y)
                     if PlayerDeck[(spellcheak+2)%12] == i:
                         if i < 5:
-                            self.Deckimage.draw(self.x + 200, self.y)
+                            self.Deckimage.draw(self.x + 195, self.y)
                             self.ikuDeck.clip_draw(45*(i-1), 0, 45, 65, self.x + 200, self.y)
                         else:
-                            self.Deckimage.draw(self.x + 200, self.y)
+                            self.Deckimage.draw(self.x + 195, self.y)
                             self.ikuDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x + 200, self.y)
             if CharacterSelection.character==3:
                 for i in range(0,12):
                     for i in range(1, 8):
                         if PlayerDeck[spellcheak % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x, self.y)
+                                self.Deckimage.draw(self.x-5, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x, self.y)
                             else:
-                                self.Deckimage.draw(self.x, self.y)
+                                self.Deckimage.draw(self.x-5, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x, self.y)
                         if PlayerDeck[(spellcheak + 1) % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x + 100, self.y)
+                                self.Deckimage.draw(self.x + 95, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x + 100, self.y)
                             else:
-                                self.Deckimage.draw(self.x + 100, self.y)
+                                self.Deckimage.draw(self.x + 95, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x + 100, self.y)
                         if PlayerDeck[(spellcheak + 2) % 12] == i:
                             if i < 5:
-                                self.Deckimage.draw(self.x + 200, self.y)
+                                self.Deckimage.draw(self.x + 195, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 1), 0, 45, 65, self.x + 200, self.y)
                             else:
-                                self.Deckimage.draw(self.x + 200, self.y)
+                                self.Deckimage.draw(self.x + 195, self.y)
                                 self.tenshiDeck.clip_draw(45 * (i - 5), 65, 45, 65, self.x + 200, self.y)
 
 
