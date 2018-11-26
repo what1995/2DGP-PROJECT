@@ -12,6 +12,7 @@ class BackGround:
         self.bamboo = load_image('bamboo.png')
         self.center =load_image('center.png')
         self.KnockOut = load_image('KO.png')
+        self.Backtitle = load_image('backtitle.png')
 
     def update(self):
 
@@ -27,10 +28,12 @@ class BackGround:
         self.center.draw(400, 500)
 
         if int(PlayerHP.damage) >252:
-            self.KnockOut.draw(400,300)
+            self.KnockOut.draw(400,250)
+            self.Backtitle.draw(400, 400)
             main_state.DeckShow =0
             main_state.End=True
 
         elif int(EnemyHP.damage) >252:
-            self.KnockOut.draw(400,300)
+            self.KnockOut.draw(400,250)
+            self.Backtitle.draw(400,400)
             main_state.End = True
