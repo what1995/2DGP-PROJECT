@@ -1,6 +1,7 @@
 from pico2d import *
 import os
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
+import BackgroundSelection
 import EnemyHP
 import PlayerHP
 import random
@@ -70,7 +71,7 @@ class StandState:
         iku.frame2 = 0
         iku.Standframe1 = [0, 73, 140, 200, 265, 324, 385, 446, 510, 580]
         iku.Standframe2 = [74, 64, 60, 62, 58, 59, 63, 65, 70]
-        ationcheak = random.randint(1, 7)
+        ationcheak = 0
 
 
 
@@ -135,7 +136,7 @@ class StandState:
         if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
-        if main_state.turn == -1 and main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
+        if main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
             if ationcheak == 1: #test
                 iku.skill1_sound.play()
                 main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
@@ -627,7 +628,10 @@ class Enemy_Iku:
         Atk_node.add_children(turn_cheak_node, action_cheak_node,atk_cheak_node)
         action_chase_node = SelectorNode("ActionChase")
         action_chase_node.add_children(Finsh_node, Buff_Atk_node,Atk_node)
-        self.ation = BehaviorTree(action_chase_node)
+        if BackgroundSelection.Level_cheak==1:
+            self.ation = BehaviorTree(action_chase_node)
+        if BackgroundSelection.Level_cheak == 2:
+            self.ation = BehaviorTree(turn_cheak_node)
 
 
     def add_event(self, event):
