@@ -1,7 +1,8 @@
 from pico2d import *
 import os
-import iku
+from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 import EnemyHP
+import PlayerHP
 import random
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
@@ -59,7 +60,6 @@ Stand,Skill1,Skill2,Skill3, Last, Damage,Down,Item1,Item2,Item3 = range(10)
 # Iku States
 ationcheak = 0
 damagecheak=1
-test=2
 class StandState:
 
     @staticmethod
@@ -80,7 +80,7 @@ class StandState:
         pass
     @staticmethod
     def do(iku):
-        global ationcheak,damagecheak
+        global ationcheak,damagecheak,ation
         iku.frame1 = (iku.frame1 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         iku.frame2 = (iku.frame2 + STAND_PER_ACTION * STANDACTION_PER_TIME * game_framework.frame_time) % 9
         main_state.Enemy_Motion_Cheak = False
@@ -135,32 +135,32 @@ class StandState:
         if main_state.HPcheak==0 and int(EnemyHP.damage) >252:
             iku.down_sound.play()
             iku.add_event(Down)
-        if main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+        if main_state.turn == -1 and main_state.HPcheak == 0and int(EnemyHP.damage) < 251:
+            if ationcheak == 1: #test
                 iku.skill1_sound.play()
                 main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 iku.add_event(Skill1)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+            if ationcheak == 2: #test
                 iku.skill2_sound.play()
                 main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 iku.add_event(Skill2)
-            if main_state.HPcheak==0  and main_state.turn== -1 and ationcheak == 3: #test
+            if ationcheak == 3: #test
                 iku.skill3_sound.play()
                 main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 iku.add_event(Skill3)
-            if main_state.HPcheak==0  and main_state.turn== -1 and ationcheak == 4: #test
+            if ationcheak == 4: #test
                 iku.last_sound.play()
                 main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 iku.add_event(Last)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+            if ationcheak == 5: #test
                 iku.item_sound.play()
                 main_state.Enemy_DefBuff = 0
                 iku.add_event(Item1)
-            if main_state.HPcheak==0and main_state.turn== -1 and ationcheak == 6: #test
+            if ationcheak == 6: #test
                 iku.item_sound.play()
                 main_state.Enemy_AtkBuff = 3
                 iku.add_event(Item2)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+            if ationcheak == 7: #test
                 iku.item_sound.play()
                 main_state.HP -= 100
                 EnemyHP.damage -= 100
@@ -573,18 +573,68 @@ class Enemy_Iku:
         self.motion = 0
         self.frame = 0
         self.timer = 0
+        self.build_behavior_tree()
         self.event_que = []
         self.cur_state = StandState
         self.cur_state.enter(self, None)
 
+    def turn_cheak(self):
+        if main_state.turn == -1:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def action_cheak(self):
+        global ationcheak
+        if ationcheak ==0:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def finish_atk_cheak(self):
+        global ationcheak
+        if PlayerHP.damage >=212:
+            ationcheak=3
+            return BehaviorTree.SUCCESS
+        else:
+            return  BehaviorTree.FAIL
+    def buff_ready_cheak(self):
+        global ationcheak
+        if main_state.Enemy_DefBuff==0 or main_state.Enemy_AtkBuff==3:
+            ationcheak= random.randint(1,4)
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def atk_cheak(self):
+        global ationcheak
+        if main_state.Enemy_DefBuff == 1 and main_state.Enemy_AtkBuff == 1:
+            ationcheak = random.randint(1, 7)
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
 
 
+
+    def build_behavior_tree(self):
+        turn_cheak_node = LeafNode("Turn Cheak", self.turn_cheak)
+        action_cheak_node = LeafNode("Action Stand", self.action_cheak)
+        finish_atk_cheak_node = LeafNode("Finish_Atk", self.finish_atk_cheak)
+        buff_ready_cheak_node = LeafNode("Buff Ready Cheak", self.buff_ready_cheak)
+        atk_cheak_node = LeafNode("Atk", self.atk_cheak)
+        Finsh_node = SequenceNode("Finish")
+        Finsh_node.add_children(turn_cheak_node, action_cheak_node,finish_atk_cheak_node)
+        Buff_Atk_node =SequenceNode("BuffAtk")
+        Buff_Atk_node.add_children(turn_cheak_node,action_cheak_node,buff_ready_cheak_node)
+        Atk_node = SequenceNode("Atk")
+        Atk_node.add_children(turn_cheak_node, action_cheak_node,atk_cheak_node)
+        action_chase_node = SelectorNode("ActionChase")
+        action_chase_node.add_children(Finsh_node, Buff_Atk_node,Atk_node)
+        self.ation = BehaviorTree(action_chase_node)
 
 
     def add_event(self, event):
         self.event_que.insert(0, event)
 
     def update(self):
+        self.ation.run()
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
