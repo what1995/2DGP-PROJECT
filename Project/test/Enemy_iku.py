@@ -611,6 +611,44 @@ class Enemy_Iku:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
+    def enemy_atk_buff_cheak(self):
+        if main_state.Enemy_AtkBuff ==3:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def player_atk_buff_cheak(self):
+        global ationcheak
+        if main_state.Player_AtkBuff==3:
+            success_cheak=random.randint(1,100)
+            if success_cheak>70:
+                ationcheak=5
+                return BehaviorTree.SUCCESS
+            else:
+                ationcheak=random.randint(1, 7)
+                return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def enemy_HP_cheak(self):
+        global ationcheak
+        if EnemyHP.damage>200:
+            success_cheak = random.randint(1, 100)
+            if success_cheak>50:
+                ationcheak=7
+                return BehaviorTree.SUCCESS
+            else:
+                ationcheak=random.randint(1, 7)
+                return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+
+    def Hard_finish_atk_cheak(self):
+        global ationcheak
+        if PlayerHP.damage >=102:
+            ationcheak=4
+            return BehaviorTree.SUCCESS
+        else:
+            return  BehaviorTree.FAIL
 
 
 
@@ -620,6 +658,13 @@ class Enemy_Iku:
         finish_atk_cheak_node = LeafNode("Finish_Atk", self.finish_atk_cheak)
         buff_ready_cheak_node = LeafNode("Buff Ready Cheak", self.buff_ready_cheak)
         atk_cheak_node = LeafNode("Atk", self.atk_cheak)
+        ##Hard
+        enemy_atk_buff_cheak_node =  LeafNode("Atk_Buff_Cheak", self.enemy_atk_buff_cheak)
+        Hard_finish_atk_cheak_node = LeafNode("Finish_Atk", self.Hard_finish_atk_cheak)
+        player_atk_buff_cheak_node = LeafNode("Player_Buff_Cheak", self.player_atk_buff_cheak)
+        enemy_hp_cheak_node = LeafNode("Enemy_HP_Cheak", self.enemy_HP_cheak)
+
+        ##Nomal
         Finsh_node = SequenceNode("Finish")
         Finsh_node.add_children(turn_cheak_node, action_cheak_node,finish_atk_cheak_node)
         Buff_Atk_node =SequenceNode("BuffAtk")
@@ -628,10 +673,19 @@ class Enemy_Iku:
         Atk_node.add_children(turn_cheak_node, action_cheak_node,atk_cheak_node)
         action_chase_node = SelectorNode("ActionChase")
         action_chase_node.add_children(Finsh_node, Buff_Atk_node,Atk_node)
+        ##Hard
+        Hard_Finsh_node = SequenceNode("Hard-Finish")
+        Hard_Finsh_node.add_children(turn_cheak_node,action_cheak_node, enemy_atk_buff_cheak_node, Hard_finish_atk_cheak_node)
+        Hard_Block_node = SequenceNode("Hard-Block")
+        Hard_Block_node.add_children(turn_cheak_node, action_cheak_node,player_atk_buff_cheak_node)
+        Hard_HP_node = SequenceNode("Hard-Block")
+        Hard_HP_node.add_children(turn_cheak_node, action_cheak_node, enemy_hp_cheak_node)
+        Hard_action_chase_node = SelectorNode("Hard_ActionChase")
+        Hard_action_chase_node.add_children(Hard_Finsh_node, Hard_Block_node, Hard_HP_node,Buff_Atk_node,Atk_node)
         if BackgroundSelection.Level_cheak==1:
             self.ation = BehaviorTree(action_chase_node)
         if BackgroundSelection.Level_cheak == 2:
-            self.ation = BehaviorTree(turn_cheak_node)
+            self.ation = BehaviorTree(Hard_action_chase_node)
 
 
     def add_event(self, event):
