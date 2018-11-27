@@ -4,7 +4,7 @@ from pico2d import *
 import DeckSelection
 import main_state
 import os
-
+import CharacterSelection
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 #import CharacterSelection
 import game_world
@@ -58,7 +58,7 @@ def handle_events():
             mouse_x, mouse_y=event.x, 600- event.y
         else:
             if(event.type, event.key) == (SDL_KEYDOWN,SDLK_ESCAPE):
-                game_framework.quit()
+                game_framework.push_state(CharacterSelection)
             elif(event.type, event.button)==(SDL_MOUSEBUTTONDOWN,SDL_BUTTON_LEFT):
                 if 50< mouse_x and mouse_x<250 and mouse_y<375 and mouse_y>225:
                     BGcheak=0

@@ -209,36 +209,6 @@ def handle_events():
                 game_world.remove_object(EnemyHP)
                 game_world.remove_object(deck)
                 game_framework.push_state(FCG_title)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_v:
-            Deck.spellcheak += 3
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
-            HPinit,P_HPinit=1 ,1
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            HPinit=1
-            P_HPinit=1
-            game_world.remove_object(reimu_skill1_effect)
-            game_world.remove_object(marisa_skill1_effect)
-            game_world.remove_object(iku_skill1_effect)
-            game_world.remove_object(tenshi_skill1_effect)
-            game_world.remove_object(enemy_reimu_skill1_effect)
-            game_world.remove_object(enemy_marisa_skill1_effect)
-            game_world.remove_object(enemy_iku_skill1_effect)
-            game_world.remove_object(enemy_tenshi_skill1_effect)
-            game_world.remove_object(reimu)
-            game_world.remove_object(marisa)
-            game_world.remove_object(iku)
-            game_world.remove_object(tenshi)
-            game_world.remove_object(Enemy_reimu)
-            game_world.remove_object(Enemy_marisa)
-            game_world.remove_object(Enemy_iku)
-            game_world.remove_object(Enemy_tenshi)
-            game_world.remove_object(background)
-            game_world.remove_object(PlayerHP)
-            game_world.remove_object(EnemyHP)
-            game_world.remove_object(deck)
-            Bg_Music.bgm.stop()
-            game_framework.push_state(DeckSelection)
-
         else:
             if DeckSelection.character == 0 and turn ==1:
                 reimu.handle_event(event)

@@ -136,19 +136,21 @@ class TENSHI_Skill1:
         if main_state.Skill1_Start == True:
             if self.Hight_Stone_Move <135:
                 main_state.tenshi_skill1_atk_cheak =1
+
             if self.Hight_Stone_Move <130:
                 main_state.tenshi_skill1_atk_cheak=0
-            if self.Hight_Stone_Move <110:
-                if main_state.turn == 1:
-                    main_state.HPcheak = 1
-                if main_state.turn == -1:
-                    main_state.P_HPcheak = 1
+
             self.SKill1cheak=(self.SKill1cheak + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 16
             if self.SKill1cheak > 7:
                 self.Hight_Stone_FX_frame = (self.Hight_Stone_FX_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 8
                 self.Hight_Stone_FY_frame = (self.Hight_Stone_FY_frame + SKILL1_PER_ACTION * SKILL1ACTION_PER_TIME * game_framework.frame_time) % 7
             if self.SKill1cheak >9:
                 self.Hight_Stone_Move -= int(MOTION_SPEED_PPS) * 3
+                if self.Hight_Stone_Move < 10:
+                    if main_state.turn == 1:
+                        main_state.HPcheak = 1
+                    if main_state.turn == -1:
+                        main_state.P_HPcheak = 1
         if main_state.Skill1_Start == False:
             main_state.tenshi_skill1_atk_cheak = 0
             self.Hight_Stone_frame = 0

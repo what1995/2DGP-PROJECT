@@ -617,7 +617,7 @@ class Enemy_Marisa:
         global ationcheak
         if main_state.Player_AtkBuff==3:
             success_cheak=random.randint(1,100)
-            if success_cheak>70:
+            if success_cheak>75:
                 ationcheak=5
                 return BehaviorTree.SUCCESS
             else:
