@@ -7,6 +7,9 @@ import DeckSelection
 os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
+from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
+import BackgroundSelection
+import PlayerHP
 #tenshi stand
 STAND_TIME_PER_ACTION=0.8
 STANDACTION_PER_TIME= 1.0/STAND_TIME_PER_ACTION
@@ -64,7 +67,7 @@ class StandState:
         tenshi.frame2 = 0
         tenshi.Standframe1 = [0,65,126,196,271,345]
         tenshi.Standframe2 = [65,61,70,75,74]
-        ationcheak = random.randint(1, 7)
+        ationcheak = 0
     @staticmethod
     def exit(tenshi, event):
         pass
@@ -127,31 +130,31 @@ class StandState:
             tenshi.down_sound.play()
             tenshi.add_event(Down)
         if main_state.HPcheak == 0 and int(EnemyHP.damage) < 251:
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 1: #test
+            if ationcheak == 1: #test
                 tenshi.skill1_sound.play()
                 main_state.P_HP += 20 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 tenshi.add_event(Skill1)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 2: #test
+            if ationcheak == 2: #test
                 tenshi.skill2_sound.play()
                 main_state.P_HP += 30 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 tenshi.add_event(Skill2)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 3: #test
+            if ationcheak == 3: #test
                 tenshi.skill3_sound.play()
                 main_state.P_HP += 40 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 tenshi.add_event(Skill3)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 4: #test
+            if ationcheak == 4: #test
                 tenshi.last_sound.play()
                 main_state.P_HP += 50 * main_state.Enemy_AtkBuff * main_state.Player_DefBuff
                 tenshi.add_event(Last)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 5: #test
+            if ationcheak == 5: #test
                 tenshi.item_sound.play()
                 main_state.Enemy_DefBuff = 0
                 tenshi.add_event(Item1)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 6: #test
+            if ationcheak == 6: #test
                 tenshi.item_sound.play()
                 main_state.Enemy_AtkBuff = 3
                 tenshi.add_event(Item2)
-            if main_state.HPcheak==0 and main_state.turn== -1 and ationcheak == 7: #test
+            if ationcheak == 7: #test
                 tenshi.item_sound.play()
                 main_state.HP -= 100
                 EnemyHP.damage -= 100
@@ -543,9 +546,117 @@ class Enemy_Tenshi:
         self.motion = 0
         self.frame = 0
         self.timer = 0
+        self.build_behavior_tree()
         self.event_que = []
         self.cur_state = StandState
         self.cur_state.enter(self, None)
+    def turn_cheak(self):
+        if main_state.turn == -1:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def action_cheak(self):
+        global ationcheak
+        if ationcheak ==0:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def finish_atk_cheak(self):
+        global ationcheak
+        if PlayerHP.damage >=212:
+            ationcheak=3
+            return BehaviorTree.SUCCESS
+        else:
+            return  BehaviorTree.FAIL
+    def buff_ready_cheak(self):
+        global ationcheak
+        if main_state.Enemy_DefBuff==0 or main_state.Enemy_AtkBuff==3:
+            ationcheak= random.randint(1,4)
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def atk_cheak(self):
+        global ationcheak
+        if main_state.Enemy_DefBuff == 1 and main_state.Enemy_AtkBuff == 1:
+            ationcheak = random.randint(1, 7)
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def enemy_atk_buff_cheak(self):
+        if main_state.Enemy_AtkBuff ==3:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def player_atk_buff_cheak(self):
+        global ationcheak
+        if main_state.Player_AtkBuff==3:
+            success_cheak=random.randint(1,100)
+            if success_cheak>70:
+                ationcheak=5
+                return BehaviorTree.SUCCESS
+            else:
+                ationcheak=random.randint(1, 7)
+                return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+    def enemy_HP_cheak(self):
+        global ationcheak
+        if EnemyHP.damage>200:
+            success_cheak = random.randint(1, 100)
+            if success_cheak>50:
+                ationcheak=7
+                return BehaviorTree.SUCCESS
+            else:
+                ationcheak=random.randint(1, 7)
+                return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+
+    def Hard_finish_atk_cheak(self):
+        global ationcheak
+        if PlayerHP.damage >=102:
+            ationcheak=4
+            return BehaviorTree.SUCCESS
+        else:
+            return  BehaviorTree.FAIL
+
+
+
+    def build_behavior_tree(self):
+        turn_cheak_node = LeafNode("Turn Cheak", self.turn_cheak)
+        action_cheak_node = LeafNode("Action Stand", self.action_cheak)
+        finish_atk_cheak_node = LeafNode("Finish_Atk", self.finish_atk_cheak)
+        buff_ready_cheak_node = LeafNode("Buff Ready Cheak", self.buff_ready_cheak)
+        atk_cheak_node = LeafNode("Atk", self.atk_cheak)
+        ##Hard
+        enemy_atk_buff_cheak_node =  LeafNode("Atk_Buff_Cheak", self.enemy_atk_buff_cheak)
+        Hard_finish_atk_cheak_node = LeafNode("Finish_Atk", self.Hard_finish_atk_cheak)
+        player_atk_buff_cheak_node = LeafNode("Player_Buff_Cheak", self.player_atk_buff_cheak)
+        enemy_hp_cheak_node = LeafNode("Enemy_HP_Cheak", self.enemy_HP_cheak)
+
+        ##Nomal
+        Finsh_node = SequenceNode("Finish")
+        Finsh_node.add_children(turn_cheak_node, action_cheak_node,finish_atk_cheak_node)
+        Buff_Atk_node =SequenceNode("BuffAtk")
+        Buff_Atk_node.add_children(turn_cheak_node,action_cheak_node,buff_ready_cheak_node)
+        Atk_node = SequenceNode("Atk")
+        Atk_node.add_children(turn_cheak_node, action_cheak_node,atk_cheak_node)
+        action_chase_node = SelectorNode("ActionChase")
+        action_chase_node.add_children(Finsh_node, Buff_Atk_node,Atk_node)
+        ##Hard
+        Hard_Finsh_node = SequenceNode("Hard-Finish")
+        Hard_Finsh_node.add_children(turn_cheak_node,action_cheak_node, enemy_atk_buff_cheak_node, Hard_finish_atk_cheak_node)
+        Hard_Block_node = SequenceNode("Hard-Block")
+        Hard_Block_node.add_children(turn_cheak_node, action_cheak_node,player_atk_buff_cheak_node)
+        Hard_HP_node = SequenceNode("Hard-Block")
+        Hard_HP_node.add_children(turn_cheak_node, action_cheak_node, enemy_hp_cheak_node)
+        Hard_action_chase_node = SelectorNode("Hard_ActionChase")
+        Hard_action_chase_node.add_children(Hard_Finsh_node, Hard_Block_node, Hard_HP_node,Buff_Atk_node,Atk_node)
+        if BackgroundSelection.Level_cheak==1:
+            self.ation = BehaviorTree(action_chase_node)
+        if BackgroundSelection.Level_cheak == 2:
+            self.ation = BehaviorTree(Hard_action_chase_node)
 
 
 
@@ -555,6 +666,7 @@ class Enemy_Tenshi:
         self.event_que.insert(0, event)
 
     def update(self):
+        self.ation.run()
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
