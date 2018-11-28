@@ -98,22 +98,16 @@ class IKU_Skill1:
         self.Last_Lightning_frame2 = 0
 
 
-    def get_bb(self):
-        if main_state.turn == 1:
-            return self.Ball_Px-20,self.Ball_Py-25,self.Ball_Px+30,self.Ball_Py+25
-        if main_state.turn == -1:
-            return self.Ball_Ex-20,self.Ball_Ey-25,self.Ball_Ex+30,self.Ball_Ey+25
+
 
 
     def draw(self):
         if DeckSelection.character==2 and main_state.turn== 1 and main_state.Skill1_Start==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Px,self.Line_Py)
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Px,self.Ball_Py)
-            draw_rectangle(*self.get_bb())
         if main_state.EnemyPlayer==2 and main_state.turn== -1 and main_state.Skill1_Start==True:
             self.effect_Line.clip_draw(0, int(self.Line_frame) * 52, 360, 52,self.Line_Ex,self.Line_Ey)
             self.effect_Ball.clip_draw(int(self.Ball_frame) * 65, 0, 68, 60, self.Ball_Ex,self.Ball_Ey)
-            draw_rectangle(*self.get_bb())
         if DeckSelection.character==2 and main_state.turn ==1 and main_state.Skill2_Start ==True:
             self.drill.clip_draw(int(self.Drill_frame) * 193, 60, 193, 60, self.Drill_Pmove, 200-5)
         if main_state.EnemyPlayer==2 and main_state.turn == -1 and main_state.Skill2_Start ==True:
