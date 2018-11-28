@@ -13,7 +13,7 @@ def enter():
     global image, start,music
     image=load_image('./FCGimage/Main.png')
     start=load_image('./FCGimage/startButton.png')
-    music = load_music('./FCGimage/Background/title.mp3')
+    music = load_music('./Background/title.mp3')
     music.set_volume(40)
     music.repeat_play()
 
