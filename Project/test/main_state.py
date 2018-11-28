@@ -3,7 +3,7 @@ import json
 import EnemyHP
 import os
 
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
+#os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\test\\FCGimage')
 from pico2d import *
 import game_framework
 import FCG_title

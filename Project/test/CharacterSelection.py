@@ -2,9 +2,8 @@ import game_framework
 import random
 from pico2d import *
 import DeckSelection
-import os
 
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
+
 #import CharacterSelection
 import game_world
 
@@ -17,8 +16,8 @@ Enemycharacter=None
 def enter():
     global image,character
     global cheak
-    image = load_image('CharacterSelection.png')
-    cheak = load_image('Character_Cheak.png')
+    image = load_image('./FCGimage/CharacterSelection.png')
+    cheak = load_image('./FCGimage/Character_Cheak.png')
 
 
 def exit():

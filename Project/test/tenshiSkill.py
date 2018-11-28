@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import main_state
 import DeckSelection
@@ -58,15 +57,15 @@ class TENSHI_Skill1:
         self.circle=None
         self.letter=None
         if self.hight_stone==None:
-            self.hight_stone=load_image('TenshiSkill1.png')
+            self.hight_stone=load_image('./FCGimage/TenshiSkill1.png')
         if self.mini_ston==None:
-            self.mini_ston = load_image('TenshiSkill2-1.png')
+            self.mini_ston = load_image('./FCGimage/TenshiSkill2-1.png')
         if self.lazerbeam==None:
-            self.lazerbeam =load_image('TenshiSkill3.png')
+            self.lazerbeam =load_image('./FCGimage/TenshiSkill3.png')
         if self.circle==None:
-            self.circle=load_image('TenshiLastspell1-2.png')
+            self.circle=load_image('./FCGimage/TenshiLastspell1-2.png')
         if self.letter==None:
-            self.letter=load_image('TenshiLastspell1-1.png')
+            self.letter=load_image('./FCGimage/TenshiLastspell1-1.png')
 
 
 

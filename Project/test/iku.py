@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import main_state
 import Deck
@@ -48,7 +47,6 @@ MOTION_SPEED_KMPH = 0.2
 MOTION_SPEED_MPM = (MOTION_SPEED_KMPH*1000.0/60.0)
 MOTION_SPEED_MPS=(MOTION_SPEED_MPM/60.0)
 MOTION_SPEED_PPS=(MOTION_SPEED_MPS*PIXEL_PER_METER)
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
 cheak1 = 0
@@ -537,36 +535,36 @@ class Iku:
 
     def __init__(self):
         self.x, self.y = 200, 200
-        self.stand = load_image('Iku-Standing-Motion.png')
+        self.stand = load_image('./FCGimage/Iku-Standing-Motion.png')
 
-        self.skill1 = load_image('IkuSkill1-Motion.png')
+        self.skill1 = load_image('./FCGimage/IkuSkill1-Motion.png')
 
-        self.skill2 = load_image('IkuSkill2-Motion.png')
+        self.skill2 = load_image('./FCGimage/IkuSkill2-Motion.png')
 
-        self.skill3 = load_image('IkuSkill3-Motion.png')
+        self.skill3 = load_image('./FCGimage/IkuSkill3-Motion.png')
 
-        self.Lastspell = load_image('IkuLastspell-Motion.png')
-        self.Lasteffect = load_image('IkuLastspell1-1.png')
-        self.Lasteffect2 = load_image('IkuLastspell1-2.png')
+        self.Lastspell = load_image('./FCGimage/IkuLastspell-Motion.png')
+        self.Lasteffect = load_image('./FCGimage/IkuLastspell1-1.png')
+        self.Lasteffect2 = load_image('./FCGimage/IkuLastspell1-2.png')
 
-        self.Damage = load_image('IkuDamage-Motion.png')
+        self.Damage = load_image('./FCGimage/IkuDamage-Motion.png')
 
-        self.Down = load_image('Iku-Down-Motion.png')
-        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill1.wav')
+        self.Down = load_image('./FCGimage/Iku-Down-Motion.png')
+        self.skill1_sound = load_wav('./FCGimage/voice/iku-skill1.wav')
         self.skill1_sound.set_volume(50)
-        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill2.wav')
+        self.skill2_sound = load_wav('./FCGimage/voice/iku-skill2.wav')
         self.skill2_sound.set_volume(50)
-        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-skill3.wav')
+        self.skill3_sound = load_wav('./FCGimage/voice/iku-skill3.wav')
         self.skill3_sound.set_volume(50)
-        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-Last.wav')
+        self.last_sound = load_wav('./FCGimage/voice/iku-Last.wav')
         self.last_sound.set_volume(50)
-        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-damage.wav')
+        self.damage_sound = load_wav('./FCGimage/voice/iku-damage.wav')
         self.damage_sound.set_volume(30)
-        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-down.wav')
+        self.down_sound = load_wav('./FCGimage/voice/iku-down.wav')
         self.down_sound.set_volume(70)
-        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\iku-item.wav')
+        self.item_sound = load_wav('./FCGimage/voice/iku-item.wav')
         self.item_sound.set_volume(50)
-        self.item_use = load_image('commonCard.png')
+        self.item_use = load_image('./FCGimage/commonCard.png')
 
         self.dir = 1
         self.motion = 0

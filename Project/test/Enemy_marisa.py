@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import EnemyHP
 import main_state
@@ -8,7 +7,6 @@ import DeckSelection
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 import BackgroundSelection
 import PlayerHP
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 
 #marisa stand
@@ -539,35 +537,35 @@ class Enemy_Marisa:
 
     def __init__(self):
         self.x, self.y = 600, 200
-        self.stand = load_image('MarisaStanding-Motion.png')
+        self.stand = load_image('./FCGimage/MarisaStanding-Motion.png')
 
-        self.skill1 = load_image('MarisaSkill1-Motion.png')
+        self.skill1 = load_image('./FCGimage/MarisaSkill1-Motion.png')
 
-        self.skill2 = load_image('MarisaSkill2-Motion.png')
+        self.skill2 = load_image('./FCGimage/MarisaSkill2-Motion.png')
 
-        self.skill3 = load_image('MarisaSkill3-Motion.png')
+        self.skill3 = load_image('./FCGimage/MarisaSkill3-Motion.png')
 
-        self.Lastspell = load_image('MarisaLastspell-Motion.png')
+        self.Lastspell = load_image('./FCGimage/MarisaLastspell-Motion.png')
 
-        self.Damage = load_image('MarisaDamage-Motion.png')
+        self.Damage = load_image('./FCGimage/MarisaDamage-Motion.png')
 
-        self.Down = load_image('MarisaDown-Motion.png')
+        self.Down = load_image('./FCGimage/MarisaDown-Motion.png')
 
-        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill1.wav')
+        self.skill1_sound = load_wav('./FCGimage/voice/marisa-skill1.wav')
         self.skill1_sound.set_volume(50)
-        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill2.wav')
+        self.skill2_sound = load_wav('./FCGimage/voice/marisa-skill2.wav')
         self.skill2_sound.set_volume(50)
-        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-skill3.wav')
+        self.skill3_sound = load_wav('./FCGimage/voice/marisa-skill3.wav')
         self.skill3_sound.set_volume(50)
-        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-Last.wav')
+        self.last_sound = load_wav('./FCGimage/voice/marisa-Last.wav')
         self.last_sound.set_volume(50)
-        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-damage.wav')
+        self.damage_sound = load_wav('./FCGimage/voice/marisa-damage.wav')
         self.damage_sound.set_volume(30)
-        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-down.wav')
+        self.down_sound = load_wav('./FCGimage/voice/marisa-down.wav')
         self.down_sound.set_volume(70)
-        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\marisa-item.wav')
+        self.item_sound = load_wav('./FCGimage/voice/marisa-item.wav')
         self.item_sound.set_volume(50)
-        self.item_use = load_image('commonCard.png')
+        self.item_use = load_image('./FCGimage/commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0

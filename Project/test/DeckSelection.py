@@ -4,9 +4,7 @@ from pico2d import *
 import CharacterSelection
 import BackgroundSelection
 import main_state
-import os
 
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 #import CharacterSelection
 import game_world
 
@@ -38,36 +36,36 @@ def enter():
     global reimuLast,marisaLast,ikuLast,tenshiLast,tenshiSkill1,tenshiSkill2,tenshiSkill3,commonItem1,commonItem2,commonItem3
     global reimuDeck,marisaDeck,ikuDeck,tenshiDeck,commonDeck,reset
     global skill1cheak,skill2cheak,skill3cheak,lastcheak,common1cheak,common2cheak,common3cheak,Deckcheak1,Deckcheak2
-    reimu= load_image('Reimu-Deck.png')
-    reimuDeck= load_image('RimuSpellCard.png')
-    reimuSkill1 = load_image('Reimu-Skill1-Dic.png')
-    reimuSkill2 = load_image('Reimu-Skill2-Dic.png')
-    reimuSkill3 = load_image('Reimu-Skill3-Dic.png')
-    reimuLast = load_image('Reimu-Last-Dic.png')
-    marisa= load_image('Marisa-Deck.png')
-    marisaDeck= load_image('MarisaSpellCard.png')
-    marisaSkill1 = load_image('Marisa-Skill1-Dic.png')
-    marisaSkill2 = load_image('Marisa-Skill2-Dic.png')
-    marisaSkill3 = load_image('Marisa-Skill3-Dic.png')
-    marisaLast = load_image('Marisa-Last-Dic.png')
-    iku = load_image('Iku-Deck.png')
-    ikuDeck= load_image('IkuSpellCard.png')
-    ikuSkill1 = load_image('Iku-Skill1-Dic.png')
-    ikuSkill2 = load_image('Iku-Skill2-Dic.png')
-    ikuSkill3 = load_image('Iku-Skill3-Dic.png')
-    ikuLast =load_image('Iku-Last-Dic.png')
-    tenshi = load_image('Tenshi-Deck.png')
-    tenshiDeck= load_image('TenshiSpellCard.png')
-    tenshiSkill1 = load_image('Tenshi-Skill1-Dic.png')
-    tenshiSkill2 = load_image('Tenshi-Skill2-Dic.png')
-    tenshiSkill3 = load_image('Tenshi-Skill3-Dic.png')
-    tenshiLast = load_image('Tenshi-Last-Dic.png')
-    next=load_image('Deck_Next.png')
-    commonDeck=load_image('commonCard.png')
-    commonItem1 = load_image('Common-Card1-Dic.png')
-    commonItem2 = load_image('Common-Card2-Dic.png')
-    commonItem3 = load_image('Common-Card3-Dic.png')
-    reset=load_image('Reset.png')
+    reimu= load_image('./FCGimage/Reimu-Deck.png')
+    reimuDeck= load_image('./FCGimage/RimuSpellCard.png')
+    reimuSkill1 = load_image('./FCGimage/Reimu-Skill1-Dic.png')
+    reimuSkill2 = load_image('./FCGimage/Reimu-Skill2-Dic.png')
+    reimuSkill3 = load_image('./FCGimage/Reimu-Skill3-Dic.png')
+    reimuLast = load_image('./FCGimage/Reimu-Last-Dic.png')
+    marisa= load_image('./FCGimage/Marisa-Deck.png')
+    marisaDeck= load_image('./FCGimage/MarisaSpellCard.png')
+    marisaSkill1 = load_image('./FCGimage/Marisa-Skill1-Dic.png')
+    marisaSkill2 = load_image('./FCGimage/Marisa-Skill2-Dic.png')
+    marisaSkill3 = load_image('./FCGimage/Marisa-Skill3-Dic.png')
+    marisaLast = load_image('./FCGimage/Marisa-Last-Dic.png')
+    iku = load_image('./FCGimage/Iku-Deck.png')
+    ikuDeck= load_image('./FCGimage/IkuSpellCard.png')
+    ikuSkill1 = load_image('./FCGimage/Iku-Skill1-Dic.png')
+    ikuSkill2 = load_image('./FCGimage/Iku-Skill2-Dic.png')
+    ikuSkill3 = load_image('./FCGimage/Iku-Skill3-Dic.png')
+    ikuLast =load_image('./FCGimage/Iku-Last-Dic.png')
+    tenshi = load_image('./FCGimage/Tenshi-Deck.png')
+    tenshiDeck= load_image('./FCGimage/TenshiSpellCard.png')
+    tenshiSkill1 = load_image('./FCGimage/Tenshi-Skill1-Dic.png')
+    tenshiSkill2 = load_image('./FCGimage/Tenshi-Skill2-Dic.png')
+    tenshiSkill3 = load_image('./FCGimage/Tenshi-Skill3-Dic.png')
+    tenshiLast = load_image('./FCGimage/Tenshi-Last-Dic.png')
+    next=load_image('./FCGimage/Deck_Next.png')
+    commonDeck=load_image('./FCGimage/commonCard.png')
+    commonItem1 = load_image('./FCGimage/Common-Card1-Dic.png')
+    commonItem2 = load_image('./FCGimage/Common-Card2-Dic.png')
+    commonItem3 = load_image('./FCGimage/Common-Card3-Dic.png')
+    reset=load_image('./FCGimage/Reset.png')
 
     character = CharacterSelection.character
     Deckcheak1 = 0

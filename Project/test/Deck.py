@@ -4,9 +4,8 @@ from pico2d import *
 import CharacterSelection
 import DeckSelection
 import main_state
-import os
 
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
+
 #import CharacterSelection
 import game_world
 
@@ -40,11 +39,11 @@ class PlayDeck:
     def __init__(self):
         shuffle()
         self.x, self.y = 300, 100
-        self.ikuDeck= load_image('IkuSpellCard.png')
-        self.reimuDeck= load_image('RimuSpellCard.png')
-        self.marisaDeck= load_image('MarisaSpellCard.png')
-        self.tenshiDeck= load_image('TenshiSpellCard.png')
-        self.Deckimage=load_image('Deck.png')
+        self.ikuDeck= load_image('./FCGimage/IkuSpellCard.png')
+        self.reimuDeck= load_image('./FCGimage/RimuSpellCard.png')
+        self.marisaDeck= load_image('./FCGimage/MarisaSpellCard.png')
+        self.tenshiDeck= load_image('./FCGimage/TenshiSpellCard.png')
+        self.Deckimage=load_image('./FCGimage/Deck.png')
 
     def update(self):
         global spellcheak

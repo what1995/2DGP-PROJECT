@@ -1,7 +1,6 @@
 from pico2d import *
-import os
 import main_state
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
+
 import iku
 
 attack1=1
@@ -23,8 +22,8 @@ class Enemy_HP:
         self.y = 500
         self.Power = 0
         self.Damage=0
-        self.HPBar = load_image('HP-Damege.png')
-        self.HP = load_image('HP-HP.png')
+        self.HPBar = load_image('./FCGimage/HP-Damege.png')
+        self.HP = load_image('./FCGimage/HP-HP.png')
 
     def update(self):
         global attack1, attack2, attack3, attack4,damage

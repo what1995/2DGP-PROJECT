@@ -1,18 +1,16 @@
 from pico2d import *
-import os
 import BackgroundSelection
 import PlayerHP
 import EnemyHP
 import main_state
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 class BackGround:
     def __init__(self):
-        self.Shrine = load_image('Hakurei Shrine.png')
-        self.clock = load_image('clock tower.png')
-        self.bamboo = load_image('bamboo.png')
-        self.center =load_image('center.png')
-        self.KnockOut = load_image('KO.png')
-        self.Backtitle = load_image('backtitle.png')
+        self.Shrine = load_image('./FCGimage/Hakurei Shrine.png')
+        self.clock = load_image('./FCGimage/clock tower.png')
+        self.bamboo = load_image('./FCGimage/bamboo.png')
+        self.center =load_image('./FCGimage/center.png')
+        self.KnockOut = load_image('./FCGimage/KO.png')
+        self.Backtitle = load_image('./FCGimage/backtitle.png')
 
     def update(self):
 

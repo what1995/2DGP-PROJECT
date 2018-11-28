@@ -1,8 +1,6 @@
 from pico2d import *
-import os
 import Deck
 import main_state
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
 import PlayerHP
@@ -489,34 +487,34 @@ class Tenshi:
 
     def __init__(self):
         self.x, self.y = 200, 200
-        self.stand = load_image('TenshiStanding-Motion.png')
+        self.stand = load_image('./FCGimage/TenshiStanding-Motion.png')
 
-        self.skill1 = load_image('TenshiSkill1-Motion.png')
+        self.skill1 = load_image('./FCGimage/TenshiSkill1-Motion.png')
 
-        self.skill2 = load_image('TenshiSkill2-Motion.png')
+        self.skill2 = load_image('./FCGimage/TenshiSkill2-Motion.png')
 
-        self.skill3 = load_image('TenshiSkill3-Motion.png')
+        self.skill3 = load_image('./FCGimage/TenshiSkill3-Motion.png')
 
-        self.Lastspell = load_image('TenshiLastspell-Motion.png')
+        self.Lastspell = load_image('./FCGimage/TenshiLastspell-Motion.png')
 
-        self.Damage = load_image('TenshiDamage-Motion.png')
+        self.Damage = load_image('./FCGimage/TenshiDamage-Motion.png')
 
-        self.Down = load_image('TenshiDown-Motion.png')
-        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill1.wav')
+        self.Down = load_image('./FCGimage/TenshiDown-Motion.png')
+        self.skill1_sound = load_wav('./FCGimage/voice/tenshi-skill1.wav')
         self.skill1_sound.set_volume(50)
-        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill2.wav')
+        self.skill2_sound = load_wav('./FCGimage/voice/tenshi-skill2.wav')
         self.skill2_sound.set_volume(50)
-        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-skill3.wav')
+        self.skill3_sound = load_wav('./FCGimage/voice/tenshi-skill3.wav')
         self.skill3_sound.set_volume(50)
-        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-Last.wav')
+        self.last_sound = load_wav('./FCGimage/voice/tenshi-Last.wav')
         self.last_sound.set_volume(50)
-        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-damage.wav')
+        self.damage_sound = load_wav('./FCGimage/voice/tenshi-damage.wav')
         self.damage_sound.set_volume(30)
-        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-down.wav')
+        self.down_sound = load_wav('./FCGimage/voice/tenshi-down.wav')
         self.down_sound.set_volume(70)
-        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\tenshi-item.wav')
+        self.item_sound = load_wav('./FCGimage/voice/tenshi-item.wav')
         self.item_sound.set_volume(50)
-        self.item_use = load_image('commonCard.png')
+        self.item_use = load_image('./FCGimage/commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0

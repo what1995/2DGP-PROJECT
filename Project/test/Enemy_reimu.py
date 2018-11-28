@@ -1,7 +1,5 @@
 from pico2d import *
-import os
 import main_state
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import game_world
 import game_framework
 import EnemyHP
@@ -526,38 +524,38 @@ class Enemy_Reimu:
 
     def __init__(self):
         self.x, self.y = 600, 200
-        self.stand = load_image('Reimu-Standing-Motion.png')
+        self.stand = load_image('./FCGimage/Reimu-Standing-Motion.png')
 
-        self.skill1 = load_image('Reimu-Skill1-Motion.png')
+        self.skill1 = load_image('./FCGimage/Reimu-Skill1-Motion.png')
 
-        self.skill2 = load_image('Reimu-Skill2-Motion.png')
+        self.skill2 = load_image('./FCGimage/Reimu-Skill2-Motion.png')
 
-        self.skill3 = load_image('Reimu-Skill3-Motion.png')
+        self.skill3 = load_image('./FCGimage/Reimu-Skill3-Motion.png')
 
 
-        self.Lastspell = load_image('Reimu-Last Spell-Motion.png')
-        self.Lasteffect = load_image('Reimu-Lastspell1.png')
-        self.Lasteffect2 = load_image('Reimu-Lastspell2-1.png')
-        self.Lasteffect3 = load_image('Reimu-Lastspell3-2.png')
+        self.Lastspell = load_image('./FCGimage/Reimu-Last Spell-Motion.png')
+        self.Lasteffect = load_image('./FCGimage/Reimu-Lastspell1.png')
+        self.Lasteffect2 = load_image('./FCGimage/Reimu-Lastspell2-1.png')
+        self.Lasteffect3 = load_image('./FCGimage/Reimu-Lastspell3-2.png')
 
-        self.Damage = load_image('ReimuDamage-Motion.png')
+        self.Damage = load_image('./FCGimage/ReimuDamage-Motion.png')
 
-        self.Down = load_image('Reimu-Downs-Motion.png')
-        self.skill1_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-skill1.wav')
+        self.Down = load_image('./FCGimage/Reimu-Downs-Motion.png')
+        self.skill1_sound = load_wav('./FCGimage/voice/reimu-skill1.wav')
         self.skill1_sound.set_volume(50)
-        self.skill2_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-skill2.wav')
+        self.skill2_sound = load_wav('./FCGimage/voice/reimu-skill2.wav')
         self.skill2_sound.set_volume(50)
-        self.skill3_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-skill3.wav')
+        self.skill3_sound = load_wav('./FCGimage/voice/reimu-skill3.wav')
         self.skill3_sound.set_volume(50)
-        self.last_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-Last.wav')
+        self.last_sound = load_wav('./FCGimage/voice/reimu-Last.wav')
         self.last_sound.set_volume(50)
-        self.damage_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-damage.wav')
+        self.damage_sound = load_wav('./FCGimage/voice/reimu-damage.wav')
         self.damage_sound.set_volume(30)
-        self.down_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-down.wav')
+        self.down_sound = load_wav('./FCGimage/voice/reimu-down.wav')
         self.down_sound.set_volume(70)
-        self.item_sound = load_wav('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\Project\\FCGimage\\voice\\reimu-item.wav')
+        self.item_sound = load_wav('./FCGimage/voice/reimu-item.wav')
         self.item_sound.set_volume(50)
-        self.item_use = load_image('commonCard.png')
+        self.item_use = load_image('./FCGimage/commonCard.png')
         self.dir = 1
         self.motion = 0
         self.frame = 0

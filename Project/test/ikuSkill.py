@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import main_state
 import DeckSelection
@@ -60,17 +59,17 @@ class IKU_Skill1:
         self.effect_Last_Ball = None
         self.effect_Last_Lightning =None
         if self.effect_Line ==None:
-            self.effect_Line = load_image('IkuSkill1-1.png')
+            self.effect_Line = load_image('./FCGimage/IkuSkill1-1.png')
         if self.effect_Ball ==None:
-            self.effect_Ball = load_image('IkuSkill1-2.png')
+            self.effect_Ball = load_image('./FCGimage/IkuSkill1-2.png')
         if self.drill ==None:
-            self.drill = load_image('ikuSkill2-1.png')
+            self.drill = load_image('./FCGimage/ikuSkill2-1.png')
         if self.effect_lightning == None:
-            self.effect_lightning = load_image('ikuSkill3-1.png')
+            self.effect_lightning = load_image('./FCGimage/ikuSkill3-1.png')
         if self.effect_Last_Ball ==None:
-            self.effect_Last_Ball = load_image('IkuLastspell1-1.png')
+            self.effect_Last_Ball = load_image('./FCGimage/IkuLastspell1-1.png')
         if self.effect_Last_Lightning ==None:
-            self.effect_Last_Lightning = load_image('IkuLastspell1-2.png')
+            self.effect_Last_Lightning = load_image('./FCGimage/IkuLastspell1-2.png')
 
 
         #skill1

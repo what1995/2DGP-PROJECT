@@ -1,8 +1,7 @@
 import game_framework
 from pico2d import *
-import os
 
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
+
 import CharacterSelection
 import game_world
 
@@ -12,9 +11,9 @@ start = None
 music = None
 def enter():
     global image, start,music
-    image=load_image('Main.png')
-    start=load_image('startButton.png')
-    music = load_music('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage\\Background\\title.mp3')
+    image=load_image('./FCGimage/Main.png')
+    start=load_image('./FCGimage/startButton.png')
+    music = load_music('./FCGimage/Background/title.mp3')
     music.set_volume(40)
     music.repeat_play()
 

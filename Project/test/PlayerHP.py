@@ -1,7 +1,5 @@
 from pico2d import *
-import os
 import main_state
-os.chdir('C:\\2DGP\\2015180012-2DGP-PROJECT\\2DGP-PROJECT\\Project\\FCGimage')
 import Enemy_iku
 #speed
 PIXEL_PER_METER=(10.0/0.3)
@@ -19,8 +17,8 @@ class Player_HP:
         self.damage=0
         self.Power= 1
         self.stop=0
-        self.HPBar = load_image('HP-Damege.png')
-        self.HP = load_image('HP-HP.png')
+        self.HPBar = load_image('./FCGimage/HP-Damege.png')
+        self.HP = load_image('./FCGimage/HP-HP.png')
 
     def update(self):
         global damage

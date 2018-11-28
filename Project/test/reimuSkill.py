@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import main_state
 import DeckSelection
@@ -59,17 +58,17 @@ class REIMU_Skill1:
         self.effect_power_shelter=None
         self.effect_explosion=None
         if self.effect_charm==None:
-            self.effect_charm=load_image('Reimu-Skill1.png')
+            self.effect_charm=load_image('./FCGimage/Reimu-Skill1.png')
         if self.effect_shelter==None:
-            self.effect_shelter = load_image('Reimu-Skill2.png')
+            self.effect_shelter = load_image('./FCGimage/Reimu-Skill2.png')
         if self.effect_jade==None:
-            self.effect_jade=load_image('Reimu-Skill3.png')
+            self.effect_jade=load_image('./FCGimage/Reimu-Skill3.png')
         if self.effect_border==None:
-            self.effect_border = load_image('Reimu-Lastspell2-1.png')
+            self.effect_border = load_image('./FCGimage/Reimu-Lastspell2-1.png')
         if self.effect_power_shelter==None:
-            self.effect_power_shelter = load_image('Reimu-Lastspell1.png')
+            self.effect_power_shelter = load_image('./FCGimage/Reimu-Lastspell1.png')
         if self.effect_explosion == None:
-            self.effect_explosion = load_image('Reimu-Lastspell3-2.png')
+            self.effect_explosion = load_image('./FCGimage/Reimu-Lastspell3-2.png')
 
 
 

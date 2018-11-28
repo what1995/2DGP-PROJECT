@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 import game_framework
 import main_state
 import DeckSelection
@@ -57,13 +56,13 @@ class MARISA_Skill1:
         self.effect_MagicShot=None
         self.effect_Lazer=None
         if self.effect_Boom==None:
-            self.effect_Boom = load_image('MarisaSkill1.png')
+            self.effect_Boom = load_image('./FCGimage/MarisaSkill1.png')
         if self.effect_Balls==None:
-            self.effect_Balls = load_image('MarisaSkill2.png')
+            self.effect_Balls = load_image('./FCGimage/MarisaSkill2.png')
         if self.effect_MagicShot==None:
-            self.effect_MagicShot = load_image('MarisaSKill3.png')
+            self.effect_MagicShot = load_image('./FCGimage/MarisaSKill3.png')
         if self.effect_Lazer==None:
-            self.effect_Lazer = load_image('MarisaLastspell.png')
+            self.effect_Lazer = load_image('./FCGimage/MarisaLastspell.png')
 
         #skill1
         self.Boom_Px = 600
